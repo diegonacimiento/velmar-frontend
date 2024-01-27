@@ -24,7 +24,11 @@ const config: Config = {
       },
       colors: {
         "letter": "#212529",
-        "primary": "#ced4da"
+        "primary": "#cce3de",
+        "body": "#eaf4f4"
+      },
+      fontSize: {
+        "xxs": "0.55rem"
       }
     },
   },

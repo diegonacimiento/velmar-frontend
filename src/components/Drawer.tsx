@@ -13,7 +13,7 @@ const Drawer = () => {
     <div>
       <div
         className={
-          (isActive ? "w-screen opacity-80" : "w-0") +
+          (isActive ? "w-screen opacity-80 z-10" : "w-0") +
           " h-screen opacity-0 overflow-hidden bg-gray-950 transition-opacity duration-100 absolute top-0"
         }
         onClick={handleDrawer}
@@ -27,7 +27,7 @@ const Drawer = () => {
       </button>
       <div
         className={
-          (isActive ? "w-draw opacity-100" : "w-0") +
+          (isActive ? "w-draw opacity-100 z-20" : "w-0") +
           " h-screen opacity-0 overflow-hidden bg-primary duration-300 absolute top-0"
         }
       >
