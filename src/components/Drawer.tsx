@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { MdOutlineClose, MdDensityMedium } from "react-icons/md";
 import Nav from "./Nav";
 
 const Drawer = () => {
@@ -10,28 +11,31 @@ const Drawer = () => {
   };
   return (
     <div>
+      <div
+        className={
+          (isActive ? "w-screen opacity-80" : "w-0") +
+          " h-screen opacity-0 overflow-hidden bg-gray-950 transition-opacity duration-100 absolute top-0"
+        }
+        onClick={handleDrawer}
+      ></div>
       <button
-        className="border-1 border-slate-950 border-dashed bg-slate-400 p-1"
+        className="p-4 text-lg"
         type="button"
         onClick={handleDrawer}
       >
-        O
+        <MdDensityMedium />
       </button>
       <div
         className={
           (isActive ? "w-draw opacity-100" : "w-0") +
-          " h-screen opacity-0 overflow-hidden bg-blue-600 duration-300 absolute top-0"
+          " h-screen opacity-0 overflow-hidden bg-primary duration-300 absolute top-0"
         }
       >
-        <button
-        className="border-1 border-slate-950 border-dashed bg-slate-400 p-1"
-        type="button"
-        onClick={handleDrawer}
-      >
-        X
-      </button>
+        <button className="text-lg p-4 float-end" type="button" onClick={handleDrawer}>
+          <MdOutlineClose />
+        </button>
         <Nav
-          styles="flex flex-col justify-around h-100 pl-2 pb-6"
+          styles="flex flex-col h-100 pb-6"
           handleDrawer={handleDrawer}
         />
       </div>

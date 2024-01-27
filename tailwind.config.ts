@@ -20,7 +20,11 @@ const config: Config = {
         "100": "28rem",
       },
       width: {
-        "draw": "calc(100vw - 50px)"
+        "draw": "calc(100vw - 100px)"
+      },
+      colors: {
+        "letter": "#212529",
+        "primary": "#ced4da"
       }
     },
   },

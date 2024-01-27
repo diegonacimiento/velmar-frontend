@@ -1,24 +1,48 @@
 import Link from "next/link";
 import React from "react";
 
-const Nav = (props: {styles: string, handleDrawer?: () => void}) => {
+const Nav = (props: { styles: string; handleDrawer?: () => void }) => {
+  const liStyles =
+    "inline-block border-b border-gray-400 px-4 py-7 w-full text-gray-600 hover:text-black hover:border-black";
   return (
     <nav className="w-full h-full overflow-auto">
       <ul className={props.styles}>
-        <li onClick={props.handleDrawer}>
-          <Link href="/">Home</Link>
+        <li>
+          <Link className={liStyles} onClick={props.handleDrawer} href="/">
+            Home
+          </Link>
         </li>
-        <li onClick={props.handleDrawer}>
-          <Link href="products">Products</Link>
+        <li>
+          <Link
+            className={liStyles}
+            onClick={props.handleDrawer}
+            href="products"
+          >
+            Products
+          </Link>
         </li>
-        <li onClick={props.handleDrawer}>
-          <Link href="about">About</Link>
+        <li>
+          <Link className={liStyles} onClick={props.handleDrawer} href="about">
+            About
+          </Link>
         </li>
-        <li onClick={props.handleDrawer}>
-          <Link href="contact">Contact</Link>
+        <li>
+          <Link
+            className={liStyles}
+            onClick={props.handleDrawer}
+            href="contact"
+          >
+            Contact
+          </Link>
         </li>
-        <li onClick={props.handleDrawer}>
-          <Link href="profile">Profile</Link>
+        <li>
+          <Link
+            className={liStyles}
+            onClick={props.handleDrawer}
+            href="profile"
+          >
+            Profile
+          </Link>
         </li>
       </ul>
     </nav>

@@ -4,7 +4,7 @@ import Drawer from "./Drawer";
 
 const Header = () => {
   return (
-    <header className="relative flex h-20 bg-slate-700">
+    <header className="relative flex items-center h-16 bg-primary">
       {/* <Nav /> */}
       <Drawer />
     </header>
