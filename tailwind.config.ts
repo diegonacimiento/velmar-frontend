@@ -25,10 +25,21 @@ const config: Config = {
       colors: {
         "letter": "#212529",
         "primary": "#cce3de",
-        "body": "#eaf4f4"
+        "body": "#eaf4f4",
+        "secondary": "#6b9080"
       },
       fontSize: {
         "xxs": "0.55rem"
+      },
+      maxWidth: {
+        "2k": "77.5rem",
+        "520": "32.5rem"
+      },
+      screens: {
+        "rd": "922px"
+      },
+      scale: {
+        "200": "2"
       }
     },
   },
