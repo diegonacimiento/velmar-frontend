@@ -36,7 +36,8 @@ const config: Config = {
         "520": "32.5rem"
       },
       screens: {
-        "rd": "922px"
+        "rd": "922px",
+        "-rd": {"max": "921px"}
       },
       scale: {
         "200": "2"

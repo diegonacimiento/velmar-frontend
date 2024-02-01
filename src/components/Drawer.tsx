@@ -10,7 +10,7 @@ const Drawer = () => {
     setIsActive((prev) => !prev);
   };
   return (
-    <div>
+    <div className="rd:hidden">
       <div
         className={
           (isActive ? "w-screen opacity-80 z-10" : "w-0") +
@@ -18,11 +18,7 @@ const Drawer = () => {
         }
         onClick={handleDrawer}
       ></div>
-      <button
-        className="p-4 text-lg"
-        type="button"
-        onClick={handleDrawer}
-      >
+      <button className="p-4 text-lg" type="button" onClick={handleDrawer}>
         <MdDensityMedium />
       </button>
       <div
@@ -31,13 +27,14 @@ const Drawer = () => {
           " h-screen opacity-0 overflow-hidden bg-primary duration-300 absolute top-0"
         }
       >
-        <button className="text-lg p-4 float-end" type="button" onClick={handleDrawer}>
+        <button
+          className="text-lg p-4 float-end"
+          type="button"
+          onClick={handleDrawer}
+        >
           <MdOutlineClose />
         </button>
-        <Nav
-          styles="flex flex-col h-100 pb-6"
-          handleDrawer={handleDrawer}
-        />
+        <Nav handleDrawer={handleDrawer} />
       </div>
     </div>
   );

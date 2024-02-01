@@ -1,38 +1,61 @@
+"use client";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
-const Nav = (props: { styles: string; handleDrawer?: () => void }) => {
+const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
   const pathname = usePathname();
 
-  const liStyles = props.handleDrawer ? "inline-block border-b border-gray-400 px-4 py-7 w-full text-gray-600 hover:text-secondary hover:border-secondary" : "text-gray-600 hover:text-secondary duration-300";
+  const liStyles = handleDrawer
+    ? "inline-block border-b border-gray-400 px-4 py-7 w-full text-gray-600 hover:text-secondary hover:border-secondary"
+    : "text-gray-600 hover:text-secondary duration-300";
+
+  const ulStyles = handleDrawer
+    ? "flex flex-col h-100 pb-6"
+    : "flex justify-around items-center m-auto h-full max-w-520";
+
+  const navStyles = handleDrawer
+    ? "w-full h-full overflow-auto"
+    : "w-full h-full overflow-auto -rd:hidden";
 
   return (
-    <nav className="w-full h-full overflow-auto">
-      <ul className={props.styles}>
+    <nav className={navStyles}>
+      <ul className={ulStyles}>
         <li>
-          <Link className={liStyles + (pathname === '/' && ' text-secondary')} onClick={props.handleDrawer} href="/">
+          <Link
+            className={liStyles + (pathname === "/" && " text-secondary")}
+            onClick={handleDrawer}
+            href="/"
+          >
             Home
           </Link>
         </li>
         <li>
           <Link
-            className={liStyles + (pathname === '/products' && ' text-secondary')}
-            onClick={props.handleDrawer}
+            className={
+              liStyles + (pathname === "/products" && " text-secondary")
+            }
+            onClick={handleDrawer}
             href="products"
           >
             Products
           </Link>
         </li>
         <li>
-          <Link className={liStyles + (pathname === '/about' && ' text-secondary')} onClick={props.handleDrawer} href="about">
+          <Link
+            className={liStyles + (pathname === "/about" && " text-secondary")}
+            onClick={handleDrawer}
+            href="about"
+          >
             About
           </Link>
         </li>
         <li>
           <Link
-            className={liStyles + (pathname === '/contact' && ' text-secondary')}
-            onClick={props.handleDrawer}
+            className={
+              liStyles + (pathname === "/contact" && " text-secondary")
+            }
+            onClick={handleDrawer}
             href="contact"
           >
             Contact
@@ -40,8 +63,10 @@ const Nav = (props: { styles: string; handleDrawer?: () => void }) => {
         </li>
         <li>
           <Link
-            className={liStyles + (pathname === '/profile' && ' text-secondary')}
-            onClick={props.handleDrawer}
+            className={
+              liStyles + (pathname === "/profile" && " text-secondary")
+            }
+            onClick={handleDrawer}
             href="profile"
           >
             Profile
