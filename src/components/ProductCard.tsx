@@ -38,6 +38,7 @@ const ProductCard = ({
       <button
         className="border-2 border-secondary p-2 bg-secondary rounded-3xl text-lg font-semibold hover:scale-105 hover:bg-primary duration-150 mt-auto"
         type="button"
+        title="See product"
       >
         {isAll ? "See product" : "Add to cart"}
       </button>

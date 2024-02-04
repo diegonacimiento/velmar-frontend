@@ -20,7 +20,9 @@ const config: Config = {
         "100": "28rem",
       },
       width: {
-        "draw": "calc(100vw - 100px)"
+        "draw": "calc(100vw - 100px)",
+        "30": "7.5rem"
+        
       },
       colors: {
         "letter": "#212529",
@@ -33,11 +35,13 @@ const config: Config = {
       },
       maxWidth: {
         "2k": "77.5rem",
-        "520": "32.5rem"
+        "520": "32.5rem",
+        "650": "40.625rem"
       },
       screens: {
         "rd": "922px",
-        "-rd": {"max": "921px"}
+        "-rd": {"max": "921px"},
+        "-sm": {"max": "640px"}
       },
       scale: {
         "200": "2"
