@@ -14,7 +14,7 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex justify-center gap-3 p-10">
-          <a className="p-4 text-3xl" href="/">
+          <a className={aStyles} href="/">
             <FaLinkedin />
           </a>
           <a className={aStyles} href="/">
