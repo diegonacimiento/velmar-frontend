@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="flex justify-center py-10 m-auto max-w-2k min-h-main">{children}</main>
+        <main className="flex justify-center min-h-main">{children}</main>
         <Footer />
       </body>
     </html>

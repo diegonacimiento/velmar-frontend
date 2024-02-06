@@ -15,7 +15,7 @@ const Products = async () => {
   const products = await getProducts();
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-2k py-6">
       <div className="m-auto p-3 w-11/12 max-w-650"><Search /></div>
       <div className="flex justify-center gap-7 p-4 w-full flex-wrap">
         {products.map((product) => (

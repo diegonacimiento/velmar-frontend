@@ -19,7 +19,7 @@ const Header = () => {
         <Nav />
 
         <button
-          className="relative flex items-center text-xl p-4 after:content-['12'] after:absolute after:flex after:items-center after:justify-center after:top-1 after:left-0.5 after:rounded-full after:h-4 after:w-4 after:text-xxs after:bg-letter after:text-primary"
+          className="relative flex items-center text-xl p-4 rd:pr-0 after:content-['12'] after:absolute after:flex after:items-center after:justify-center after:top-1 after:left-0.5 after:rounded-full after:h-4 after:w-4 after:text-xxs after:bg-letter after:text-primary"
           type="button"
         >
           <MdOutlineShoppingCart />
