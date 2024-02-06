@@ -33,10 +33,10 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         <li>
           <Link
             className={
-              liStyles + (pathname === "/products" && " text-secondary")
+              liStyles + (pathname.includes("/products") && " text-secondary")
             }
             onClick={handleDrawer}
-            href="products"
+            href="/products"
           >
             Products
           </Link>
@@ -45,7 +45,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
           <Link
             className={liStyles + (pathname === "/about" && " text-secondary")}
             onClick={handleDrawer}
-            href="about"
+            href="/about"
           >
             About
           </Link>
@@ -56,7 +56,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
               liStyles + (pathname === "/contact" && " text-secondary")
             }
             onClick={handleDrawer}
-            href="contact"
+            href="/contact"
           >
             Contact
           </Link>
@@ -67,7 +67,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
               liStyles + (pathname === "/profile" && " text-secondary")
             }
             onClick={handleDrawer}
-            href="profile"
+            href="/profile"
           >
             Profile
           </Link>
