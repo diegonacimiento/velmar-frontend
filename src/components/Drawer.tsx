@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { MdOutlineClose, MdDensityMedium } from "react-icons/md";
+
 import Nav from "./Nav";
 
 const Drawer = () => {

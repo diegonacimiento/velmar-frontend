@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
-import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+
+import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/products";
 import Search from "@/components/Search";
 
