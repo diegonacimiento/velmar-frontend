@@ -14,10 +14,16 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       height: {
+        "18": "4.5rem",
         "97": "25rem",
         "98": "26rem",
         "99": "27rem",
         "100": "28rem",
+        "600p": "37.5rem"
+      },
+      minHeight: {
+        "600p": "37.5rem",
+        "main": "calc(100vh - 526px)"
       },
       width: {
         "draw": "calc(100vw - 100px)",
@@ -36,12 +42,14 @@ const config: Config = {
       maxWidth: {
         "2k": "77.5rem",
         "520": "32.5rem",
-        "650": "40.625rem"
+        "650": "40.625rem",
+        "screen-20": "calc(100vw - 70px)"
       },
       screens: {
         "rd": "922px",
         "-rd": {"max": "921px"},
-        "-sm": {"max": "640px"}
+        "-sm": {"max": "640px"},
+        "-xsm": {"max": "425px"}
       },
       scale: {
         "200": "2"

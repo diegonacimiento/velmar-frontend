@@ -12,14 +12,14 @@ const ProductCard = ({
   const divStyles =
     "flex flex-col items-center gap-8 max-w-96" +
     (isAll
-      ? " p-4 border-x border-y border-secondary rounded-xl shadow-sm"
+      ? " p-4 border-x border-y border-secondary rounded-xl shadow-sm h-600p"
       : " px-4 py-8 m-auto");
 
   return (
     <div className={divStyles}>
-      <span className="w-52 max-h-max">
+      <span className="w-52 h-52">
         <Image
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           src={product.image}
           alt={product.title}
           width={500}
@@ -27,11 +27,11 @@ const ProductCard = ({
         />
       </span>
       <h1
-        className={"text-lg font-bold text-center " + (isAll && "line-clamp-2")}
+        className={"text-lg font-bold text-center " + (isAll && "line-clamp-2 h-14")}
       >
         {product.title}
       </h1>
-      <p className={"text-justify " + (isAll && "line-clamp-3")}>
+      <p className={"text-justify " + (isAll && "line-clamp-3 h-18 break-all")}>
         {product.description}
       </p>
       <p className="text-lg font-semibold ">$ {product.price}</p>

@@ -11,6 +11,10 @@ const Drawer = () => {
   };
   return (
     <div className="rd:hidden">
+      <button className="p-4 text-lg" type="button" onClick={handleDrawer}>
+        <MdDensityMedium />
+      </button>
+      <div className={isActive ? "fixed top-0 z-30" : undefined}>
       <div
         className={
           (isActive ? "w-screen opacity-80 z-10" : "w-0") +
@@ -18,9 +22,6 @@ const Drawer = () => {
         }
         onClick={handleDrawer}
       ></div>
-      <button className="p-4 text-lg" type="button" onClick={handleDrawer}>
-        <MdDensityMedium />
-      </button>
       <div
         className={
           (isActive ? "w-draw opacity-100 z-20" : "w-0") +
@@ -35,6 +36,7 @@ const Drawer = () => {
           <MdOutlineClose />
         </button>
         <Nav handleDrawer={handleDrawer} />
+      </div>
       </div>
     </div>
   );

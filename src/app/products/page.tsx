@@ -14,9 +14,9 @@ const Products = async () => {
   const products = await getProducts();
 
   return (
-    <div>
+    <div className="w-full">
       <div className="m-auto p-3 w-11/12 max-w-650"><Search /></div>
-      <div className="flex justify-center gap-7 p-4 w-full max-w-2k flex-wrap m-auto">
+      <div className="flex justify-center gap-7 p-4 w-full flex-wrap">
         {products.map((product) => (
           <Link key={product.id} href={"/products/" + product.id}>
             <ProductCard product={product} isAll={true} />
