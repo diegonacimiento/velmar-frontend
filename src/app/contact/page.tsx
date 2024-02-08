@@ -5,7 +5,7 @@ import { FaSheetPlastic } from "react-icons/fa6";
 const Contact = () => {
   const divStyles = "h-60 w-full bg-primary";
 
-  const aStyles = "flex flex-col justify-center items-center p-4 border-t border-secondary h-full w-full max-w-96 m-auto text-3xl";
+  const aStyles = "flex flex-col justify-center items-center p-4 border-t border-secondary h-full w-full max-w-96 m-auto text-3xl hover:opacity-45 hover:bg-secondary hover:text-primary duration-150";
 
   const pStyles = "py-3 text-lg text-center";
 
