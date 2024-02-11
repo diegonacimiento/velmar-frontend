@@ -19,6 +19,7 @@ const config: Config = {
         "98": "26rem",
         "99": "27rem",
         "100": "28rem",
+        "452p": "28.25rem",
         "600p": "37.5rem"
       },
       minHeight: {
@@ -27,7 +28,7 @@ const config: Config = {
       },
       width: {
         "draw": "calc(100vw - 100px)",
-        "30": "7.5rem"
+        "30": "7.5rem",
         
       },
       colors: {
@@ -40,6 +41,7 @@ const config: Config = {
         "xxs": "0.55rem"
       },
       maxWidth: {
+        "88": "22rem",
         "2k": "77.5rem",
         "520": "32.5rem",
         "650": "40.625rem",

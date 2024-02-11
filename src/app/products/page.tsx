@@ -1,29 +1,18 @@
-import React from "react";
-import axios from "axios";
-import Link from "next/link";
+import React, { Suspense } from "react";
 
-import ProductCard from "@/components/ProductCard";
-import { Product } from "@/types/products";
 import Search from "@/components/Search";
-
-const getProducts = async (): Promise<Product[]> => {
-  const response = await axios.get("https://fakestoreapi.com/products");
-  return response.data;
-};
+import AllProducts from "./AllProducts";
+import LoadingProducts from "./LoadingProducts";
 
 const Products = async () => {
-  const products = await getProducts();
-
   return (
     <div className="w-full max-w-2k py-6">
-      <div className="m-auto p-3 w-11/12 max-w-650"><Search /></div>
-      <div className="flex justify-center gap-7 p-4 w-full flex-wrap">
-        {products.map((product) => (
-          <Link key={product.id} href={"/products/" + product.id}>
-            <ProductCard product={product} isAll={true} />
-          </Link>
-        ))}
+      <div className="m-auto p-3 w-11/12 max-w-650">
+        <Search />
       </div>
+      <Suspense fallback={<LoadingProducts />}>
+        <AllProducts />
+      </Suspense>
     </div>
   );
 };
