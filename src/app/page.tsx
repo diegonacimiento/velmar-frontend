@@ -1,8 +1,10 @@
 import Carousel from "@/components/Carousel";
 import Collection from "@/components/Collection";
+import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/products";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 
 const getCollection = async (): Promise<Product[]> => {
   const response = await axios.get("https://fakestoreapi.com/products");
@@ -12,21 +14,37 @@ const getCollection = async (): Promise<Product[]> => {
 const Home: React.FC = async () => {
   const summerCollection = await getCollection();
 
+  const romanoffDescription = `Discover our women's clothing collection: where elegance meets
+  comfort. Each piece celebrates your unique style. Explore the
+  fashion that inspires you to shine on every occasion. Make a style
+  statement with us today!`;
+
+  const rogersDescription = `Explore our men's clothing collection: where sophistication meets versatility. Each piece embodies your distinct style. Dive into fashion that ignites your confidence on every occasion. Make a style statement with us today!`;
+
+  const shoesDescription =
+    "Introducing Eco-Comfort Sneakers: the epitome of sustainability and comfort. Crafted with eco-friendly materials, these sneakers offer both style and conscience. Walk the path of sustainability in comfort and style with Eco-Comfort Sneakers.";
+
   const products = [];
+  const products2 = [];
+  const newArrivals: Product[] = [];
 
   for (let index = 0; index < 5; index++) {
+    if (index === 0)
+      newArrivals.push(summerCollection[summerCollection.length - 1 - 5]);
     products.push(summerCollection[index]);
+    products2.push(summerCollection[index + 5]);
+    newArrivals.push(summerCollection[summerCollection.length - 1 - index]);
   }
 
   return (
-    <div className="flex flex-col max-w-2k w-full">
-      <section className="w-full py-32 relative">
+    <div className="flex flex-col w-full leading-8">
+      <section className="w-full py-64 relative">
         <div className="flex flex-col items-center justify-center w-full">
-          <div className="flex flex-col p-4 gap-3 bg-slate-300 bg-opacity-60 rounded-2xl m-2">
+          <div className="flex flex-col px-6 py-6 sm:py-16 gap-3 bg-slate-300 bg-opacity-60 rounded-2xl m-2">
             <h3 className="font-medium sm:text-3xl text-2xl">
               Welcome to Velmar!
             </h3>
-            <h1 className="font-semibold sm:text-6xl text-3xl max-w-650">
+            <h1 className="font-semibold sm:text-6xl text-3xl max-w-2k">
               Find your style with just one click!
             </h1>
           </div>
@@ -34,16 +52,87 @@ const Home: React.FC = async () => {
             className="absolute top-0 -z-10 w-full h-full object-cover"
             width={600}
             height={470}
-            src="https://img.freepik.com/foto-gratis/resumen-desenfoque-defocused-centro-comercial_1203-9548.jpg?w=1480&t=st=1707577513~exp=1707578113~hmac=7de2fa784e38e34673df0e0b9267db6e520f70bf8de0e8231e8ea554bb93c7d0"
-            alt="tienda"
+            src="https://img.freepik.com/foto-gratis/tienda-ropa-maniqui_23-2148929527.jpg?w=1480&t=st=1707862887~exp=1707863487~hmac=c2f893edd212327bb61b03ec3fb88438b349726100ecd2c4bdd03bed7f7c921a"
+            alt="Shop"
           />
         </div>
       </section>
 
-      <section className="p-4">
-        <h2 className="text-2xl sm:text-4xl my-4">Summer collection</h2>
+      <section className="flex flex-col w-full max-w-2k px-4 py-24 m-auto">
+        <Collection
+          imageUrl="https://img.freepik.com/foto-gratis/joven-mujer-bonita-morena-posando-fondo-marmol-beige-vistiendo-pantalones-cortos-lino-beige-bolso-lujo-cuero-caramelo-camisa-blanca-accesorios-dorados-traje-estilo-callejero_291049-1753.jpg?w=740&t=st=1707862631~exp=1707863231~hmac=498656d049b58f8df21e4ca25aca5a8e2b60463b2d37f26d5c7d8f1a64a3d5bb"
+          imageTitle="Female model"
+          smallTitle="Women"
+          bigTitle="Romanoff collection"
+          description={romanoffDescription}
+        />
 
-        <Carousel products={products} />
+        <Collection
+          imageUrl="https://img.freepik.com/foto-gratis/joven-elegante-mirando-ventana_23-2147862575.jpg?w=740&t=st=1707861998~exp=1707862598~hmac=1c13fff5cdad249569a0588fae0bf82aa2b56050a0eeff50be1c787a3fe6732f"
+          imageTitle="Male model"
+          smallTitle="Men"
+          bigTitle="Rogers collection"
+          description={rogersDescription}
+        />
+      </section>
+
+      <section className="justify-around bg-primary bg-opacity-30">
+        <h2 className="text-3xl font-semibold pt-24 px-12 text-center md:px-24">
+          Exclusive collections
+        </h2>
+        <div className="flex flex-col md:flex-row max-w-2k m-auto">
+          <div className="w-full">
+            <div className="max-w-1k m-auto md:ml-auto px-6 pb-12 pt-24 md:py-24">
+              <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
+                Stark collection
+              </h3>
+              <Carousel products={products} />
+            </div>
+          </div>
+
+          <div className="w-full">
+            <div className="max-w-1k m-auto md:mr-auto px-6 py-12 md:py-24">
+              <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
+                Banner collection
+              </h3>
+              <Carousel products={products2} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="flex flex-col items-center px-6 py-24">
+        <h2 className="text-3xl font-semibold text-center">New Arrivals</h2>
+
+        <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
+          {newArrivals.map((product) => (
+            <Link
+              key={product.id}
+              href={"/products/" + product.id}
+              className="max-w-88 w-full"
+            >
+              <ProductCard product={product} isAll={true} />
+            </Link>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          title="See all products"
+          className="p-4 h-16 w-max bg-primary text-secondary hover:bg-secondary hover:text-primary hover:scale-105 duration-150"
+        >
+          See all products
+        </button>
+      </section>
+
+      <section className="flex w-full max-w-2k px-4 py-24 mb-24 m-auto bg-primary bg-opacity-35">
+        <Collection
+          imageUrl="https://img.freepik.com/foto-gratis/modelo-zapatillas-altas-blancas-pie-silla_53876-97148.jpg?w=740&t=st=1708018980~exp=1708019580~hmac=57ff238a1d7cdf476a2075fc266b423945073b07194bd149100c7f2fdec8df6f"
+          smallTitle="About us"
+          bigTitle="Materials designed for comfort and sustainability."
+          description={shoesDescription}
+          imageTitle="Shoes"
+        />
       </section>
     </div>
   );

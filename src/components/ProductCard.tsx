@@ -21,7 +21,7 @@ const ProductCard = ({
 
   const divStyles =
     "flex flex-col gap-4 overflow-hidden" +
-    (isAll ? " pb-4 rounded-xl shadow-sm" : " px-4 py-8 m-auto max-w-650");
+    (isAll ? " pb-4 rounded-xl shadow-md" : " px-4 py-8 m-auto max-w-650");
 
   return (
     <div className="relative">
@@ -37,14 +37,14 @@ const ProductCard = ({
         </div>
       )}
       <div className={divStyles}>
-        <span
+        <figure
           className={
             "relative w-full h-80 duration-150 " +
             (loading ? "bg-transparent" : "bg-white py-3")
           }
         >
           {loading && (
-            <div className="absolute flex items-center w-full h-full">
+            <div className="absolute flex items-center w-full h-full bg-secondary bg-opacity-35 animate-pulse">
               <Loading />
             </div>
           )}
@@ -59,7 +59,7 @@ const ProductCard = ({
             height={500}
             onLoad={handleLoading}
           />
-        </span>
+        </figure>
         <h1
           className={"text-lg font-bold px-4 " + (isAll && "line-clamp-2 h-14")}
         >

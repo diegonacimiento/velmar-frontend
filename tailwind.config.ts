@@ -33,15 +33,16 @@ const config: Config = {
       },
       colors: {
         "letter": "#212529",
-        "primary": "#cce3de",
-        "body": "#eaf4f4",
-        "secondary": "#6b9080"
+        "primary": "#e3d5ca",
+        "body": "#fef9ef",
+        "secondary": "#b56576"
       },
       fontSize: {
         "xxs": "0.55rem"
       },
       maxWidth: {
         "88": "22rem",
+        "1k": "38.75rem",
         "2k": "77.5rem",
         "520": "32.5rem",
         "650": "40.625rem",

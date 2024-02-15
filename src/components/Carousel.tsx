@@ -1,84 +1,116 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import Link from "next/link";
+
 import { Product } from "@/types/products";
+import Loading from "./Loading";
 
 const Carousel = ({ products }: { products: Product[] }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 6000);
+    return () => clearInterval(interval);
+  });
 
   const slides = [
     products[0].image,
     products[1].image,
     products[2].image,
     products[3].image,
+    products[4].image,
   ];
 
+  const handleLoading = () => {
+    setLoading(false);
+    setLoadingInitial(false);
+  };
+
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    setLoading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    }, 500);
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    setLoading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 500);
   };
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+    setLoading(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+    }, 500);
   };
 
   return (
-    <div className="relative">
-      <div className="relative h-56 w-full overflow-hidden rounded-lg md:h-96">
+    <div className="flex flex-col items-center">
+      <Link href={`/products/${products[currentSlide].id}`} className="flex flex-col gap-2 pb-4 rounded-xl shadow-md w-full max-w-80 overflow-hidden">
+        
+          <figure className="relative h-96 w-full p-2 bg-white">
+            {loadingInitial && (
+              <div className="absolute top-0 left-0 flex items-center w-full h-full bg-secondary bg-opacity-35 animate-pulse">
+                <Loading />
+              </div>
+            )}
+            <Image
+              src={slides[currentSlide]}
+              width={500}
+              height={500}
+              alt={products[currentSlide].title}
+              className={`h-full w-full duration-500 ease-linear ${
+                loading ? "opacity-0" : "opacity-100"
+              }`}
+              onLoad={handleLoading}
+            />
+          </figure>
+          <h3 className="px-2 text-lg line-clamp-1 font-bold">
+            {products[currentSlide].title}
+          </h3>
+          <h5 className="px-2 text-sm font-semibold">
+            $ {products[currentSlide].price}
+          </h5>
+        
+      </Link>
+
+      <div className="flex gap-1 my-4">
         {slides.map((slide, index) => (
           <div
+            id="carousel-item"
+            className={
+              "h-4 w-4 rounded-full duration-150 active:bg-gray-400 " +
+              (slide === slides[currentSlide] ? "bg-secondary" : "bg-gray-300")
+            }
             key={index}
-            className={`absolute w-full -translate-x-1/2 flex justify-center -translate-y-1/2 top-1/2 left-1/2 ${
-              index === currentSlide ? "block" : "hidden"
-            } duration-700 ease-in-out`}
-            data-carousel-item
-          >
-            <Image
-              width={350}
-              height={350}
-              src={slide}
-              alt={`Slide ${index + 1}`}
-              className="h-48 w-48"
-            />
-          </div>
+            onClick={() => goToSlide(index)}
+          ></div>
         ))}
       </div>
 
-      <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            className={`w-3 h-3 rounded-full ${
-              index === currentSlide ? "bg-secondary" : "bg-gray-300"
-            }`}
-            aria-current={index === currentSlide}
-            aria-label={`Slide ${index + 1}`}
-            onClick={() => goToSlide(index)}
-            data-carousel-slide-to={index}
-          ></button>
-        ))}
-      </div>
-      {/* Slider controls */}
-      <div className="absolute top-0 h-full w-full flex items-center justify-between z-10">
+      <div className="flex">
         <button
           type="button"
-          className="h-max p-4 bg-white rounded-full focus:outline-none"
           onClick={prevSlide}
-          data-carousel-prev
+          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
         >
-          {"<"}
+          <FaAngleLeft />
         </button>
         <button
           type="button"
-          className="h-max rounded-full p-4 bg-white focus:outline-none"
           onClick={nextSlide}
-          data-carousel-next
+          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
         >
-          {">"}
+          <FaAngleRight />
         </button>
       </div>
     </div>

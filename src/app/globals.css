@@ -12,6 +12,16 @@ body {
   @apply text-letter bg-body
 }
 
+@media (hover:hover) {
+  #carousel-item:hover {
+    @apply bg-gray-400
+  }
+
+  .carousel-bts:hover {
+    @apply bg-secondary
+  }
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

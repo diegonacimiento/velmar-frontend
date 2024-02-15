@@ -5,7 +5,7 @@ import { FaSheetPlastic } from "react-icons/fa6";
 const Footer = () => {
   const aStyles = "p-4 text-3xl";
   return (
-    <footer className="bg-secondary">
+    <footer className="bg-secondary text-primary">
       <div className="m-auto max-w-2k">
         <div className="flex flex-col gap-5 p-10 text-center">
           <h3 className="text-3xl font-semibold tracking-widest">Velmar</h3>
@@ -13,7 +13,7 @@ const Footer = () => {
             Fashion is what you buy, style is what you do with it.
           </p>
         </div>
-        <div className="flex justify-center gap-3 p-10">
+        <div className="flex justify-center sm:gap-3 p-10">
           <a className={aStyles} href="/">
             <FaLinkedin />
           </a>
