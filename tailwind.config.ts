@@ -29,7 +29,7 @@ const config: Config = {
       width: {
         "draw": "calc(100vw - 100px)",
         "30": "7.5rem",
-        
+        "500p": "31.25rem"
       },
       colors: {
         "letter": "#212529",

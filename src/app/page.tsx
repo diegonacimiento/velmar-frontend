@@ -129,7 +129,7 @@ const Home: React.FC = async () => {
         <Collection
           imageUrl="https://img.freepik.com/foto-gratis/modelo-zapatillas-altas-blancas-pie-silla_53876-97148.jpg?w=740&t=st=1708018980~exp=1708019580~hmac=57ff238a1d7cdf476a2075fc266b423945073b07194bd149100c7f2fdec8df6f"
           smallTitle="About us"
-          bigTitle="Materials designed for comfort and sustainability."
+          bigTitle="Materials designed for comfort and sustainability"
           description={shoesDescription}
           imageTitle="Shoes"
         />
