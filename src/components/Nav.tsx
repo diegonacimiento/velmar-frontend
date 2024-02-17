@@ -64,10 +64,10 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         <li>
           <Link
             className={
-              liStyles + (pathname === "/login" && " text-secondary")
+              liStyles + (pathname === "/sign-in" && " text-secondary")
             }
             onClick={handleDrawer}
-            href="/login"
+            href="/sign-in"
           >
             Sign in
           </Link>
