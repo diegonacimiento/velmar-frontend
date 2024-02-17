@@ -1,7 +1,8 @@
 "use client";
-import Form from "@/components/Form";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+
+import Form from "@/components/Form";
 
 const SignIn = () => {
   return (

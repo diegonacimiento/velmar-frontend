@@ -50,10 +50,13 @@ const Form: React.FC<FormProps> = ({
                 : "")}
           </label>
           <input
+            name={field.label.toLowerCase()}
             type={field.type}
             value={field.value}
             onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
-            required
+            required={
+              field.label === "Phone" || field.label === "Adress" ? false : true
+            }
             className="border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body"
             autoComplete={field.type === "password" ? "on" : "off"}
           />

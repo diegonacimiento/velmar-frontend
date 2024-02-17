@@ -1,6 +1,8 @@
-"use client"
-import Form from "@/components/Form";
+"use client";
 import React from "react";
+import Link from "next/link";
+
+import Form from "@/components/Form";
 
 const SignUp = () => {
   return (
@@ -15,39 +17,49 @@ const SignUp = () => {
             value: "",
           },
           {
-           label: "Fullname",
-           type: "text",
-           value: "",
-         },
+            label: "Fullname",
+            type: "text",
+            value: "",
+          },
           {
-           label: "Email",
-           type: "email",
-           value: "",
-         },
-         {
-          label: "Password",
-          type: "password",
-          value: "",
-        },
-        {
-         label: "Confirm password",
-         type: "password",
-         value: "",
-       },
-       {
-        label: "Phone",
-        type: "text",
-        value: "",
-      },
-      {
-       label: "Adress",
-       type: "text",
-       value: "",
-     },
+            label: "Email",
+            type: "email",
+            value: "",
+          },
+          {
+            label: "Password",
+            type: "password",
+            value: "",
+          },
+          {
+            label: "Confirm password",
+            type: "password",
+            value: "",
+          },
+          {
+            label: "Phone",
+            type: "text",
+            value: "",
+          },
+          {
+            label: "Address",
+            type: "text",
+            value: "",
+          },
         ]}
-        dropdown={{label: "Role", options: ["Customer", "Seller"]}}
+        dropdown={{ label: "Role", options: ["Customer", "Seller"] }}
         onSubmit={(dataForm) => console.log(dataForm)}
       />
+
+      <div className="flex items-center gap-2 flex-wrap">
+        <p className="text-gray-400 text-sm font-medium">
+          Already have an account?
+        </p>
+
+        <Link href="/sign-in" className="text-sm font-medium hover:underline">
+          Sign in
+        </Link>
+      </div>
     </div>
   );
 };
