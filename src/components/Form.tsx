@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
+import validateForm from "@/utils/validate-form";
+
 interface Field {
   label: string;
   type: string;
   value: string;
+  hasError: string;
 }
 
 interface FormProps {
@@ -25,11 +28,15 @@ const Form: React.FC<FormProps> = ({
   const handleFieldChange = (index: number, value: string) => {
     const updatedFields = [...formFields];
     updatedFields[index].value = value;
+    updatedFields[index].hasError = "";
     setFormFields(updatedFields);
   };
 
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
+    validateForm({ formFields, setFormFields });
 
     const formData: any = {};
     fields.forEach((field) => {
@@ -40,12 +47,16 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 my-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 my-4">
       {formFields.map((field, index) => (
         <div key={field.label} className="flex flex-col">
-          <label className="text-sm font-light">
+          <label
+            className={`px-1 text-sm font-light ${
+              field.hasError ? "input-error" : ""
+            }`}
+          >
             {field.label +
-              (field.label === "Phone" || field.label === "Adress"
+              (field.label === "Phone" || field.label === "Address"
                 ? " (optional)"
                 : "")}
           </label>
@@ -54,12 +65,15 @@ const Form: React.FC<FormProps> = ({
             type={field.type}
             value={field.value}
             onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
-            required={
-              field.label === "Phone" || field.label === "Adress" ? false : true
-            }
-            className="border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body"
+            // required={
+            //   field.label === "Phone" || field.label === "Adress" ? false : true
+            // }
+            className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body ${
+              field.hasError ? "input-error" : ""
+            }`}
             autoComplete={field.type === "password" ? "on" : "off"}
           />
+          <p className="px-1 min-h-4 text-justify text-xs text-red-600">{field.hasError}</p>
         </div>
       ))}
       {dropdown && (
