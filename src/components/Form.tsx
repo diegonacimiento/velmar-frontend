@@ -2,20 +2,7 @@
 import React, { useState } from "react";
 
 import validateForm from "@/utils/validate-form";
-
-interface Field {
-  label: string;
-  type: string;
-  value: string;
-  hasError: string;
-}
-
-interface FormProps {
-  onSubmit: (formData: any) => void;
-  buttonText: string;
-  fields: Field[];
-  dropdown?: { label: string; options: string[] };
-}
+import { Field, FormProps } from "@/types/form";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -32,18 +19,23 @@ const Form: React.FC<FormProps> = ({
     setFormFields(updatedFields);
   };
 
-  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    validateForm({ formFields, setFormFields });
 
-    const formData: any = {};
-    fields.forEach((field) => {
-      formData[field.label.toLowerCase()] = field.value;
+    const isFormValid = validateForm({
+      initialsFields: fields,
+      formFields,
+      setFormFields,
     });
+    console.log(isFormValid)
+    if (isFormValid) {
+      const formData: any = {};
+      formFields.forEach((field) => {
+        formData[field.label.toLowerCase()] = field.value;
+      });
 
-    onSubmit(formData);
+      onSubmit(formData);
+    }
   };
 
   return (
@@ -63,7 +55,7 @@ const Form: React.FC<FormProps> = ({
           <input
             name={field.label.toLowerCase()}
             type={field.type}
-            value={field.value}
+            value={field.label === "Username" ? field.value.trim() : field.value}
             onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
             // required={
             //   field.label === "Phone" || field.label === "Adress" ? false : true
@@ -73,7 +65,9 @@ const Form: React.FC<FormProps> = ({
             }`}
             autoComplete={field.type === "password" ? "on" : "off"}
           />
-          <p className="px-1 min-h-4 text-justify text-xs text-red-600">{field.hasError}</p>
+          <p className="px-1 min-h-4 text-justify text-xs text-red-600">
+            {field.hasError}
+          </p>
         </div>
       ))}
       {dropdown && (

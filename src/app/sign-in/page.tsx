@@ -15,12 +15,12 @@ const SignIn = () => {
         buttonText="Sign in"
         fields={[
           {
-            label: "Email",
+            label: "Your email",
             type: "email",
             value: "",
           },
           {
-            label: "Password",
+            label: "Your password",
             type: "password",
             value: "",
           },

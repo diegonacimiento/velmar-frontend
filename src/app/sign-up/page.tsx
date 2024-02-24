@@ -38,7 +38,7 @@ const SignUp = () => {
           },
           {
             label: "Phone",
-            type: "text",
+            type: "number",
             value: "",
           },
           {
