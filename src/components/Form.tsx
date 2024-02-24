@@ -14,7 +14,8 @@ const Form: React.FC<FormProps> = ({
 
   const handleFieldChange = (index: number, value: string) => {
     const updatedFields = [...formFields];
-    updatedFields[index].value = value;
+    const updatedField = { ...updatedFields[index], value };
+    updatedFields[index] = updatedField;
     updatedFields[index].hasError = "";
     setFormFields(updatedFields);
   };
@@ -22,12 +23,19 @@ const Form: React.FC<FormProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const noChanges = formFields.every((field, index) => {
+      return field.value !== "" && field.value === fields[index].value;
+    });
+
+    if (noChanges) {
+      return;
+    }
+
     const isFormValid = validateForm({
-      initialsFields: fields,
       formFields,
       setFormFields,
     });
-    console.log(isFormValid)
+
     if (isFormValid) {
       const formData: any = {};
       formFields.forEach((field) => {
@@ -55,11 +63,10 @@ const Form: React.FC<FormProps> = ({
           <input
             name={field.label.toLowerCase()}
             type={field.type}
-            value={field.label === "Username" ? field.value.trim() : field.value}
+            value={
+              field.label === "Username" ? field.value.trim() : field.value
+            }
             onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
-            // required={
-            //   field.label === "Phone" || field.label === "Adress" ? false : true
-            // }
             className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body ${
               field.hasError ? "input-error" : ""
             }`}

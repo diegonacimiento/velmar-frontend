@@ -4,9 +4,8 @@ import Form from "@/components/Form";
 import React from "react";
 
 const Data = ({ user }: { user: any }) => {
-  const handleSubmit = (formData: any) => {
-   console.log(formData)
-  }
+  // const handleSubmit = (formData: any) => {
+  // }
   return (
     <div>
       <Form
@@ -30,7 +29,7 @@ const Data = ({ user }: { user: any }) => {
           {
             label: "Phone",
             type: "number",
-            value: "3764997755",
+            value: "",
           },
           {
             label: "Address",
@@ -38,7 +37,7 @@ const Data = ({ user }: { user: any }) => {
             value: user.address.street,
           },
         ]}
-        onSubmit={(formData) => handleSubmit(formData)}
+        onSubmit={(formData) => console.log(formData)}
       />
     </div>
   );

@@ -3,21 +3,19 @@ import { Dispatch, SetStateAction } from "react";
 import { Field } from "@/types/form";
 
 const validateForm = ({
-  initialsFields,
   formFields,
   setFormFields,
 }: {
-  initialsFields: Field[];
   formFields: Field[];
   setFormFields: Dispatch<SetStateAction<Field[]>>;
 }) => {
-  const updatedFields = formFields.map((field, index) => {
+  const updatedFields = formFields.map((field) => {
     const isOptional = field.label === "Address" || field.label === "Phone";
 
-    if (field.value.trim() === initialsFields[index].value && !isOptional) {
+    if (field.value.trim() === "" && !isOptional) {
       return {
         ...field,
-        hasError: field.value.trim() === "" ? "Please complete this field" : "",
+        hasError: "Please complete this field",
       };
     }
 
@@ -68,8 +66,6 @@ const validateForm = ({
       hasError: "",
     };
   });
-
-  console.log(updatedFields);
 
   const isFormValid = updatedFields.every((field) => field.hasError === "");
 
