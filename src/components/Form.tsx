@@ -24,7 +24,7 @@ const Form: React.FC<FormProps> = ({
     event.preventDefault();
 
     const noChanges = formFields.every((field, index) => {
-      return field.value !== "" && field.value === fields[index].value;
+      return field.value === "" ? true : field.value === fields[index].value;
     });
 
     if (noChanges) {
@@ -41,6 +41,8 @@ const Form: React.FC<FormProps> = ({
       formFields.forEach((field) => {
         formData[field.label.toLowerCase()] = field.value;
       });
+
+      alert("enviado")
 
       onSubmit(formData);
     }
