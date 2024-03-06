@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import validateForm from "@/utils/validate-form";
 import { Field, FormProps } from "@/types/form";
+import Link from "next/link";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -24,7 +25,11 @@ const Form: React.FC<FormProps> = ({
     event.preventDefault();
 
     const noChanges = formFields.every((field, index) => {
-      return field.value === "" ? true : field.value === fields[index].value;
+      const isOptional = field.isOptional;
+      return (
+        field.value === fields[index].value &&
+        (field.value !== "" || isOptional)
+      );
     });
 
     if (noChanges) {
@@ -41,8 +46,6 @@ const Form: React.FC<FormProps> = ({
       formFields.forEach((field) => {
         formData[field.label.toLowerCase()] = field.value;
       });
-
-      alert("enviado")
 
       onSubmit(formData);
     }
@@ -62,18 +65,37 @@ const Form: React.FC<FormProps> = ({
                 ? " (optional)"
                 : "")}
           </label>
-          <input
-            name={field.label.toLowerCase()}
-            type={field.type}
-            value={
-              field.label === "Username" ? field.value.trim() : field.value
-            }
-            onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
-            className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body ${
-              field.hasError ? "input-error" : ""
-            }`}
-            autoComplete={field.type === "password" ? "on" : "off"}
-          />
+
+          {field.label === "Address" ? (
+            <Link href="/profile/set-address">
+              <input
+                readOnly={true}
+                name={field.label.toLowerCase()}
+                type={field.type}
+                value={field.value}
+                onChange={(e) =>
+                  handleFieldChange(index, e.currentTarget.value)
+                }
+                className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${
+                  field.hasError ? "input-error" : ""
+                }`}
+              />
+            </Link>
+          ) : (
+            <input
+              name={field.label.toLowerCase()}
+              type={field.type}
+              value={
+                field.label === "Username" ? field.value.trim() : field.value
+              }
+              onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
+              className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body ${
+                field.hasError ? "input-error" : ""
+              }`}
+              autoComplete={"on"}
+            />
+          )}
+
           <p className="px-1 min-h-4 text-justify text-xs text-red-600">
             {field.hasError}
           </p>
@@ -94,7 +116,7 @@ const Form: React.FC<FormProps> = ({
       <button
         type="submit"
         title={buttonText}
-        className="p-3 mt-4 w-30 text-primary bg-secondary hover:bg-body hover:text-secondary hover:scale-105 duration-150"
+        className="p-3 mt-4 text-primary bg-secondary hover:bg-body hover:text-secondary hover:scale-105 duration-150"
       >
         {buttonText}
       </button>

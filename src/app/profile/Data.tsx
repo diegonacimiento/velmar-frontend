@@ -1,9 +1,11 @@
 "use client";
 
 import Form from "@/components/Form";
+import useVelmarContext from "@/hooks/useVelmarContext";
 import React from "react";
 
 const Data = ({ user }: { user: any }) => {
+  const { addressValue } = useVelmarContext();
   // const handleSubmit = (formData: any) => {
   // }
   return (
@@ -30,11 +32,13 @@ const Data = ({ user }: { user: any }) => {
             label: "Phone",
             type: "number",
             value: "",
+            isOptional: true,
           },
           {
             label: "Address",
             type: "text",
-            value: user.address.street,
+            value: addressValue,
+            isOptional: true,
           },
         ]}
         onSubmit={(formData) => console.log(formData)}

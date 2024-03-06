@@ -2,6 +2,7 @@ export interface Field {
  label: string;
  type: string;
  value: string;
+ isOptional?: boolean;
  hasError?: string;
 }
 

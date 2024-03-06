@@ -10,7 +10,7 @@ const validateForm = ({
   setFormFields: Dispatch<SetStateAction<Field[]>>;
 }) => {
   const updatedFields = formFields.map((field) => {
-    const isOptional = field.label === "Address" || field.label === "Phone";
+    const isOptional = field.isOptional;
 
     if (field.value.trim() === "" && !isOptional) {
       return {
@@ -40,7 +40,7 @@ const validateForm = ({
       };
     }
 
-    if (field.label === "Password") {
+    if (field.label === "Password" || field.label === "New password") {
       const isValidatePassword = validatePassword(field.value);
 
       return {
@@ -53,7 +53,10 @@ const validateForm = ({
 
     if (field.label === "Confirm password") {
       const password =
-        formFields.find((field) => field.label === "Password")?.value || "";
+        formFields.find(
+          (field) =>
+            field.label === "Password" || field.label === "New password"
+        )?.value || "";
       const isMatchPasswords = validateConfirmPassword(password, field.value);
 
       return {
