@@ -19,9 +19,12 @@ const Profile = async () => {
         Hi {user.name}
       </h1>
       <Data user={user} />
-      <Link href="/profile/change-password" className="hover:underline">
-        Change password
-      </Link>
+      <div className="flex items-center gap-2 flex-wrap">
+        <p className="text-gray-400 text-sm font-medium">Do you want to change your password?</p>
+        <Link href="/profile/change-password" className="font-medium text-sm hover:underline">
+          Change password
+        </Link>
+      </div>
     </div>
   );
 };

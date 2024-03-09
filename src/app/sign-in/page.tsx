@@ -29,7 +29,7 @@ const SignIn = () => {
       />
 
       <Link
-        href="/"
+        href="sign-in/forgot-password"
         className="text-secondary text-sm font-medium hover:underline"
       >
         Forgot password

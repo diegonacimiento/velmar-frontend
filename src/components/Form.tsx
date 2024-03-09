@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import validateForm from "@/utils/validate-form";
 import { Field, FormProps } from "@/types/form";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -12,6 +13,8 @@ const Form: React.FC<FormProps> = ({
   dropdown,
 }) => {
   const [formFields, setFormFields] = useState<Field[]>(fields);
+
+  const path = usePathname();
 
   const handleFieldChange = (index: number, value: string) => {
     const updatedFields = [...formFields];
@@ -67,7 +70,7 @@ const Form: React.FC<FormProps> = ({
           </label>
 
           {field.label === "Address" ? (
-            <Link href="/profile/set-address">
+            <Link href={`${path}/set-address`}>
               <input
                 readOnly={true}
                 name={field.label.toLowerCase()}
