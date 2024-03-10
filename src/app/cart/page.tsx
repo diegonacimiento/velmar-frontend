@@ -1,9 +1,11 @@
-import { Product } from "@/types/products";
+import React from "react";
 import axios from "axios";
 import Image from "next/image";
-import React from "react";
-import { MdAdd, MdRemove } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { MdAdd, MdRemove } from "react-icons/md";
+
+import { Product } from "@/types/products";
+import Link from "next/link";
 
 const getProducts = async (): Promise<Product[]> => {
   const response = await axios.get("https://fakestoreapi.com/products");
@@ -76,13 +78,15 @@ const CartPage = async () => {
         </section>
         <section className="md:p-4 py-4 md:w-1/5 my-4 md:my-0">
           <h3 className="text-lg font-semibold text-secondary">Total: $90</h3>
-          <button
-            type="button"
-            title="Continue"
-            className="p-3 mt-4 w-full text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150"
-          >
-            Continue
-          </button>
+          <Link href="/information">
+            <button
+              type="button"
+              title="Continue"
+              className="p-3 mt-4 w-full text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150"
+            >
+              Continue
+            </button>
+          </Link>
         </section>
       </div>
     </div>

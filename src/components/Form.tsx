@@ -11,6 +11,7 @@ const Form: React.FC<FormProps> = ({
   buttonText,
   fields,
   dropdown,
+  page,
 }) => {
   const [formFields, setFormFields] = useState<Field[]>(fields);
 
@@ -35,7 +36,7 @@ const Form: React.FC<FormProps> = ({
       );
     });
 
-    if (noChanges) {
+    if (noChanges && page !== "information") {
       return;
     }
 

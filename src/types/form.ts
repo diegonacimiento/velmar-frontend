@@ -11,4 +11,5 @@ export interface FormProps {
  buttonText: string;
  fields: Field[];
  dropdown?: { label: string; options: string[] };
+ page?: string;
 }
