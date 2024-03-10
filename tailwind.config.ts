@@ -56,6 +56,9 @@ const config: Config = {
       },
       scale: {
         "200": "2"
+      },
+      gridTemplateColumns: {
+        "checkout": "repeat(3, 1fr) auto"
       }
     },
   },

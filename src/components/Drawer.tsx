@@ -12,7 +12,7 @@ const Drawer = () => {
   };
   return (
     <div className="rd:hidden">
-      <button className="p-4 text-lg" type="button" onClick={handleDrawer}>
+      <button className="p-4 text-lg hover:text-secondary duration-150" type="button" onClick={handleDrawer}>
         <MdDensityMedium />
       </button>
       <div className={isActive ? "fixed top-0 z-30" : undefined}>
@@ -30,7 +30,7 @@ const Drawer = () => {
         }
       >
         <button
-          className="text-lg p-4 float-end"
+          className="text-lg p-4 float-end hover:text-secondary duration-150"
           type="button"
           onClick={handleDrawer}
         >

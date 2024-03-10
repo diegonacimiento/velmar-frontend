@@ -7,8 +7,8 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
   const pathname = usePathname();
 
   const liStyles = handleDrawer
-    ? "inline-block border-b border-gray-400 px-4 py-7 w-full text-gray-600 hover:text-secondary hover:border-secondary"
-    : "text-gray-600 hover:text-secondary duration-300";
+    ? "inline-block border-b border-gray-400 px-4 py-7 w-full text-gray-600 hover:text-secondary hover:border-secondary duration-150 "
+    : "text-gray-600 hover:text-secondary duration-150 ";
 
   const ulStyles = handleDrawer
     ? "flex flex-col h-100 pb-6"
@@ -23,7 +23,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
       <ul className={ulStyles}>
         <li>
           <Link
-            className={liStyles + (pathname === "/" && " text-secondary")}
+            className={liStyles + (pathname === "/" && " text-secondary border-secondary")}
             onClick={handleDrawer}
             href="/"
           >
@@ -33,7 +33,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         <li>
           <Link
             className={
-              liStyles + (pathname.includes("/products") && " text-secondary")
+              liStyles + (pathname.includes("/products") && " text-secondary border-secondary")
             }
             onClick={handleDrawer}
             href="/products"
@@ -43,7 +43,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         </li>
         <li>
           <Link
-            className={liStyles + (pathname === "/about" && " text-secondary")}
+            className={liStyles + (pathname === "/about" && " text-secondary border-secondary")}
             onClick={handleDrawer}
             href="/about"
           >
@@ -53,7 +53,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         <li>
           <Link
             className={
-              liStyles + (pathname === "/contact" && " text-secondary")
+              liStyles + (pathname === "/contact" && " text-secondary border-secondary")
             }
             onClick={handleDrawer}
             href="/contact"
@@ -64,7 +64,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
         <li>
           <Link
             className={
-              liStyles + (pathname === "/sign-in" && " text-secondary")
+              liStyles + (pathname === "/sign-in" && " text-secondary border-secondary")
             }
             onClick={handleDrawer}
             href="/sign-in"
