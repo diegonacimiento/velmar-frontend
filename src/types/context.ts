@@ -5,4 +5,6 @@ export interface Context {
  updateAddressValue: (value: string) => void;
  cart: Product[];
  updateCart: (products: Product[]) => void;
+ products: Product[];
+ updateProducts: (products: Product[]) => void;
 }

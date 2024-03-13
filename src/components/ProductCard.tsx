@@ -5,6 +5,7 @@ import { FaEye } from "react-icons/fa";
 
 import { Product } from "@/types/products";
 import Loading from "./Loading";
+import useVelmarContext from "@/hooks/useVelmarContext";
 
 const ProductCard = ({
   product,
@@ -15,6 +16,8 @@ const ProductCard = ({
 }) => {
   const [loading, setLoading] = useState(true);
 
+  const { cart, updateCart } = useVelmarContext();
+
   const handleLoading = () => {
     setLoading(false);
   };
@@ -22,6 +25,11 @@ const ProductCard = ({
   const divStyles =
     "flex flex-col gap-4 overflow-hidden" +
     (isAll ? " pb-4 rounded-xl shadow-md" : " px-4 py-8 m-auto max-w-650");
+
+  const handleAddToCart = () => {
+    const newCart = [...cart, product];
+    updateCart(newCart);
+  }
 
   return (
     <div className="relative">
@@ -80,6 +88,7 @@ const ProductCard = ({
             className="border-2 border-secondary p-2 bg-secondary rounded-3xl text-lg font-semibold hover:scale-105 hover:bg-primary duration-150 mt-auto max-w-40"
             type="button"
             title="See product"
+            onClick={handleAddToCart}
           >
             Add to cart
           </button>
