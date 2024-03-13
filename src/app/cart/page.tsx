@@ -21,8 +21,6 @@ const CartPage = async () => {
     cart.push(products[index]);
   }
 
-  console.log(cart);
-
   return (
     <div className="m-4 sm:m-8 text-secondary">
       <h2 className="text-xl font-bold">Cart</h2>

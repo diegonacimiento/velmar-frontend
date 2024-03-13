@@ -3,8 +3,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
+import useVelmarContext from "@/hooks/useVelmarContext";
 
 const InformationPage = () => {
+  const { addressValue } = useVelmarContext();
 
   const router = useRouter();
 
@@ -32,7 +34,7 @@ const InformationPage = () => {
           {
             label: "Address",
             type: "text",
-            value: "",
+            value: addressValue,
             isOptional: true,
           },
           {
