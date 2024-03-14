@@ -8,8 +8,6 @@ import useVelmarContext from "@/hooks/useVelmarContext";
 const Cart = () => {
   const { cart } = useVelmarContext();
 
-  console.log(cart.length);
-
   const path = usePathname();
   return (
     <Link href="/cart" className="relative group">

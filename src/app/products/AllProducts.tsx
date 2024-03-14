@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/products";
 
 const getProducts = async (): Promise<Product[]> => {
+  await new Promise<void>((resolve) => setTimeout(resolve, 3000));
   const response = await axios.get("https://fakestoreapi.com/products");
   return response.data;
 };
