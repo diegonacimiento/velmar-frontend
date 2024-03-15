@@ -1,8 +1,8 @@
-import { Product } from "@/types/products";
+import { Cart } from "@/types/context";
 
-export const totalPrice = (cart: Product[]): number => {
-  const reducer = (accumulator: any, currentValue: any) =>
-    accumulator + currentValue.price;
+export const totalPrice = (cart: Cart[]): number => {
+  const reducer = (accumulator: number, currentValue: any) =>
+    accumulator + currentValue.product.price * currentValue.amount;
   const total = cart.reduce(reducer, 0);
-  return total;
+  return Number(total.toFixed(2));
 };

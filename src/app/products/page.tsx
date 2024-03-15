@@ -10,9 +10,11 @@ const Products = async () => {
       <div className="m-auto p-3 w-11/12 max-w-650">
         <Search />
       </div>
+      <div className="p-4">
       <Suspense fallback={<LoadingProducts />}>
         <AllProducts />
       </Suspense>
+      </div>
     </div>
   );
 };

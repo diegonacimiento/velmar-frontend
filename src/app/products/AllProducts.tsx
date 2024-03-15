@@ -14,7 +14,7 @@ const AllProducts = async () => {
   const products = await getProducts();
 
   return (
-    <div className="flex justify-center gap-7 p-4 w-full flex-wrap">
+    <div className="flex justify-center gap-7 p-2 sm:p-4 w-full flex-wrap">
       {products.map((product) => (
         <Link
           key={product.id}

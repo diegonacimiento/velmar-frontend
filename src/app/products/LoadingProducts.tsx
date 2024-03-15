@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingProducts = ({ length }: { length?: number }) => {
   return (
-    <div className="flex justify-center gap-7 p-4 w-full flex-wrap">
+    <div className="flex justify-center gap-7 p-2 sm:p-4 w-full flex-wrap">
       {[...new Array<number>(length || 12)].map((e, index) => {
         return (
           <div

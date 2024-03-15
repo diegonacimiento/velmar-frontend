@@ -16,8 +16,10 @@ const ProductCard = ({
   isAll?: boolean;
 }) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [amount, setAmount] = useState<number>(1);
+  const [btIsChecked, setBtIsChecked] = useState<boolean>(false);
 
-  const { cart, updateCart } = useVelmarContext();
+  const { updateCart } = useVelmarContext();
 
   const handleLoading = () => {
     setLoading(false);
@@ -28,8 +30,10 @@ const ProductCard = ({
     : "md:flex-row gap-12 sm:px-4 py-8 m-auto max-w-6xl";
 
   const handleAddToCart = () => {
-    const newCart = [...cart, product];
-    updateCart(newCart);
+    updateCart(product, amount);
+    setAmount(1);
+    setBtIsChecked(true);
+    setTimeout(() => setBtIsChecked(false), 5000);
   };
 
   return (
@@ -63,11 +67,7 @@ const ProductCard = ({
         </figure>
 
         <div className="flex flex-col gap-6 px-4 w-full">
-          <h1
-            className={
-              "text-lg font-bold " + (isAll && "line-clamp-2 h-14")
-            }
-          >
+          <h1 className={"text-lg font-bold " + (isAll && "line-clamp-2 h-14")}>
             {product.title}
           </h1>
           <p className="text-lg font-semibold w-30 ">$ {product.price}</p>
@@ -75,18 +75,25 @@ const ProductCard = ({
           {!isAll && (
             <>
               <div className="flex items-center justify-between gap-4">
-                <Amount />
+                <Amount amount={amount} setAmount={setAmount} />
 
-                <button
-                  className="border-2 border-secondary p-2 bg-secondary rounded-3xl text-lg font-semibold hover:scale-105 hover:bg-primary duration-150 w-full max-w-40"
-                  type="button"
-                  title="See product"
-                  onClick={handleAddToCart}
-                >
-                  Add to cart
-                </button>
+                {btIsChecked ? (
+                  <span className="flex justify-center items-center h-12 w-40">
+                    Product added {"\u2714"}
+                  </span>
+                ) : (
+                  <button
+                    className="border-2 border-secondary p-2 bg-secondary rounded-3xl text-lg font-semibold hover:scale-105 hover:bg-primary duration-150 w-full max-w-40"
+                    type="button"
+                    title="Add to cart"
+                    onClick={handleAddToCart}
+                    id="bt-addToCart"
+                  >
+                    Add to cart
+                  </button>
+                )}
               </div>
-              
+
               <hr />
               <h3 className="text-lg font-medium">Description:</h3>
               <p className={"text-justify px-2"}>{product.description}</p>
