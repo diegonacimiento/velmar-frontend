@@ -1,9 +1,11 @@
 import React from "react";
+import LoadingProducts from "../LoadingProducts";
 
 const loading = () => {
   return (
-    <div className="h-full w-full px-4">
-      <div className="flex flex-col overflow-hidden sm:flex-row min-h-600p w-full gap-12 px-4 py-8 m-auto max-w-6xl">
+    <div className="h-full w-full sm:px-4 max-w-6xl">
+
+      <div className="flex flex-col overflow-hidden sm:flex-row min-h-600p w-full gap-12 px-4 py-8 m-auto">
         <figure
           className={
             "relative w-full duration-150 h-[25rem] sm:h-[34.375rem] bg-secondary bg-opacity-35 animate-pulse"
@@ -27,6 +29,13 @@ const loading = () => {
           <p className="h-18 w-full rounded-xl bg-secondary bg-opacity-35 animate-pulse"></p>
         </div>
       </div>
+
+      <hr className="my-6" />
+
+      <h3 className="sm:p-4 text-2xl font-medium">Related products</h3>
+
+      <LoadingProducts length={6} />
+      
     </div>
   );
 };
