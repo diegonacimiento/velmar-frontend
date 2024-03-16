@@ -11,7 +11,6 @@ const InformationPage = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
-    console.log("Info confirmada")
     router.push("/payment");
   }
 
@@ -21,16 +20,6 @@ const InformationPage = () => {
       <Form
         buttonText="Confirm"
         fields={[
-          {
-            label: "Fullname",
-            type: "text",
-            value: "Diego Nacimiento",
-          },
-          {
-            label: "Email",
-            type: "email",
-            value: "diegonacimiento18@gmail.com",
-          },
           {
             label: "Address",
             type: "text",

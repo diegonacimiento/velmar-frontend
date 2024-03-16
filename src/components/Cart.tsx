@@ -1,12 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdOutlineShoppingCart } from "react-icons/md";
+
 import useVelmarContext from "@/hooks/useVelmarContext";
+import { Cart } from "@/types/context";
 
 const Cart = () => {
   const { cart } = useVelmarContext();
+  const [cartLength, setCartLength] = useState<number>(0);
+
+  useEffect(() => {
+    const reducer = (accumulator: number, currentValue: Cart) =>
+      accumulator + currentValue.amount;
+    const total = cart.reduce(reducer, 0);
+    setCartLength(total);
+  }, [cart]);
 
   const path = usePathname();
   return (
@@ -27,7 +37,7 @@ const Cart = () => {
             (path.includes("/cart") ? "bg-secondary" : "bg-letter")
           }
         >
-          {cart.length}
+          {cartLength}
         </div>
       )}
     </Link>

@@ -8,6 +8,7 @@ export interface Context {
  products: Product[];
  updateProducts: (products: Product[]) => void;
  deleteItemCart: (product: Product) => void;
+ deleteAllCart: () => void;
 }
 
 export interface Cart {

@@ -41,6 +41,10 @@ export const VelmarContextProvider = ({
     }
   }
 
+  const deleteAllCart = () => {
+    setCart([]);
+  }
+
   const updateProducts = (newProducts: Product[]) => {
     setProducts(newProducts);
   };
@@ -55,6 +59,7 @@ export const VelmarContextProvider = ({
         products,
         updateProducts,
         deleteItemCart,
+        deleteAllCart,
       }}
     >
       {children}
