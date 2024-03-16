@@ -19,13 +19,11 @@ const Carousel = ({ products }: { products: Product[] }) => {
     return () => clearInterval(interval);
   });
 
-  const slides = [
-    products[0].image,
-    products[1].image,
-    products[2].image,
-    products[3].image,
-    products[4].image,
-  ];
+  const slides: string[] = [];
+
+  products.forEach((item) => {
+    slides.push(item.image);
+  });
 
   const handleLoading = () => {
     setLoading(false);
@@ -55,32 +53,33 @@ const Carousel = ({ products }: { products: Product[] }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <Link href={`/products/${products[currentSlide].id}`} className="flex flex-col gap-2 pb-4 rounded-xl shadow-md w-full max-w-80 overflow-hidden">
-        
-          <figure className="relative h-96 w-full p-2 bg-white">
-            {loadingInitial && (
-              <div className="absolute top-0 left-0 flex items-center w-full h-full bg-secondary bg-opacity-35 animate-pulse">
-                <Loading />
-              </div>
-            )}
-            <Image
-              src={slides[currentSlide]}
-              width={500}
-              height={500}
-              alt={products[currentSlide].title}
-              className={`h-full w-full duration-500 ease-linear ${
-                loading ? "opacity-0" : "opacity-100"
-              }`}
-              onLoad={handleLoading}
-            />
-          </figure>
-          <h3 className="px-2 text-lg line-clamp-1 font-bold">
-            {products[currentSlide].title}
-          </h3>
-          <h5 className="px-2 text-sm font-semibold">
-            $ {products[currentSlide].price}
-          </h5>
-        
+      <Link
+        href={`/products/${products[currentSlide].id}`}
+        className="flex flex-col gap-2 pb-4 rounded-xl shadow-md w-full max-w-80 overflow-hidden"
+      >
+        <figure className="relative h-96 w-full p-2 bg-white">
+          {loadingInitial && (
+            <div className="absolute top-0 left-0 flex items-center w-full h-full bg-secondary bg-opacity-35 animate-pulse">
+              <Loading />
+            </div>
+          )}
+          <Image
+            src={slides[currentSlide]}
+            width={500}
+            height={500}
+            alt={products[currentSlide].title}
+            className={`h-full w-full duration-500 ease-linear ${
+              loading ? "opacity-0" : "opacity-100"
+            }`}
+            onLoad={handleLoading}
+          />
+        </figure>
+        <h3 className="px-2 text-lg line-clamp-1 font-bold">
+          {products[currentSlide].title}
+        </h3>
+        <h5 className="px-2 text-sm font-semibold">
+          $ {products[currentSlide].price}
+        </h5>
       </Link>
 
       <div className="flex gap-1 my-4">

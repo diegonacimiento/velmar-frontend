@@ -1,40 +1,18 @@
+import Link from "next/link";
+import Image from "next/image";
+
 import Carousel from "@/components/Carousel";
 import Collection from "@/components/Collection";
 import ProductCard from "@/components/ProductCard";
-import { Product } from "@/types/products";
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
-
-const getCollection = async (): Promise<Product[]> => {
-  const response = await axios.get("https://fakestoreapi.com/products");
-  return response.data;
-};
+import {
+  getCollections,
+  rogersDescription,
+  romanoffDescription,
+  shoesDescription,
+} from "@/utils/home-page-data";
 
 const Home: React.FC = async () => {
-  const summerCollection = await getCollection();
-
-  const romanoffDescription = `Discover our women's clothing collection: where elegance meets
-  comfort. Each piece celebrates your unique style. Explore the
-  fashion that inspires you to shine on every occasion. Make a style
-  statement with us today!`;
-
-  const rogersDescription = `Explore our men's clothing collection: where sophistication meets versatility. Each piece embodies your distinct style. Dive into fashion that ignites your confidence on every occasion. Make a style statement with us today!`;
-
-  const shoesDescription =
-    "Introducing Eco-Comfort Sneakers: the epitome of sustainability and comfort. Crafted with eco-friendly materials, these sneakers offer both style and conscience. Walk the path of sustainability in comfort and style with Eco-Comfort Sneakers.";
-
-  const products = [];
-  const products2 = [];
-  const newArrivals: Product[] = [];
-
-  for (let index = 0; index < 5; index++) {
-    if (index === 0)
-      newArrivals.push(summerCollection[summerCollection.length - 1 - 5]);
-    products.push(summerCollection[index]);
-    products2.push(summerCollection[index + 5]);
-    newArrivals.push(summerCollection[summerCollection.length - 1 - index]);
-  }
+  const { men, women, newArrivals } = await getCollections();
 
   return (
     <div className="flex flex-col w-full leading-8">
@@ -84,18 +62,18 @@ const Home: React.FC = async () => {
           <div className="w-full">
             <div className="max-w-1k m-auto md:ml-auto px-6 pb-12 pt-24 md:py-24">
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
-                Stark collection
+                Men collection
               </h3>
-              <Carousel products={products} />
+              <Carousel products={men} />
             </div>
           </div>
 
           <div className="w-full">
             <div className="max-w-1k m-auto md:mr-auto px-6 py-12 md:py-24">
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
-                Banner collection
+                Women collection
               </h3>
-              <Carousel products={products2} />
+              <Carousel products={women} />
             </div>
           </div>
         </div>

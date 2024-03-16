@@ -13,7 +13,7 @@ export interface Product {
 
  brand: string;
 
- category: string[];
+ category: string;
 
  creationAt: string;
 
