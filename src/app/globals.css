@@ -13,6 +13,10 @@ body {
 }
 
 @media (hover:hover) {
+  .bt-paginator:hover {
+    @apply bg-primary text-secondary  
+  }
+
   #carousel-item:hover {
     @apply bg-gray-400
   }
