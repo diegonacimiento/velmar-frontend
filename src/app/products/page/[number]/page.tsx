@@ -1,22 +1,40 @@
-import React, { Suspense } from 'react'
+import React, { Suspense } from "react";
 
-import Search from '@/components/Search'
-import LoadingProducts from '../../LoadingProducts'
-import AllProducts from '../../AllProducts'
+import Search from "@/components/Search";
+import LoadingProducts from "../../LoadingProducts";
+import ProductsList from "../../ProductsList";
+import Paginator from "../../Paginator";
+import { getProducts } from "@/utils/functions-share";
 
-const page = () => {
+const page = async ({ params: { number } }: { params: { number: number } }) => {
+  const offset = (number - 1) * 6;
+  const limit = offset + 7;
+
+  const products = await getProducts(offset, limit);
+
+  let endPage;
+
+  if (products.length < 7) {
+    endPage = true;
+  }
+
+  if (!endPage) products.pop();
+
   return (
-   <div className="w-full max-w-2k py-6">
-   <div className="m-auto p-3 w-11/12 max-w-650">
-     <Search />
-   </div>
-   <div className="p-4">
-   <Suspense fallback={<LoadingProducts />}>
-     <AllProducts />
-   </Suspense>
-   </div>
- </div>
-  )
-}
+    <div className="py-6 w-full max-w-2k">
+      <div className="p-3 m-auto w-11/12 max-w-650">
+        <Search />
+      </div>
 
-export default page
+      <div className="p-4">
+        <Suspense fallback={<LoadingProducts length={6} />}>
+          <ProductsList products={products} />
+        </Suspense>
+      </div>
+
+      <Paginator page={Number(number)} endPage={endPage} />
+    </div>
+  );
+};
+
+export default page;

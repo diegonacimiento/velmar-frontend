@@ -10,6 +10,7 @@ import {
   romanoffDescription,
   shoesDescription,
 } from "@/utils/home-page-data";
+import ProductsList from "./products/ProductsList";
 
 const Home: React.FC = async () => {
   const { men, women, newArrivals } = await getCollections();
@@ -83,15 +84,7 @@ const Home: React.FC = async () => {
         <h2 className="text-3xl font-semibold text-center">New Arrivals</h2>
 
         <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
-          {newArrivals.map((product) => (
-            <Link
-              key={product.id}
-              href={"/products/" + product.id}
-              className="max-w-88 w-full"
-            >
-              <ProductCard product={product} isAll={true} />
-            </Link>
-          ))}
+          <ProductsList products={newArrivals} />
         </div>
 
         <button

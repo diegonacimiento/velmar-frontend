@@ -3,8 +3,9 @@ import axios from "axios";
 
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/products";
-import AllProducts from "../AllProducts";
+import ProductsList from "../ProductsList";
 import LoadingProducts from "../LoadingProducts";
+import { getProducts } from "@/utils/functions-share";
 
 const getProduct = async (id: number): Promise<Product> => {
   const response = await axios.get("https://fakestoreapi.com/products/" + id);
@@ -13,6 +14,11 @@ const getProduct = async (id: number): Promise<Product> => {
 
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
+
+  const products = (await getProducts(0, 6, product.category)).filter(
+    (item) => item.id !== product.id
+  );
+
   return (
     <div className="p-4 max-w-6xl">
       <ProductCard product={product} />
@@ -22,7 +28,7 @@ const page = async ({ params: { id } }: { params: { id: number } }) => {
       <h3 className="sm:p-4 text-2xl font-medium">Related products</h3>
 
       <Suspense fallback={<LoadingProducts length={6} />}>
-        <AllProducts category={product.category} limit={6} currentProductId={product.id} />
+        <ProductsList products={products} />
       </Suspense>
     </div>
   );
