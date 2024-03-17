@@ -1,17 +1,34 @@
-import React from "react";
+"use client"
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useState } from "react";
 
 const Search = () => {
+  const router = useRouter();
+
+  const [value, setValue] = useState<string>("");
+  const [optionSelected, setOptionSelected] = useState<string>("");
+
+  const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  }
+
+  const handleChangeOption = (event: ChangeEvent<HTMLSelectElement>) => {
+    setOptionSelected(event.target.value)
+    router.push(`/products/category/${event.target.value}`)
+  }
+
   return (
     <form>
       <div className="flex flex-col-reverse sm:flex-row">
         <select
           className="-sm:w-30 -sm:py-2.5 -sm:my-2 -sm:rounded-md flex-shrink-0 z-10 inline-flex items-center px-2 text-sm font-medium text-center bg-secondary border border-gray-300 rounded-s-lg hover:bg-primary focus:ring-4 focus:outline-none focus:ring-gray-100 duration-150"
           title="Select category"
+          onChange={handleChangeOption}
         >
           <option value="">All</option>
-          <option value="tops">Tops</option>
-          <option value="bottoms">Bottoms</option>
-          <option value="accessories">Accessories</option>
+          <option value="men's clothing">Men</option>
+          <option value="women's clothing">Women</option>
+          <option value="jewelery">Jewelery</option>
         </select>
 
         <div className="relative w-full">
@@ -21,6 +38,8 @@ const Search = () => {
             placeholder="Search product"
             required
             title="Search product"
+            value={value}
+            onChange={handleChangeInput}
           />
           <button
             type="submit"

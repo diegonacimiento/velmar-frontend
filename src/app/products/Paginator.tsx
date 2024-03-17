@@ -20,7 +20,6 @@ const Paginator = ({ endPage, page }: { page: number; endPage?: boolean }) => {
   };
 
   const handleNext = () => {
-    // if(productsLength && currentPage === Math.ceil(productsLength / 5)) return;
     if(endPage) return;
     setCurrentPage((prev) => prev + 1);
     router.push(`/products/page/${currentPage + 1}`);

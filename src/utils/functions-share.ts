@@ -29,8 +29,6 @@ export const getProducts = async (
 
   let products = response.data;
 
-  console.log(products);
-
   if (limit) {
     products = response.data.slice(offset, limit);
   }
