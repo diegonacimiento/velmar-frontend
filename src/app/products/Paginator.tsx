@@ -16,13 +16,13 @@ const Paginator = ({ endPage, page }: { page: number; endPage?: boolean }) => {
 
     setCurrentPage((prev) => prev - 1);
 
-    router.push(`/products/page/${currentPage - 1}`);
+    router.push(`/page/${currentPage - 1}`);
   };
 
   const handleNext = () => {
     if(endPage) return;
     setCurrentPage((prev) => prev + 1);
-    router.push(`/products/page/${currentPage + 1}`);
+    router.push(`/page/${currentPage + 1}`);
   };
 
   return (
