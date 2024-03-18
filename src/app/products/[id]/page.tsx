@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
 import axios from "axios";
 
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/app/products/components/ProductCard";
 import { Product } from "@/types/products";
-import ProductsList from "../ProductsList";
-import LoadingProducts from "../LoadingProducts";
+import ProductsList from "../components/ProductsList";
+import LoadingProducts from "../components/LoadingProducts";
 import { getProducts } from "@/utils/functions-share";
 
 const getProduct = async (id: number): Promise<Product> => {

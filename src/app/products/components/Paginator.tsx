@@ -1,28 +1,40 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const Paginator = ({ endPage, page }: { page: number; endPage?: boolean }) => {
-  const [currentPage, setCurrentPage] = useState<number>(page);
+interface PaginatorProps {
+  pageNumber: number;
+  isLastPage?: boolean;
+  url: string;
+}
+
+const Paginator: React.FC<PaginatorProps> = ({
+  pageNumber,
+  isLastPage,
+  url,
+}) => {
+  const [currentPage, setCurrentPage] = useState<number>(pageNumber);
 
   const router = useRouter();
 
-  const handleBack = () => {
-    if(currentPage === 1) return;
+  const handleBackPage = () => {
+    // Si estamos en la página 1 retornamos
+    if (currentPage === 1) return;
+    // Si estamos en la página 2 y queremos volver a la 1
     if (currentPage === 2) {
-      router.push(`/products`);
+      // Sacamos /page de la url
+      const returnPage = url.replace("/page", "");
+      router.push(returnPage);
       return;
-    };
-
+    }
     setCurrentPage((prev) => prev - 1);
-
-    router.push(`/page/${currentPage - 1}`);
+    router.push(`${url}/${currentPage - 1}`);
   };
 
-  const handleNext = () => {
-    if(endPage) return;
+  const handleNextPage = () => {
+    if (isLastPage) return; // si es la última página retornamos
     setCurrentPage((prev) => prev + 1);
-    router.push(`/page/${currentPage + 1}`);
+    router.push(`${url}/${currentPage + 1}`);
   };
 
   return (
@@ -31,7 +43,7 @@ const Paginator = ({ endPage, page }: { page: number; endPage?: boolean }) => {
         className="bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150"
         type="button"
         title="Return a page"
-        onClick={handleBack}
+        onClick={handleBackPage}
       >
         {"<-"}
       </button>
@@ -44,7 +56,7 @@ const Paginator = ({ endPage, page }: { page: number; endPage?: boolean }) => {
         className="bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150"
         type="button"
         title="Go to next page"
-        onClick={handleNext}
+        onClick={handleNextPage}
       >
         {"->"}
       </button>

@@ -4,9 +4,9 @@ import Image from "next/image";
 
 import { Product } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
-import Loading from "./Loading";
-import Amount from "./Amount";
-import BackgroundEye from "./BackgroundEye";
+import Loading from "../../../components/Loading";
+import Amount from "../../../components/Amount";
+import BackgroundEye from "../../../components/BackgroundEye";
 
 const ProductCard = ({
   product,

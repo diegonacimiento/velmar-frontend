@@ -3,14 +3,14 @@ import Image from "next/image";
 
 import Carousel from "@/components/Carousel";
 import Collection from "@/components/Collection";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/app/products/components/ProductCard";
 import {
   getCollections,
   rogersDescription,
   romanoffDescription,
   shoesDescription,
 } from "@/utils/home-page-data";
-import ProductsList from "./products/ProductsList";
+import ProductsList from "./products/components/ProductsList";
 
 const Home: React.FC = async () => {
   const { men, women, newArrivals } = await getCollections();

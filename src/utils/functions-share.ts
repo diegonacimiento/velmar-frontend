@@ -1,6 +1,7 @@
+import axios from "axios";
+
 import { Cart } from "@/types/context";
 import { Product } from "@/types/products";
-import axios from "axios";
 
 export const totalPrice = (cart: Cart[]): number => {
   const reducer = (accumulator: number, currentValue: Cart) =>
@@ -18,9 +19,15 @@ export const getProducts = async (
 
   if (category) {
     const response = await axios.get(
-      `https://fakestoreapi.com/products/category/${category}?limit=${limit}`
+      `https://fakestoreapi.com/products/category/${category}?limit=${""}`
     );
-    return response.data;
+    let products = response.data;
+
+    if (limit) {
+      products = response.data.slice(offset, limit);
+    }
+    
+    return products;
   }
 
   const response = await axios.get(

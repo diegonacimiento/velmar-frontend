@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/app/products/components/ProductCard";
 import { Product } from "@/types/products";
 
 interface ProductsListProps {

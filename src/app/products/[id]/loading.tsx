@@ -1,5 +1,5 @@
 import React from "react";
-import LoadingProducts from "../LoadingProducts";
+import LoadingProducts from "../components/LoadingProducts";
 
 const loading = () => {
   return (

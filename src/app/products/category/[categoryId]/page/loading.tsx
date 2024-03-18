@@ -1,6 +1,6 @@
 import React from "react";
 
-import LoadingPage from "./components/LoadingPage";
+import LoadingPage from "@/app/products/components/LoadingPage";
 
 const loading = () => {
   return <LoadingPage />;

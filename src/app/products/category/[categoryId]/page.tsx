@@ -1,19 +1,22 @@
-import Search from '@/components/Search';
-import { getProducts } from '@/utils/functions-share'
-import React, { Suspense } from 'react'
-import LoadingProducts from '../../LoadingProducts';
-import ProductsList from '../../ProductsList';
-import Paginator from '../../Paginator';
-import Products from '../../Products';
+import Search from "@/app/products/components/Search";
+import { getProducts } from "@/utils/functions-share";
+import React, { Suspense } from "react";
+import LoadingProducts from "../../components/LoadingProducts";
+import ProductsList from "../../components/ProductsList";
+import Paginator from "../../components/Paginator";
+import Products from "../../components/Products";
 
-const page = async ({ params: { categoryId } }: { params: { categoryId: string } }) => {
- console.log(categoryId);
-
-  // const products = await getProducts(0, 7, categoryId);
-
+const page = async ({
+  params: { categoryId },
+}: {
+  params: { categoryId: string };
+}) => {
   return (
-   <Products params={{ number: 1, category: categoryId }} />
- );
-}
+    <Products
+      params={{ number: 1, category: categoryId }}
+      url={`/products/category/${categoryId}/page`}
+    />
+  );
+};
 
-export default page
+export default page;
