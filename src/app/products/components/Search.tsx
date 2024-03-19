@@ -1,15 +1,16 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface SearchProps {
-  currentCategory: string | undefined;
+  currentCategory?: string;
+  currentSearch?: string;
 }
 
-const Search: React.FC<SearchProps> = ({ currentCategory }) => {
+const Search: React.FC<SearchProps> = ({ currentCategory, currentSearch }) => {
   const router = useRouter();
 
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(currentSearch || "");
   const [optionSelected, setOptionSelected] = useState<string>(
     decodeURIComponent(currentCategory || "")
   );
@@ -22,11 +23,16 @@ const Search: React.FC<SearchProps> = ({ currentCategory }) => {
     router.push(`/products/category/${event.target.value}`);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    router.push(`/products/results/${value}`);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-col-reverse sm:flex-row">
         <select
-          className="-sm:w-30 -sm:py-2.5 -sm:my-2 -sm:rounded-md flex-shrink-0 z-10 inline-flex items-center px-2 text-sm font-medium text-center bg-secondary border border-gray-300 rounded-s-lg hover:bg-primary focus:ring-4 focus:outline-none focus:ring-gray-100 duration-150"
+          className="-sm:w-30 -sm:py-2.5 -sm:my-2 -sm:rounded-md flex-shrink-0 z-10 inline-flex items-center px-2 text-sm font-medium text-center text-primary bg-secondary border border-gray-300 rounded-s-lg hover:bg-primary hover:text-secondary focus:ring-4 focus:outline-none focus:ring-gray-100 duration-150"
           title="Select category"
           onChange={handleChangeOption}
           value={optionSelected}
@@ -40,7 +46,7 @@ const Search: React.FC<SearchProps> = ({ currentCategory }) => {
         <div className="relative w-full">
           <input
             type="search"
-            className="block p-2.5 w-full z-20 text-sm bg-primary rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 -sm:rounded-md -sm:border-2 -sm:border-gray-300"
+            className="block p-2.5 w-full z-20 text-sm text-secondary bg-primary rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 -sm:rounded-md -sm:border-2 -sm:border-gray-300"
             placeholder="Search product"
             required
             title="Search product"
@@ -50,7 +56,7 @@ const Search: React.FC<SearchProps> = ({ currentCategory }) => {
           <button
             type="submit"
             title="Search"
-            className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full bg-secondary rounded-e-lg border border-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 duration-150"
+            className="absolute top-0 end-0 p-2.5 text-sm text-primary font-medium h-full bg-secondary rounded-e-lg border border-secondary hover:bg-primary hover:text-secondary focus:ring-4 focus:outline-none focus:ring-blue-300 duration-150"
           >
             <svg
               className="w-4 h-4"

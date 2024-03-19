@@ -13,9 +13,25 @@ export const totalPrice = (cart: Cart[]): number => {
 export const getProducts = async (
   offset?: number,
   limit?: number,
-  category?: string
+  category?: string,
+  name?: string
 ): Promise<Product[]> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+
+  if(name) {
+    const response = await axios.get<Product[]>(
+      `https://fakestoreapi.com/products?limit=${""}`
+      );
+    let products = response.data.filter((product) => {
+      return product.title.toLowerCase().includes(name.toLowerCase())
+    });
+
+    if (limit) {
+      products = products.slice(offset, limit);
+    }
+    
+    return products;
+  }
 
   if (category) {
     const response = await axios.get(
@@ -24,7 +40,7 @@ export const getProducts = async (
     let products = response.data;
 
     if (limit) {
-      products = response.data.slice(offset, limit);
+      products = products.slice(offset, limit);
     }
     
     return products;
@@ -37,7 +53,7 @@ export const getProducts = async (
   let products = response.data;
 
   if (limit) {
-    products = response.data.slice(offset, limit);
+    products = products.slice(offset, limit);
   }
 
   return products;

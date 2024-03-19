@@ -13,7 +13,7 @@ const page = async ({
 }) => {
   return (
     <Products
-      params={{ number: 1, category: categoryId }}
+      params={{ currentPage: 1, category: categoryId }}
       url={`/products/category/${categoryId}/page`}
     />
   );

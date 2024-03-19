@@ -10,7 +10,7 @@ const LoadingPage = () => {
         <div className="sm:hidden my-2 h-[2.5625rem] w-30 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 w-full">
         <LoadingProducts length={6} />
       </div>
 

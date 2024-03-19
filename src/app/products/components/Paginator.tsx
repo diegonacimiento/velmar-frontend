@@ -40,7 +40,10 @@ const Paginator: React.FC<PaginatorProps> = ({
   return (
     <div className="flex flex-wrap gap-4 justify-center p-4">
       <button
-        className="bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150"
+        className={
+          "bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150 " +
+          (pageNumber === 1 && "opacity-0 cursor-default")
+        }
         type="button"
         title="Return a page"
         onClick={handleBackPage}
@@ -48,12 +51,15 @@ const Paginator: React.FC<PaginatorProps> = ({
         {"<-"}
       </button>
 
-      <span className="rounded-md bg-primary p-1 w-8 text-sm text-secondary text-center duration-150">
+      <span className="rounded-md bg-primary p-1 w-8 text-sm text-secondary text-center select-none duration-150">
         {currentPage}
       </span>
 
       <button
-        className="bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150"
+        className={
+          "bt-paginator rounded-md bg-secondary p-1 w-8 text-sm text-body active:bg-primary active:text-secondary active:scale-105 duration-150 " +
+          (isLastPage && "opacity-0 cursor-default")
+        }
         type="button"
         title="Go to next page"
         onClick={handleNextPage}

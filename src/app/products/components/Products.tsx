@@ -6,16 +6,16 @@ import Paginator from "./Paginator";
 import { getProducts } from "@/utils/functions-share";
 
 const Products = async ({
-  params: { number, category },
+  params: { currentPage, category, name },
   url,
 }: {
-  params: { number: number; category?: string };
+  params: { currentPage: number; category?: string; name?: string };
   url: string;
 }) => {
-  const offset = (number - 1) * 3;
+  const offset = (currentPage - 1) * 3;
   const limit = offset + 4;
 
-  const products = await getProducts(offset, limit, category);
+  const products = await getProducts(offset, limit, category, name);
 
   const isLastPage = products.length < 4;
 
@@ -24,14 +24,22 @@ const Products = async ({
   return (
     <div className="py-6 w-full max-w-2k">
       <div className="py-3 m-auto w-11/12 max-w-650">
-        <Search currentCategory={category} />
+        <Search currentCategory={category} currentSearch={name} />
       </div>
 
       <div className="p-4">
-        <ProductsList products={products} />
+        {products.length === 0 ? (
+          <h3 className="text-xl text-center text-secondary font-semibold">Product not found...</h3>
+        ) : (
+          <ProductsList products={products} />
+        )}
       </div>
 
-      <Paginator pageNumber={Number(number)} isLastPage={isLastPage} url={url} />
+      <Paginator
+        pageNumber={Number(currentPage)}
+        isLastPage={isLastPage}
+        url={url}
+      />
     </div>
   );
 };
