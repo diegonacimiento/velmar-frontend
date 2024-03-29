@@ -1,10 +1,35 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { MdErrorOutline } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
+import { AuthService } from "@/services/auth.service";
+
+const authService = new AuthService();
 
 const SignIn = () => {
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const handleSubmit = async (formData: any) => {
+    try {
+      setError("");
+      setLoading(true);
+      await authService.signIn(formData);
+      router.push("/");
+    } catch (err: any) {
+      setLoading(false);
+      console.error(err);
+      if (err.response.status === 401) {
+        setError("Email or password incorrect");
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 mx-4 sm:mx-24 my-24 rounded-lg shadow-md w-500p bg-primary text-secondary">
       <h2 className="text-xl sm:text-2x font-semibold">
@@ -25,8 +50,16 @@ const SignIn = () => {
             value: "",
           },
         ]}
-        onSubmit={(dataForm) => console.log(dataForm)}
+        onSubmit={(dataForm) => handleSubmit(dataForm)}
       />
+
+      <p className="flex items-center gap-1 mb-4 h-5 text-red-600">
+        {error && (
+          <>
+            <MdErrorOutline /> {error}
+          </>
+        )}
+      </p>
 
       <Link
         href="sign-in/forgot-password"
