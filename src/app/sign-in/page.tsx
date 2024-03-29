@@ -5,9 +5,8 @@ import { MdErrorOutline } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
-import { AuthService } from "@/services/auth.service";
-
-const authService = new AuthService();
+import { signIn } from "@/services/auth.service";
+import { SignInData } from "@/types/form";
 
 const SignIn = () => {
   const [error, setError] = useState<string>("");
@@ -15,11 +14,11 @@ const SignIn = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: SignInData) => {
     try {
       setError("");
       setLoading(true);
-      await authService.signIn(formData);
+      await signIn(formData);
       router.push("/");
     } catch (err: any) {
       setLoading(false);
