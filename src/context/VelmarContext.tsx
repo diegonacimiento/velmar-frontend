@@ -8,9 +8,12 @@ export const VelmarContext = createContext<Context>({} as Context);
 
 export const VelmarContextProvider = ({
   children,
+  auth,
 }: {
   children: React.ReactNode;
+  auth: boolean;
 }) => {
+  const [isAuth, setIsAuth] = useState<boolean>(auth);
   const [addressValue, setAddressValue] = useState<string>("");
   const [cart, setCart] = useState<Cart[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,6 +55,8 @@ export const VelmarContextProvider = ({
   return (
     <VelmarContext.Provider
       value={{
+        isAuth,
+        setIsAuth,
         addressValue,
         updateAddressValue,
         cart,

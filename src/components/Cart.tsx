@@ -8,7 +8,7 @@ import useVelmarContext from "@/hooks/useVelmarContext";
 import { Cart } from "@/types/context";
 
 const Cart = () => {
-  const { cart } = useVelmarContext();
+  const { cart, isAuth } = useVelmarContext();
   const [cartLength, setCartLength] = useState<number>(0);
 
   useEffect(() => {
@@ -19,6 +19,9 @@ const Cart = () => {
   }, [cart]);
 
   const path = usePathname();
+
+  if(!isAuth) return <></>
+
   return (
     <Link href="/cart" className="relative group">
       <button

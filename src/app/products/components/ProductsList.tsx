@@ -8,7 +8,7 @@ interface ProductsListProps {
   products: Product[];
 }
 
-const ProductsList: React.FC<ProductsListProps> = async ({ products }) => {
+const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
   return (
     <div className="flex justify-center gap-7 p-2 sm:p-4 w-full flex-wrap">
       {products.map((product) => (

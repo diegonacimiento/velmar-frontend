@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { VelmarContextProvider } from "@/context/VelmarContext";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookiesSearch = cookies();
+  const cookie = cookiesSearch.get(`${process.env.COOKIE_NAME}`);
+  const isAuth = cookie ? true : false;
+
   return (
-    <VelmarContextProvider>
+    <VelmarContextProvider auth={isAuth}>
       <html lang="en">
         <body className={inter.className}>
           <Header />

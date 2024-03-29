@@ -7,6 +7,7 @@ import useVelmarContext from "@/hooks/useVelmarContext";
 import Loading from "../../../components/Loading";
 import Amount from "../../../components/Amount";
 import BackgroundEye from "../../../components/BackgroundEye";
+import { useRouter } from "next/navigation";
 
 const ProductCard = ({
   product,
@@ -19,7 +20,9 @@ const ProductCard = ({
   const [amount, setAmount] = useState<number>(1);
   const [btIsChecked, setBtIsChecked] = useState<boolean>(false);
 
-  const { updateCart } = useVelmarContext();
+  const { updateCart, isAuth } = useVelmarContext();
+
+  const router = useRouter();
 
   const handleLoading = () => {
     setLoading(false);
@@ -30,10 +33,14 @@ const ProductCard = ({
     : "md:flex-row gap-12 sm:px-4 py-8 m-auto max-w-6xl";
 
   const handleAddToCart = () => {
-    updateCart(product, amount);
-    setAmount(1);
-    setBtIsChecked(true);
-    setTimeout(() => setBtIsChecked(false), 5000);
+    if (isAuth) {
+      updateCart(product, amount);
+      setAmount(1);
+      setBtIsChecked(true);
+      setTimeout(() => setBtIsChecked(false), 5000);
+    } else {
+      router.push("/sign-in");
+    }
   };
 
   return (
