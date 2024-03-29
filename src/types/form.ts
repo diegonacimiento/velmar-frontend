@@ -12,4 +12,5 @@ export interface FormProps {
  fields: Field[];
  dropdown?: { label: string; options: string[] };
  page?: string;
+ loading?: boolean;
 }

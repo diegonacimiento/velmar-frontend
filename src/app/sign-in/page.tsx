@@ -24,7 +24,7 @@ const SignIn = () => {
     } catch (err: any) {
       setLoading(false);
       console.error(err);
-      if (err.response.status === 401) {
+      if (err.response?.status === 401) {
         setError("Email or password incorrect");
       }
     }
@@ -51,9 +51,10 @@ const SignIn = () => {
           },
         ]}
         onSubmit={(dataForm) => handleSubmit(dataForm)}
+        loading={loading}
       />
 
-      <p className="flex items-center gap-1 mb-4 h-5 text-red-600">
+      <p className="flex items-center gap-1 mb-4 min-h-5 text-sm sm:text-base text-red-600">
         {error && (
           <>
             <MdErrorOutline /> {error}

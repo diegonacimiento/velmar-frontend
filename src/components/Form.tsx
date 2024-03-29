@@ -5,6 +5,7 @@ import validateForm from "@/utils/validate-form";
 import { Field, FormProps } from "@/types/form";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Loading from "./Loading";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -12,6 +13,7 @@ const Form: React.FC<FormProps> = ({
   fields,
   dropdown,
   page,
+  loading,
 }) => {
   const [formFields, setFormFields] = useState<Field[]>(fields);
 
@@ -118,11 +120,11 @@ const Form: React.FC<FormProps> = ({
         </div>
       )}
       <button
-        type="submit"
+        type={ loading ? "button" : "submit" }
         title={buttonText}
         className="p-3 mt-4 text-primary bg-secondary hover:bg-body hover:text-secondary hover:scale-105 duration-150"
       >
-        {buttonText}
+        {loading ? <Loading /> : buttonText}
       </button>
     </form>
   );

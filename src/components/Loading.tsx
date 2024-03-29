@@ -8,7 +8,7 @@ const Loading = () => {
     >
       <svg
         aria-hidden="true"
-        className="w-8 h-8 text-primary animate-spin dark:text-primary fill-secondary"
+        className="w-6 h-6 text-primary animate-spin dark:text-primary fill-secondary"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
