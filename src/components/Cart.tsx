@@ -20,7 +20,7 @@ const Cart = () => {
 
   const path = usePathname();
 
-  if(!isAuth) return <></>
+  if(!isAuth) return <div className="w-[3.25rem]"></div>
 
   return (
     <Link href="/cart" className="relative group">
