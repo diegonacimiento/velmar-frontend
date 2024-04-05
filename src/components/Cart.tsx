@@ -30,6 +30,7 @@ const Cart = () => {
           (path.includes("/cart") ? "text-secondary" : "")
         }
         type="button"
+        title="Cart"
       >
         <MdOutlineShoppingCart />
       </button>

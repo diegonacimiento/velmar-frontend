@@ -43,6 +43,10 @@ const ProductCard = ({
     }
   };
 
+  const goToEditProduct = () => {
+    router.push(`/products/update/${product.id}`);
+  };
+
   return (
     <div className="relative">
       {isAll && <BackgroundEye />}
@@ -79,6 +83,20 @@ const ProductCard = ({
           </h1>
           <p className="text-lg font-semibold w-30 ">$ {product.price}</p>
 
+          {roleUser === "salesperson" && !isAll && (
+            <>
+              <button
+                type="button"
+                title="Edit product"
+                className="border-2 border-secondary p-2 bg-secondary rounded-md text-lg font-semibold hover:scale-105 hover:bg-primary duration-150 w-full max-w-40"
+                onClick={goToEditProduct}
+              >
+                Edit product
+              </button>
+              <p className="font-medium">Do you want to simulate a purchase?</p>
+            </>
+          )}
+
           {!isAll && (
             <>
               <div className="flex items-center justify-between gap-4">
@@ -96,9 +114,7 @@ const ProductCard = ({
                     onClick={handleAddToCart}
                     id="bt-addToCart"
                   >
-                    {roleUser === "salesperson"
-                      ? "Edit product"
-                      : "Add to cart"}
+                    Add to cart
                   </button>
                 )}
               </div>
