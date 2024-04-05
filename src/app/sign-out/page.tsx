@@ -8,7 +8,7 @@ import useVelmarContext from "@/hooks/useVelmarContext";
 const SignOutPage = () => {
   const [error, setError] = useState<string>("");
 
-  const { setIsAuth } = useVelmarContext();
+  const { setIsAuth, setRoleUser } = useVelmarContext();
 
   const router = useRouter();
 
@@ -16,7 +16,8 @@ const SignOutPage = () => {
     try {
       await signOut();
       setIsAuth(false);
-      router.push("/");
+      setRoleUser(null);
+      router.back();
     } catch (error) {
       console.error(error);
       setError("There's been a problem. Please try again later");

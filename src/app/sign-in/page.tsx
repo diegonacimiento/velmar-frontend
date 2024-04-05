@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
 import { signIn } from "@/services/auth.service";
-import { SignInData } from "@/types/form";
+import { SignInData } from "@/types/auth";
 import useVelmarContext from "@/hooks/useVelmarContext";
 
 const SignIn = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { setIsAuth } = useVelmarContext();
+  const { setIsAuth, setRoleUser } = useVelmarContext();
 
   const router = useRouter();
 
@@ -21,8 +21,9 @@ const SignIn = () => {
     try {
       setError("");
       setLoading(true);
-      await signIn(formData);
+      const response = await signIn(formData);
       setIsAuth(true);
+      setRoleUser(response.role);
       router.back();
     } catch (err: any) {
       setLoading(false);

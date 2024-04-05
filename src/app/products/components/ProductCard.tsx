@@ -20,7 +20,7 @@ const ProductCard = ({
   const [amount, setAmount] = useState<number>(1);
   const [btIsChecked, setBtIsChecked] = useState<boolean>(false);
 
-  const { updateCart, isAuth } = useVelmarContext();
+  const { updateCart, isAuth, roleUser } = useVelmarContext();
 
   const router = useRouter();
 
@@ -96,7 +96,9 @@ const ProductCard = ({
                     onClick={handleAddToCart}
                     id="bt-addToCart"
                   >
-                    Add to cart
+                    {roleUser === "salesperson"
+                      ? "Edit product"
+                      : "Add to cart"}
                   </button>
                 )}
               </div>

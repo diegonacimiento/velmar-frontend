@@ -14,8 +14,3 @@ export interface FormProps {
   page?: string;
   loading?: boolean;
 }
-
-export interface SignInData {
-  "your email": string;
-  "your password": string;
-}
