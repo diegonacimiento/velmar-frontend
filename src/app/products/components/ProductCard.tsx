@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { Product } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import Loading from "../../../components/Loading";
 import Amount from "../../../components/Amount";
 import BackgroundEye from "../../../components/BackgroundEye";
-import { useRouter } from "next/navigation";
 
 const ProductCard = ({
   product,
@@ -55,7 +55,7 @@ const ProductCard = ({
         <figure
           className={
             "relative w-full duration-150 " +
-            (loading ? "bg-transparent" : "bg-white py-3") +
+            (loading ? "bg-transparent" : "") +
             (isAll ? " h-80" : " h-full")
           }
         >
@@ -69,17 +69,17 @@ const ProductCard = ({
               "w-full h-full object-contain duration-150 " +
               (loading ? "opacity-0" : "opacity-100")
             }
-            src={product.image}
-            alt={product.title}
-            width={500}
-            height={500}
+            src={product.images[0].urls[0]}
+            alt={product.name}
+            width={960}
+            height={1170}
             onLoad={handleLoading}
           />
         </figure>
 
         <div className="flex flex-col gap-6 px-4 w-full">
           <h1 className={"text-lg font-bold " + (isAll && "line-clamp-2 h-14")}>
-            {product.title}
+            {product.name}
           </h1>
           <p className="text-lg font-semibold w-30 ">$ {product.price}</p>
 

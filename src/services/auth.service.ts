@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { SignInData } from "@/types/form";
+import { SignInData } from "@/types/auth";
 
 export const signIn = async (payload: SignInData) => {
   try {

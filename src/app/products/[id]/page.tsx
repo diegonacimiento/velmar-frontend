@@ -5,17 +5,12 @@ import ProductCard from "@/app/products/components/ProductCard";
 import { Product } from "@/types/products";
 import ProductsList from "../components/ProductsList";
 import LoadingProducts from "../components/LoadingProducts";
-import { getProducts } from "@/utils/functions-share";
-
-const getProduct = async (id: number): Promise<Product> => {
-  const response = await axios.get("https://fakestoreapi.com/products/" + id);
-  return response.data;
-};
+import { getProduct, getProducts } from "@/services/products.service";
 
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
 
-  const products = (await getProducts(0, 6, product.category)).filter(
+  const products = (await getProducts(0, 6, product.categories)).filter(
     (item) => item.id !== product.id
   );
 

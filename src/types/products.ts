@@ -1,21 +1,26 @@
 export interface Product {
- id: number;
+  id: number;
 
- title: string;
+  name: string;
 
- description: string;
+  description: string;
 
- price: number;
+  price: number;
 
- stock: number;
+  images: ImageProduct[];
 
- image: string;
+  brand: any;
 
- brand: string;
+  categories: any;
 
- category: string;
+  creationAt: string;
 
- creationAt: string;
+  updatedAt: string;
 
- updatedAt: string;
+  deletedAt: string;
+}
+
+export interface ImageProduct {
+  color: string;
+  urls: string[];
 }

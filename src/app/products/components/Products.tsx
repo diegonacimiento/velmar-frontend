@@ -3,7 +3,7 @@ import React from "react";
 import Search from "@/app/products/components/Search";
 import ProductsList from "./ProductsList";
 import Paginator from "./Paginator";
-import { getProducts } from "@/utils/functions-share";
+import { getProducts } from "@/services/products.service";
 
 const Products = async ({
   params: { currentPage, category, name },
