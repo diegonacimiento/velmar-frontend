@@ -4,13 +4,15 @@ import { MdOutlineClose } from "react-icons/md";
 
 import { ImageProduct, Product } from "@/types/products";
 import { brandsList, categoriesList, mainColors } from "@/utils/temporal";
+import ModalMsg from "./ModalMsg";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
   product: Product;
   handleCurrentImage: (color: string) => void;
   allImages: ImageProduct[];
-  handleNewColors: (color: string) => void;
+  handleNewColor: (color: string) => void;
+  removeColor: (color: string) => void;
 }
 
 const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
@@ -18,7 +20,8 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   product,
   handleCurrentImage,
   allImages,
-  handleNewColors,
+  handleNewColor,
+  removeColor,
 }) => {
   const [valuesFields, setValuesFields] = useState({
     name: product.name,
@@ -34,6 +37,21 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   );
 
   const [openColors, setOpenColors] = useState<boolean>(false);
+  const [modalMsg, setModalMsg] = useState<boolean>(false);
+  const [colorDelete, setColorDelete] = useState<string>("");
+
+  const toggleModal = (color: string) => {
+    setColorDelete(color);
+    setModalMsg((prev) => !prev);
+  };
+
+  const handleRemoveColor = (color: string) => {
+    removeColor(color);
+    const newColorsImage = colorsImage.filter((colorImage) => colorImage !== color);
+    setColorsImage(newColorsImage);
+    setColorsList((prev) => [...prev, color].sort());
+    toggleModal("");
+  }
 
   const handleColorSelect = (color: string) => {
     const prevColorsImage = colorsImage;
@@ -41,7 +59,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     setColorsImage(prevColorsImage);
     const newColorList = colorsList.filter((element) => element !== color);
     setColorsList(newColorList);
-    handleNewColors(color);
+    handleNewColor(color);
     toggleOpenColors();
   };
 
@@ -101,52 +119,63 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
       {/* Colors input */}
       <label className="px-1 text-sm font-light mt-2">Colors:</label>
       <div className="relative flex p-3 bg-primary rounded-lg">
-        {/* Available colors  */}
-        <div
-          className={openColors ? "flex flex-col gap-2 items-center" : "hidden"}
-        >
-          <button
-            type="button"
-            className="max-w-20 px-2 rounded-lg border border-secondary hover:bg-body duration-150"
-            onClick={toggleOpenColors}
-          >
-            Close
-          </button>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {colorsList.map((color, index) => (
-              <div
-                key={index}
-                style={{ backgroundColor: color }}
-                className={`flex justify-center items-center rounded-full w-8 h-8 cursor-pointer hover:opacity-50 duration-150`}
-                onClick={() => handleColorSelect(color)}
-              ></div>
-            ))}
-          </div>
-        </div>
-
-        {/* Image colors */}
-        <div className={openColors ? "hidden" : "flex gap-2"}>
-          {colorsImage.map((color, index) => (
-            <div key={index} className="relative">
-              <div
-                style={{ backgroundColor: color }}
-                className={`flex justify-center items-center rounded-full w-8 h-8 cursor-pointer hover:opacity-70 hover:border-2 hover:border-secondary duration-150`}
-                onClick={() => handleCurrentImage(color)}
-              ></div>
-              <div className="absolute flex justify-center items-center -top-2 -right-1 rounded-full bg-secondary h-5 w-5 text-primary hover:bg-red-600 hover:scale-110 z-10 duration-150">
-                <MdOutlineClose />
+        {modalMsg ? (
+          <ModalMsg modalMsg={modalMsg} toggleModal={toggleModal} colorDelete={colorDelete} handleRemoveColor={handleRemoveColor} />
+        ) : (
+          <>
+            {/* Available colors  */}
+            <div
+              className={
+                openColors ? "flex flex-col gap-2 items-center" : "hidden"
+              }
+            >
+              <button
+                type="button"
+                className="max-w-20 px-2 rounded-lg border border-secondary hover:bg-body duration-150"
+                onClick={toggleOpenColors}
+              >
+                Close
+              </button>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {colorsList.map((color, index) => (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: color }}
+                    className={`flex justify-center items-center rounded-full w-8 h-8 cursor-pointer hover:opacity-50 duration-150`}
+                    onClick={() => handleColorSelect(color)}
+                  ></div>
+                ))}
               </div>
             </div>
-          ))}
-          <button
-            type="button"
-            title="Add color"
-            className="flex justify-center items-center rounded-full w-8 h-8 bg-gray-400 text-white cursor-pointer hover:opacity-50 duration-150"
-            onClick={toggleOpenColors}
-          >
-            +
-          </button>
-        </div>
+
+            {/* Image colors */}
+            <div className={openColors ? "hidden" : "flex gap-2"}>
+              {colorsImage.map((color, index) => (
+                <div key={index} className="relative">
+                  <div
+                    style={{ backgroundColor: color }}
+                    className={`flex justify-center items-center rounded-full w-8 h-8 cursor-pointer hover:opacity-70 hover:border-2 hover:border-secondary duration-150`}
+                    onClick={() => handleCurrentImage(color)}
+                  ></div>
+                  <div
+                    className="absolute flex justify-center items-center -top-2 -right-1 rounded-full bg-red-600 h-5 w-5 text-primary hover:scale-110 z-10 duration-150"
+                    onClick={() => toggleModal(color)}
+                  >
+                    <MdOutlineClose />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                title="Add color"
+                className="flex justify-center items-center rounded-full w-8 h-8 bg-gray-400 text-white cursor-pointer hover:opacity-50 duration-150"
+                onClick={toggleOpenColors}
+              >
+                +
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Categories input */}

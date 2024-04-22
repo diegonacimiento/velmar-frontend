@@ -1,22 +1,22 @@
 export const mainColors = [
-  'red',        // Rojo
-  'blue',       // Azul
-  'green',      // Verde
-  'yellow',     // Amarillo
-  'orange',     // Naranja
-  'purple',     // Púrpura
-  'pink',       // Rosado
   'black',      // Negro
-  'white',      // Blanco
-  'gray',       // Gris
+  'blue',       // Azul
   'brown',      // Marrón
   'cyan',       // Cian
-  'magenta',    // Magenta
-  'lime',       // Lima
-  'teal',       // Verde azulado
+  'gray',       // Gris
+  'green',      // Verde
   'indigo',     // Índigo
+  'lime',       // Lima
+  'magenta',    // Magenta
+  'navy',        // Azul marino
+  'orange',     // Naranja
+  'pink',       // Rosado
+  'purple',     // Púrpura
+  'red',        // Rojo
+  'teal',       // Verde azulado
   'violet',     // Violeta
-  'navy'        // Azul marino
+  'white',      // Blanco
+  'yellow',     // Amarillo
 ];
 
 export const categoriesList = [

@@ -14,7 +14,6 @@ export const getProducts = async (
       (limit ? `?limit=${limit}` : "") +
       (offset ? `&offset=${offset}` : "") +
       (name ? `?name=${name}` : "");
-      console.log(params);
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_URL}/products${params}`,
       {
@@ -41,7 +40,6 @@ export const getProduct = async (id: number): Promise<Product> => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

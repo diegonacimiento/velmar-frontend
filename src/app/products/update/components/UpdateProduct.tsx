@@ -22,6 +22,12 @@ const UpdateProduct = ({ product }: { product: Product }) => {
     toggleSelector();
   };
 
+  const removeColor = (color: string) => {
+    const newImagesList = allImages.filter((image) => image.color !== color);
+    setAllImages(newImagesList);
+    setImage(allImages[0]);
+  };
+
   const handleNewImages = (urls: string[]) => {
     if (newColor) {
       const newImage = { color: newColor, urls };
@@ -78,7 +84,8 @@ const UpdateProduct = ({ product }: { product: Product }) => {
               product={product}
               handleCurrentImage={handleCurrentImage}
               allImages={allImages}
-              handleNewColors={handleNewColor}
+              handleNewColor={handleNewColor}
+              removeColor={removeColor}
             />
           </>
         )}
