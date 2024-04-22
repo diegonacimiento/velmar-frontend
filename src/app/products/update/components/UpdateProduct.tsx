@@ -25,7 +25,9 @@ const UpdateProduct = ({ product }: { product: Product }) => {
   const removeColor = (color: string) => {
     const newImagesList = allImages.filter((image) => image.color !== color);
     setAllImages(newImagesList);
-    setImage(allImages[0]);
+    if (color === image.color) {
+      setImage(allImages[0]);
+    }
   };
 
   const handleNewImages = (urls: string[]) => {

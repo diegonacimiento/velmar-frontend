@@ -1,22 +1,29 @@
 import React from "react";
 
 interface ModalMsgProps {
-  modalMsg: boolean;
+  isOpenModal: boolean;
   toggleModal: (color: string) => void;
   colorDelete: string;
   handleRemoveColor: (color: string) => void;
 }
 
-const ModalMsg: React.FC<ModalMsgProps> = ({ modalMsg, toggleModal, colorDelete, handleRemoveColor }) => {
+const ModalMsg: React.FC<ModalMsgProps> = ({
+  isOpenModal,
+  toggleModal,
+  colorDelete,
+  handleRemoveColor,
+}) => {
   return (
     <div
       className={
-        modalMsg
+        isOpenModal
           ? "flex flex-col justify-center items-center m-auto"
           : "hidden"
       }
     >
-      <p className="p-4 text-lg text-center">Are you sure you want to remove the color?</p>
+      <p className="p-4 text-lg text-center">
+        Are you sure you want to remove the color?
+      </p>
       <div className="flex justify-evenly max-w-80 w-full">
         <button
           title="No"
