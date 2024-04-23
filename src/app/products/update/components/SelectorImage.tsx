@@ -1,40 +1,47 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { IoMdCheckmark } from "react-icons/io";
+import { MdErrorOutline } from "react-icons/md";
 
 interface SelectorImageProps {
   handleNewColor: (color: string) => void;
   handleNewImages: (urls: string[]) => void;
+  currentImages: string[];
 }
 
 const SelectorImage: React.FC<SelectorImageProps> = ({
   handleNewColor,
   handleNewImages,
+  currentImages,
 }) => {
+  const [selectedImages, setSelectedImages] = useState<string[]>(currentImages);
+  const [noImagesError, setNoImagesError] = useState<boolean>(false);
+
+  const handleSelectImage = (url: string) => {
+    setNoImagesError(false);
+    if (selectedImages.includes(url)) {
+      const newSelectedImages = selectedImages.filter((image) => image !== url);
+      setSelectedImages(newSelectedImages);
+      return;
+    }
+    setSelectedImages((prev) => [...prev, url]);
+  };
+
+  const handleAddImages = () => {
+    if (selectedImages.length === 0) {
+      setNoImagesError(true);
+      return;
+    }
+    handleNewImages(selectedImages);
+  };
+
   const handleCancel = () => {
     handleNewColor("");
   };
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-wrap gap-8 justify-center items-center">
-        {enlaces.map((image, index) => (
-          <figure
-            key={index}
-            className="cursor-pointer hover:scale-105 duration-150"
-            onClick={() => handleNewImages([image])}
-          >
-            <Image
-              src={image}
-              alt={index.toString()}
-              width={960}
-              height={1170}
-              className="w-80"
-            />
-          </figure>
-        ))}
-      </div>
-
-      <div className="flex justify-evenly">
+      <div className="flex flex-col sm:flex-row justify-evenly">
         <button
           title="Cancel"
           type="button"
@@ -45,12 +52,50 @@ const SelectorImage: React.FC<SelectorImageProps> = ({
         </button>
 
         <button
-          title="Select"
+          title="Add"
           type="button"
-          className="p-3 my-4 min-w-56 text-primary bg-secondary hover:scale-105 duration-150"
+          className="relative p-3 my-4 min-w-56 text-primary bg-secondary hover:scale-105 duration-150"
+          onClick={handleAddImages}
         >
-          Select
+          Add
         </button>
+      </div>
+
+      <div className="flex justify-center items-center gap-1 p-4 h-14 text-red-600">
+        {noImagesError && (
+          <>
+            <MdErrorOutline />
+            <p>You must select at least one image</p>
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-wrap gap-8 justify-center items-center h-600p overflow-y-auto p-4">
+        {enlaces.map((image, index) => (
+          <figure
+            key={index}
+            className="relative cursor-pointer hover:scale-105 duration-150"
+            onClick={() => handleSelectImage(image)}
+          >
+            <div
+              className={
+                selectedImages.includes(image)
+                  ? "absolute flex justify-center items-center h-full w-full"
+                  : "hidden"
+              }
+            >
+              <div className="absolute bg-secondary h-full w-full opacity-60"></div>
+              <IoMdCheckmark className="z-10 text-5xl text-primary" />
+            </div>
+            <Image
+              src={image}
+              alt={index.toString()}
+              width={960}
+              height={1170}
+              className="w-80"
+            />
+          </figure>
+        ))}
       </div>
     </div>
   );

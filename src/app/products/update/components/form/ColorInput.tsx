@@ -105,12 +105,16 @@ const ColorInput: React.FC<ColorInputProps> = ({
                     className={`flex justify-center items-center rounded-full w-8 h-8 cursor-pointer hover:opacity-70 hover:border-2 hover:border-secondary duration-150`}
                     onClick={() => handleCurrentImage(color)}
                   ></div>
-                  <div
-                    className="absolute flex justify-center items-center -top-2 -right-1 rounded-full bg-red-600 h-5 w-5 text-primary hover:scale-110 z-10 duration-150"
-                    onClick={() => toggleModal(color)}
-                  >
-                    <MdOutlineClose />
-                  </div>
+                  {colorsImage.length > 1 && (
+                    <button
+                      type="button"
+                      title="Delete"
+                      className="absolute flex justify-center items-center -top-2 -right-1 rounded-full bg-red-600 h-5 w-5 text-primary hover:scale-110 z-10 duration-150"
+                      onClick={() => toggleModal(color)}
+                    >
+                      <MdOutlineClose />
+                    </button>
+                  )}
                 </div>
               ))}
               <button

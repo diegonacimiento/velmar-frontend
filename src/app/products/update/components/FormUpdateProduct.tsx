@@ -43,7 +43,15 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     <form
       onSubmit={handleSubmit}
       className="flex flex-col gap-2 w-full md:w-1/2 text-secondary"
-    >
+      >
+      {/* Colors input */}
+
+      <ColorInput
+        allImages={allImages}
+        handleCurrentImage={handleCurrentImage}
+        handleNewColor={handleNewColor}
+        removeColor={removeColor}
+      />
       {/* Name input */}
       <label className={`px-1 text-sm font-light mt-2`}>Name</label>
       <input
@@ -79,14 +87,6 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
         maxLength={600}
       />
 
-      {/* Colors input */}
-
-      <ColorInput
-        allImages={allImages}
-        handleCurrentImage={handleCurrentImage}
-        handleNewColor={handleNewColor}
-        removeColor={removeColor}
-      />
 
       {/* Categories input */}
       <div className="flex flex-col">

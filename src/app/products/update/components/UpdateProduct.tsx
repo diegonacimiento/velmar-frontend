@@ -66,6 +66,7 @@ const UpdateProduct = ({ product }: { product: Product }) => {
           <SelectorImage
             handleNewImages={handleNewImages}
             handleNewColor={handleNewColor}
+            currentImages={newColor ? [] : image.urls}
           />
         ) : (
           <>
