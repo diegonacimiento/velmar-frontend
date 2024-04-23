@@ -30,6 +30,14 @@ const UpdateProduct = ({ product }: { product: Product }) => {
     }
   };
 
+  const removeImages = (urls: string[]) => {
+    const index = allImages.findIndex((i) => i.color === image.color);
+    const temporalAllImages = allImages;
+    temporalAllImages[index] = { color: image.color, urls };
+    setAllImages(temporalAllImages);
+    handleCurrentImage(image.color);
+  };
+
   const handleNewImages = (urls: string[]) => {
     if (newColor) {
       const newImage = { color: newColor, urls };
@@ -37,11 +45,7 @@ const UpdateProduct = ({ product }: { product: Product }) => {
       setImage(newImage);
       setNewColor("");
     } else {
-      const index = allImages.findIndex((i) => i.color === image.color);
-      const temporalImages = allImages;
-      temporalImages[index].urls = urls;
-      setAllImages(temporalImages);
-      handleCurrentImage(image.color);
+      removeImages(urls);
     }
     toggleSelector();
   };
@@ -71,7 +75,7 @@ const UpdateProduct = ({ product }: { product: Product }) => {
         ) : (
           <>
             <div className="flex flex-col w-full md:w-1/2">
-              <ImageSection image={image} />
+              <ImageSection image={image} removeImages={removeImages} />
               <button
                 title="Change image"
                 type="button"
