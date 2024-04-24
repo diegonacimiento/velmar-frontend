@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { MdOutlineClose } from "react-icons/md";
 
 import { ImageProduct, Product } from "@/types/products";
-import { brandsList, categoriesList, mainColors } from "@/utils/temporal";
-import ModalMsg from "./form/ModalMsg";
+import { brandsList } from "@/utils/temporal";
 import ColorInput from "./form/ColorInput";
+import CategoriesInput from "./form/CategoriesInput";
+import BasicInputs from "./form/BasicInputs";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
@@ -43,7 +43,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     <form
       onSubmit={handleSubmit}
       className="flex flex-col gap-2 w-full md:w-1/2 text-secondary"
-      >
+    >
       {/* Colors input */}
 
       <ColorInput
@@ -52,54 +52,14 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
         handleNewColor={handleNewColor}
         removeColor={removeColor}
       />
-      {/* Name input */}
-      <label className={`px-1 text-sm font-light mt-2`}>Name</label>
-      <input
-        onChange={(e) =>
-          handleChangeValues({ [e.target.name]: e.target.value })
-        }
-        name="title"
-        value={valuesFields.name}
-        className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-primary resize-none`}
+      {/* Basic inputs (name, price, description) */}
+      <BasicInputs
+        valuesFields={valuesFields}
+        handleChangeValues={handleChangeValues}
       />
-
-      {/* Price input */}
-      <label className={`px-1 text-sm font-light mt-2`}>Price</label>
-      <input
-        name="price"
-        type="number"
-        onChange={(e) =>
-          handleChangeValues({ [e.target.name]: e.target.value })
-        }
-        value={valuesFields.price}
-        className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-primary resize-none`}
-      />
-
-      {/* Description input */}
-      <label className={`px-1 text-sm font-light mt-2`}>Description:</label>
-      <textarea
-        name="description"
-        onChange={(e) =>
-          handleChangeValues({ [e.target.name]: e.target.value })
-        }
-        value={valuesFields.description}
-        className={`border rounded-lg border-secondary p-1.5 my-1 h-80 focus:outline-offset-1 focus:outline-1 focus:outline-primary resize-none`}
-        maxLength={600}
-      />
-
 
       {/* Categories input */}
-      <div className="flex flex-col">
-        <label className="text-sm font-light">Category</label>
-        <select className="px-1.5 py-2 my-1 border border-secondary rounded-lg focus:outline-0">
-          {categoriesList.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <button type="button">Add other category</button>
-      </div>
+      <CategoriesInput />
 
       {/* Brand input */}
       <div className="flex flex-col">
