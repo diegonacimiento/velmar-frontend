@@ -5,8 +5,14 @@ import { ImageProduct, Product } from "@/types/products";
 import FormUpdateProduct from "./FormUpdateProduct";
 import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
+import { Category } from "@/types/categories";
 
-const UpdateProduct = ({ product }: { product: Product }) => {
+interface UpdateProductProps {
+  product: Product;
+  categories: Category[];
+}
+
+const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories }) => {
   const [image, setImage] = useState<ImageProduct>(product.images[0]);
   const [allImages, setAllImages] = useState<ImageProduct[]>(product.images);
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
@@ -32,9 +38,9 @@ const UpdateProduct = ({ product }: { product: Product }) => {
 
   const removeImages = (urls: string[]) => {
     const index = allImages.findIndex((i) => i.color === image.color);
-    const temporalAllImages = allImages;
-    temporalAllImages[index] = { color: image.color, urls };
-    setAllImages(temporalAllImages);
+    const copyAllImages = [...allImages];
+    copyAllImages[index].urls = urls;
+    setAllImages(copyAllImages);
     handleCurrentImage(image.color);
   };
 
@@ -93,6 +99,7 @@ const UpdateProduct = ({ product }: { product: Product }) => {
               allImages={allImages}
               handleNewColor={handleNewColor}
               removeColor={removeColor}
+              categories={categories}
             />
           </>
         )}

@@ -45,9 +45,9 @@ const ColorInput: React.FC<ColorInputProps> = ({
   };
 
   const handleColorSelect = (color: string) => {
-    const prevColorsImage = colorsImage;
-    prevColorsImage.push(color);
-    setColorsImage(prevColorsImage);
+    const copyColorsImage = [...colorsImage];
+    copyColorsImage.push(color);
+    setColorsImage(copyColorsImage);
     const newColorList = colorsList.filter((element) => element !== color);
     setColorsList(newColorList);
     handleNewColor(color);

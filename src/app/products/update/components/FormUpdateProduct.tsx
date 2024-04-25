@@ -6,6 +6,7 @@ import { brandsList } from "@/utils/temporal";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
+import { Category } from "@/types/categories";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
@@ -14,6 +15,7 @@ interface FormUpdateProductProps {
   allImages: ImageProduct[];
   handleNewColor: (color: string) => void;
   removeColor: (color: string) => void;
+  categories: Category[];
 }
 
 const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
@@ -23,6 +25,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   allImages,
   handleNewColor,
   removeColor,
+  categories,
 }) => {
   const [valuesFields, setValuesFields] = useState({
     name: product.name,
@@ -30,13 +33,18 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     description: product.description,
   });
 
+  const [categoriesDropdown, setCategoriesDropdown] = useState(
+    product.categories
+  );
+
   const handleChangeValues = (prop: any) => {
     setValuesFields({ ...valuesFields, ...prop });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(valuesFields);
+    const categoriesToSend = categoriesDropdown.map((category) => category.id);
+    onSubmit({ ...valuesFields, categories: categoriesToSend });
   };
 
   return (
@@ -59,7 +67,11 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
       />
 
       {/* Categories input */}
-      <CategoriesInput />
+      <CategoriesInput
+        categories={categories}
+        categoriesDropdown={categoriesDropdown}
+        setCategoriesDropdown={setCategoriesDropdown}
+      />
 
       {/* Brand input */}
       <div className="flex flex-col">

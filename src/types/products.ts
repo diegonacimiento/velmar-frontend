@@ -9,9 +9,9 @@ export interface Product {
 
   images: ImageProduct[];
 
-  brand: any;
+  brand: string;
 
-  categories: any;
+  categories: { id: number; name: string; image: string }[];
 
   creationAt: string;
 
