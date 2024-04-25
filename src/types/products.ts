@@ -1,3 +1,6 @@
+import { Brand } from "./brands";
+import { Category } from "./categories";
+
 export interface Product {
   id: number;
 
@@ -9,9 +12,9 @@ export interface Product {
 
   images: ImageProduct[];
 
-  brand: string;
+  brand: Brand;
 
-  categories: { id: number; name: string; image: string }[];
+  categories: Category[];
 
   creationAt: string;
 

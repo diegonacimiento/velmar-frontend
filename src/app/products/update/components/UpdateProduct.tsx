@@ -6,13 +6,15 @@ import FormUpdateProduct from "./FormUpdateProduct";
 import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
 import { Category } from "@/types/categories";
+import { Brand } from "@/types/brands";
 
 interface UpdateProductProps {
   product: Product;
   categories: Category[];
+  brands: Brand[];
 }
 
-const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories }) => {
+const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, brands }) => {
   const [image, setImage] = useState<ImageProduct>(product.images[0]);
   const [allImages, setAllImages] = useState<ImageProduct[]>(product.images);
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
@@ -100,6 +102,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories }) =>
               handleNewColor={handleNewColor}
               removeColor={removeColor}
               categories={categories}
+              brands={brands}
             />
           </>
         )}

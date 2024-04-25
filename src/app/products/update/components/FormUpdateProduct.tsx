@@ -7,6 +7,8 @@ import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
 import { Category } from "@/types/categories";
+import BrandInput from "./form/BrandInput";
+import { Brand } from "@/types/brands";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
@@ -16,6 +18,7 @@ interface FormUpdateProductProps {
   handleNewColor: (color: string) => void;
   removeColor: (color: string) => void;
   categories: Category[];
+  brands: Brand[];
 }
 
 const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
@@ -26,6 +29,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   handleNewColor,
   removeColor,
   categories,
+  brands,
 }) => {
   const [valuesFields, setValuesFields] = useState({
     name: product.name,
@@ -37,6 +41,10 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     product.categories
   );
 
+  const [selectedBrand, setSelectedBrand] = useState<Brand | null>(
+    product.brand
+  );
+
   const handleChangeValues = (prop: any) => {
     setValuesFields({ ...valuesFields, ...prop });
   };
@@ -44,7 +52,12 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const categoriesToSend = categoriesDropdown.map((category) => category.id);
-    onSubmit({ ...valuesFields, categories: categoriesToSend });
+    const brandId = selectedBrand?.id;
+    onSubmit({
+      ...valuesFields,
+      categories: categoriesToSend,
+      brand: brandId,
+    });
   };
 
   return (
@@ -74,16 +87,11 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
       />
 
       {/* Brand input */}
-      <div className="flex flex-col">
-        <label className="text-sm font-light">Brand</label>
-        <select className="px-1.5 py-2 my-1 border border-secondary rounded-lg focus:outline-0">
-          {brandsList.map((brand) => (
-            <option key={brand} value={brand}>
-              {brand}
-            </option>
-          ))}
-        </select>
-      </div>
+      <BrandInput
+        brands={brands}
+        selectedBrand={selectedBrand}
+        setSelectedBrand={setSelectedBrand}
+      />
 
       {/* Button form */}
       <button
