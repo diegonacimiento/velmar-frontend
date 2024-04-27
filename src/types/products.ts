@@ -16,7 +16,7 @@ export interface Product {
 
   categories: Category[];
 
-  creationAt: string;
+  createdAt: string;
 
   updatedAt: string;
 
@@ -26,4 +26,10 @@ export interface Product {
 export interface ImageProduct {
   color: string;
   urls: string[];
+}
+
+export interface PayloadUpdateProduct
+  extends Omit<Product, "categories" | "brand"> {
+  categories: number[];
+  brand: number;
 }

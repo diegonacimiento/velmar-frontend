@@ -7,6 +7,7 @@ import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
 import { Category } from "@/types/categories";
 import { Brand } from "@/types/brands";
+import { validateFormUpdateProduct } from "@/utils/form-update-product";
 
 interface UpdateProductProps {
   product: Product;
@@ -15,8 +16,8 @@ interface UpdateProductProps {
 }
 
 const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, brands }) => {
-  const [image, setImage] = useState<ImageProduct>(product.images[0]);
-  const [allImages, setAllImages] = useState<ImageProduct[]>(product.images);
+  const [image, setImage] = useState<ImageProduct>({...product.images[0]});
+  const [allImages, setAllImages] = useState<ImageProduct[]>(product.images.map((image) => ({...image})));
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
   const [newColor, setNewColor] = useState<string>("");
 
@@ -38,7 +39,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, bran
     }
   };
 
-  const removeImages = (urls: string[]) => {
+  const updateImages = (urls: string[]) => {
     const index = allImages.findIndex((i) => i.color === image.color);
     const copyAllImages = [...allImages];
     copyAllImages[index].urls = urls;
@@ -53,7 +54,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, bran
       setImage(newImage);
       setNewColor("");
     } else {
-      removeImages(urls);
+      updateImages(urls);
     }
     toggleSelector();
   };
@@ -63,6 +64,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, bran
   };
 
   const handleSubmit = (formData: any) => {
+    const payload = validateFormUpdateProduct({ ...formData, images: allImages }, product)
     console.log({ ...formData, images: allImages });
   };
 
@@ -83,7 +85,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, categories, bran
         ) : (
           <>
             <div className="flex flex-col w-full md:w-1/2">
-              <ImageSection image={image} removeImages={removeImages} />
+              <ImageSection image={image} updateImages={updateImages} />
               <button
                 title="Change image"
                 type="button"

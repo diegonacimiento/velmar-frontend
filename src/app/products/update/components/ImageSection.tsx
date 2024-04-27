@@ -8,15 +8,15 @@ import { MdOutlineClose } from "react-icons/md";
 
 interface ImageSectionProps {
   image: ImageProduct;
-  removeImages: (urls: string[]) => void;
+  updateImages: (urls: string[]) => void;
 }
 
-const ImageSection: React.FC<ImageSectionProps> = ({ image, removeImages }) => {
+const ImageSection: React.FC<ImageSectionProps> = ({ image, updateImages }) => {
   const containerImage = useRef<HTMLDivElement>(null);
 
   const handleDeleteImage = (url: string) => {
     const newUrls = image.urls.filter((itemUrl) => itemUrl !== url);
-    removeImages(newUrls);
+    updateImages(newUrls);
   }
 
   const scrollSelector = (back?: boolean) => {

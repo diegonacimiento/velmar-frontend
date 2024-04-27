@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 
 import { ImageProduct, Product } from "@/types/products";
-import { brandsList } from "@/utils/temporal";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
