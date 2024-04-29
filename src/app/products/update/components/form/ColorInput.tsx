@@ -117,14 +117,16 @@ const ColorInput: React.FC<ColorInputProps> = ({
                   )}
                 </div>
               ))}
-              <button
-                type="button"
-                title="Add color"
-                className="flex justify-center items-center rounded-full w-8 h-8 bg-gray-400 text-white cursor-pointer hover:opacity-50 duration-150"
-                onClick={toggleMenuColors}
-              >
-                +
-              </button>
+              {colorsImage.length < 8 && (
+                <button
+                  type="button"
+                  title="Add color"
+                  className="flex justify-center items-center rounded-full w-8 h-8 bg-gray-400 text-white cursor-pointer hover:opacity-50 duration-150"
+                  onClick={toggleMenuColors}
+                >
+                  +
+                </button>
+              )}
             </div>
           </>
         )}

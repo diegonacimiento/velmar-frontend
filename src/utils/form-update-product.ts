@@ -1,7 +1,7 @@
 import { PayloadUpdateProduct, Product } from "@/types/products";
 
 export const validateFormUpdateProduct = (
-  payload: PayloadUpdateProduct,
+  payload: Product,
   product: Product
 ) => {
   let newPayload: any = {};
@@ -28,12 +28,13 @@ export const validateFormUpdateProduct = (
 
   // Categories input
   if (!compareCategoriesArrays(payload.categories, product.categories)) {
-   newPayload.categories = payload.categories;
+    const categoriesToSend = payload.categories.map((category) => category.id);
+    newPayload.categories = categoriesToSend;
   }
 
   // Brand input
-  if (product.brand?.id !== payload.brand) {
-    newPayload.brand = payload.brand || null;
+  if (product?.brand?.id !== payload?.brand?.id) {
+    newPayload.brand = payload?.brand?.id || null;
   }
 
   console.log(newPayload);
@@ -41,7 +42,7 @@ export const validateFormUpdateProduct = (
 
 // Other functions
 
-function compareImagesArrays(payload: PayloadUpdateProduct, product: Product) {
+function compareImagesArrays(payload: Product, product: Product) {
   if (product.images.length !== payload.images.length) {
     return false;
   }
@@ -92,16 +93,16 @@ function arraysEqual(arrayPayload: string[], arrayProduct: string[]) {
 }
 
 function compareCategoriesArrays(
-  payloadCategories: PayloadUpdateProduct["categories"],
+  payloadCategories: Product["categories"],
   productCategories: Product["categories"]
 ) {
- const productCategoriesIds = productCategories.map((category) => category.id);
+  const productCategoriesIds = productCategories.map((category) => category.id);
 
- if(productCategoriesIds.length !== payloadCategories.length) {
-  return false;
- }
+  if(productCategoriesIds.length !== payloadCategories.length) {
+    return false;
+  }
 
- const sameIds = productCategoriesIds.every((id, index) => id === payloadCategories[index]);
+  const sameIds = productCategoriesIds.every((id, index) => id === payloadCategories[index].id);
 
- return sameIds;
+  return sameIds;
 }

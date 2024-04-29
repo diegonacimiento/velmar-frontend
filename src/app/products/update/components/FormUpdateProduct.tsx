@@ -50,12 +50,12 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const categoriesToSend = categoriesDropdown.map((category) => category.id);
-    const brandId = selectedBrand?.id;
+    // const categoriesToSend = categoriesDropdown.map((category) => category.id);
+    // const brandId = selectedBrand?.id;
     onSubmit({
       ...valuesFields,
-      categories: categoriesToSend,
-      brand: brandId,
+      categories: categoriesDropdown,
+      brand: selectedBrand,
     });
   };
 
