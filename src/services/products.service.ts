@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { Product } from "@/types/products";
+import { PayloadUpdateProduct, Product } from "@/types/products";
+import { headers } from "next/headers";
 
 export const getProducts = async (
   offset?: number,
@@ -38,6 +39,28 @@ export const getProduct = async (id: number): Promise<Product> => {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateProduct = async (
+  id: number,
+  payload: PayloadUpdateProduct
+) => {
+  try {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
+      payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
       }
     );
     return response.data;

@@ -29,15 +29,15 @@ export const validateFormUpdateProduct = (
   // Categories input
   if (!compareCategoriesArrays(payload.categories, product.categories)) {
     const categoriesToSend = payload.categories.map((category) => category.id);
-    newPayload.categories = categoriesToSend;
+    newPayload.categoriesIds = categoriesToSend;
   }
 
   // Brand input
   if (product?.brand?.id !== payload?.brand?.id) {
-    newPayload.brand = payload?.brand?.id || null;
+    newPayload.brandId = payload?.brand?.id || null;
   }
 
-  console.log(newPayload);
+  return newPayload;
 };
 
 // Other functions

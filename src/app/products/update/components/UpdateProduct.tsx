@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { ImageProduct, Product } from "@/types/products";
+import { ImageProduct, PayloadUpdateProduct, Product } from "@/types/products";
 import FormUpdateProduct from "./FormUpdateProduct";
 import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
@@ -9,6 +9,7 @@ import { Category } from "@/types/categories";
 import { Brand } from "@/types/brands";
 import { validateFormUpdateProduct } from "@/utils/form-update-product";
 import { mainColors } from "@/utils/temporal";
+import { updateProduct } from "@/services/products.service";
 
 interface UpdateProductProps {
   product: Product;
@@ -82,12 +83,14 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
     setIsOpenSelector((prev) => !prev);
   };
 
-  const handleSubmit = (formData: any) => {
-    const payload = validateFormUpdateProduct(
-      { ...formData, images: allImages },
+  const handleSubmit = async (formData: any) => {
+    const productUpdated = { ...formData, images: allImages };
+    const payload: PayloadUpdateProduct = validateFormUpdateProduct(
+      productUpdated,
       product
     );
-    console.log({ ...formData, images: allImages });
+    const response = await updateProduct(product.id, payload);
+    console.log(response);
   };
 
   return (
