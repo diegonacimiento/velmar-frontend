@@ -33,3 +33,10 @@ export interface PayloadUpdateProduct
   categories: number[];
   brand: number;
 }
+
+export interface ColorsType {
+  colorsImage: string[];
+  colorsList: string[];
+  handleNewColor: (color: string) => void;
+  removeColor: (color: string) => void;
+}

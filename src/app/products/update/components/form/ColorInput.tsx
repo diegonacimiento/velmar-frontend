@@ -3,31 +3,20 @@ import React, { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 import ModalMsg from "./ModalMsg";
-import { mainColors } from "@/utils/temporal";
-import { ImageProduct } from "@/types/products";
+import { ColorsType } from "@/types/products";
 
 interface ColorInputProps {
-  allImages: ImageProduct[];
-  removeColor: (color: string) => void;
-  handleNewColor: (color: string) => void;
   handleCurrentImage: (color: string) => void;
+  colors: ColorsType;
 }
 
 const ColorInput: React.FC<ColorInputProps> = ({
-  allImages,
-  removeColor,
-  handleNewColor,
   handleCurrentImage,
+  colors: { colorsImage, colorsList, removeColor, handleNewColor },
 }) => {
   const [colorDelete, setColorDelete] = useState<string>("");
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [openColors, setOpenColors] = useState<boolean>(false);
-  const [colorsImage, setColorsImage] = useState<string[]>(
-    allImages.map((image) => image.color)
-  );
-  const [colorsList, setColorsList] = useState<string[]>(
-    mainColors.filter((color) => !colorsImage.includes(color))
-  );
 
   const toggleModal = (color: string) => {
     setColorDelete(color);
@@ -36,20 +25,10 @@ const ColorInput: React.FC<ColorInputProps> = ({
 
   const handleRemoveColor = (color: string) => {
     removeColor(color);
-    const newColorsImage = colorsImage.filter(
-      (colorImage) => colorImage !== color
-    );
-    setColorsImage(newColorsImage);
-    setColorsList((prev) => [...prev, color].sort());
     toggleModal("");
   };
 
   const handleColorSelect = (color: string) => {
-    const copyColorsImage = [...colorsImage];
-    copyColorsImage.push(color);
-    setColorsImage(copyColorsImage);
-    const newColorList = colorsList.filter((element) => element !== color);
-    setColorsList(newColorList);
     handleNewColor(color);
     toggleMenuColors();
   };

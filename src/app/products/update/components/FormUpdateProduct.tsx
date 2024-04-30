@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { ImageProduct, Product } from "@/types/products";
+import { ColorsType, Product } from "@/types/products";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
@@ -13,22 +13,18 @@ interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
   product: Product;
   handleCurrentImage: (color: string) => void;
-  allImages: ImageProduct[];
-  handleNewColor: (color: string) => void;
-  removeColor: (color: string) => void;
   categories: Category[];
   brands: Brand[];
+  colors: ColorsType;
 }
 
 const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   onSubmit,
   product,
   handleCurrentImage,
-  allImages,
-  handleNewColor,
-  removeColor,
   categories,
   brands,
+  colors,
 }) => {
   const [valuesFields, setValuesFields] = useState({
     name: product.name,
@@ -50,8 +46,6 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const categoriesToSend = categoriesDropdown.map((category) => category.id);
-    // const brandId = selectedBrand?.id;
     onSubmit({
       ...valuesFields,
       categories: categoriesDropdown,
@@ -66,12 +60,8 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     >
       {/* Colors input */}
 
-      <ColorInput
-        allImages={allImages}
-        handleCurrentImage={handleCurrentImage}
-        handleNewColor={handleNewColor}
-        removeColor={removeColor}
-      />
+      <ColorInput handleCurrentImage={handleCurrentImage} colors={colors} />
+
       {/* Basic inputs (name, price, description) */}
       <BasicInputs
         valuesFields={valuesFields}
