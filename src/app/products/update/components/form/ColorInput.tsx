@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 import ModalMsg from "./ModalMsg";
-import { ColorsType } from "@/types/products";
+import { ColorsTools } from "@/types/products";
+import { mainColors } from "@/utils/temporal";
 
 interface ColorInputProps {
   handleCurrentImage: (color: string) => void;
-  colors: ColorsType;
+  colors: ColorsTools;
 }
 
 const ColorInput: React.FC<ColorInputProps> = ({
   handleCurrentImage,
-  colors: { colorsImage, colorsList, removeColor, handleNewColor },
+  colors: { colorsImage, removeColor, handleNewColor },
 }) => {
   const [colorDelete, setColorDelete] = useState<string>("");
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -36,6 +37,8 @@ const ColorInput: React.FC<ColorInputProps> = ({
   const toggleMenuColors = () => {
     setOpenColors((prev) => !prev);
   };
+
+  const colorsList = mainColors.filter((color) => !colorsImage.includes(color));
 
   return (
     <>

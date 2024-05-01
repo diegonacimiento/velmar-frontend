@@ -1,4 +1,4 @@
-import { PayloadUpdateProduct, Product } from "@/types/products";
+import { Product } from "@/types/products";
 
 export const validateFormUpdateProduct = (
   payload: Product,
@@ -61,14 +61,42 @@ function compareImagesArrays(payload: Product, product: Product) {
     return false;
   }
 
+  const firstSizes = arraysEqual(
+    payload?.images[0]?.sizes,
+    product?.images[0]?.sizes
+  );
+
+  if (firstSizes === false) {
+    return false;
+  }
+
   const secondImage = arraysEqual(urlsPayload[1], urlsProduct[1]);
 
   if (secondImage === false) {
     return false;
   }
+
+  const secondSizes = arraysEqual(
+    payload?.images[1]?.sizes,
+    product?.images[1]?.sizes
+  );
+
+  if (secondSizes === false) {
+    return false;
+  }
+
   const thirdImage = arraysEqual(urlsPayload[2], urlsProduct[2]);
 
   if (thirdImage === false) {
+    return false;
+  }
+
+  const thirdSizes = arraysEqual(
+    payload?.images[2]?.sizes,
+    product?.images[2]?.sizes
+  );
+
+  if (thirdSizes === false) {
     return false;
   }
 
@@ -98,11 +126,13 @@ function compareCategoriesArrays(
 ) {
   const productCategoriesIds = productCategories.map((category) => category.id);
 
-  if(productCategoriesIds.length !== payloadCategories.length) {
+  if (productCategoriesIds.length !== payloadCategories.length) {
     return false;
   }
 
-  const sameIds = productCategoriesIds.every((id, index) => id === payloadCategories[index].id);
+  const sameIds = productCategoriesIds.every(
+    (id, index) => id === payloadCategories[index].id
+  );
 
   return sameIds;
 }

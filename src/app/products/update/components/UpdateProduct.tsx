@@ -1,14 +1,19 @@
 "use client";
 import React, { useState } from "react";
 
-import { ImageProduct, PayloadUpdateProduct, Product } from "@/types/products";
+import {
+  ImageProduct,
+  PayloadUpdateProduct,
+  Product,
+  Size,
+} from "@/types/products";
 import FormUpdateProduct from "./FormUpdateProduct";
 import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
 import { Category } from "@/types/categories";
 import { Brand } from "@/types/brands";
 import { validateFormUpdateProduct } from "@/utils/form-update-product";
-import { mainColors } from "@/utils/temporal";
+import { orderSizes } from "@/utils/temporal";
 import { updateProduct } from "@/services/products.service";
 
 interface UpdateProductProps {
@@ -32,9 +37,6 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
   const [colorsImage, setColorsImage] = useState<string[]>(
     allImages.map((image) => image.color)
   );
-  const [colorsList, setColorsList] = useState<string[]>(
-    mainColors.filter((color) => !colorsImage.includes(color))
-  );
 
   // Functions
   const handleCurrentImage = (color: string) => {
@@ -51,10 +53,28 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
     const newImagesList = allImages.filter((image) => image.color !== color);
     setAllImages(newImagesList);
     setColorsImage((prev) => prev.filter((colorImage) => colorImage !== color));
-    setColorsList((prev) => [...prev, color].sort());
     if (color === image.color) {
       setImage(newImagesList[0]);
     }
+  };
+
+  const removeSize = (size: Size) => {
+    const index = allImages.findIndex((i) => i.color === image.color);
+    const copyAllImages = [...allImages];
+    copyAllImages[index].sizes = copyAllImages[index].sizes.filter(
+      (sizeElement) => sizeElement !== size
+    );
+    setAllImages(copyAllImages);
+    handleCurrentImage(image.color);
+  };
+
+  const addSize = (size: Size) => {
+    const index = allImages.findIndex((i) => i.color === image.color);
+    const copyAllImages = [...allImages];
+    copyAllImages[index].sizes.push(size);
+    copyAllImages[index].sizes = orderSizes(copyAllImages[index].sizes);
+    setAllImages(copyAllImages);
+    handleCurrentImage(image.color);
   };
 
   const updateImages = (urls: string[]) => {
@@ -67,12 +87,11 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
   const handleNewImages = (urls: string[]) => {
     if (newColor) {
-      const newImage = { color: newColor, urls };
+      const newImage = { color: newColor, urls, sizes: [Size.XS] };
       setAllImages((prev) => [...prev, newImage]);
       setImage(newImage);
       setNewColor("");
       setColorsImage((prev) => [...prev, newColor]);
-      setColorsList((prev) => prev.filter((color) => color !== newColor));
     } else {
       updateImages(urls);
     }
@@ -89,6 +108,11 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
       productUpdated,
       product
     );
+
+    const isEmpty = Object.keys(payload).length === 0;
+
+    if (isEmpty) return;
+
     const response = await updateProduct(product.id, payload);
     console.log(response);
   };
@@ -127,7 +151,8 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
             handleCurrentImage={handleCurrentImage}
             categories={categories}
             brands={brands}
-            colors={{ colorsImage, colorsList, handleNewColor, removeColor }}
+            colors={{ colorsImage, handleNewColor, removeColor }}
+            sizes={{ addSize, removeSize, sizes: image.sizes }}
           />
         </div>
       </div>

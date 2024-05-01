@@ -1,13 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-import { ColorsType, Product } from "@/types/products";
+import { ColorsTools, Product, SizesTools } from "@/types/products";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
 import { Category } from "@/types/categories";
 import BrandInput from "./form/BrandInput";
 import { Brand } from "@/types/brands";
+import Sizes from "./form/Sizes";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
@@ -15,7 +16,8 @@ interface FormUpdateProductProps {
   handleCurrentImage: (color: string) => void;
   categories: Category[];
   brands: Brand[];
-  colors: ColorsType;
+  colors: ColorsTools;
+  sizes: SizesTools;
 }
 
 const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
@@ -25,6 +27,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
   categories,
   brands,
   colors,
+  sizes,
 }) => {
   const [valuesFields, setValuesFields] = useState({
     name: product.name,
@@ -61,6 +64,9 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
       {/* Colors input */}
 
       <ColorInput handleCurrentImage={handleCurrentImage} colors={colors} />
+
+      {/* Sizes input */}
+      <Sizes sizes={sizes} />
 
       {/* Basic inputs (name, price, description) */}
       <BasicInputs
