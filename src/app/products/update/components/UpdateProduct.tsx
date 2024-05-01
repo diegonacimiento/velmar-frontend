@@ -23,14 +23,21 @@ interface UpdateProductProps {
 }
 
 const UpdateProduct: React.FC<UpdateProductProps> = ({
-  product,
+  product: productInitial,
   categories,
   brands,
 }) => {
   // States
-  const [image, setImage] = useState<ImageProduct>({ ...product.images[0] });
+  const [product, setProduct] = useState({ ...productInitial });
+  const [image, setImage] = useState<ImageProduct>({
+    ...product.images[0],
+  });
   const [allImages, setAllImages] = useState<ImageProduct[]>(
-    product.images.map((image) => ({ ...image }))
+    product.images.map((image) => ({
+      color: image.color,
+      urls: image.urls.map((url) => url),
+      sizes: image.sizes.map((size) => size),
+    }))
   );
   const [newColor, setNewColor] = useState<string>("");
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
@@ -104,6 +111,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
   const handleSubmit = async (formData: any) => {
     const productUpdated = { ...formData, images: allImages };
+
     const payload: PayloadUpdateProduct = validateFormUpdateProduct(
       productUpdated,
       product
@@ -113,7 +121,15 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
     if (isEmpty) return;
 
-    const response = await updateProduct(product.id, payload);
+    const response: { message: string; product: Product } = await updateProduct(
+      product.id,
+      payload
+    );
+
+    if (response.product) {
+      setProduct(response.product);
+    }
+
     console.log(response);
   };
 
