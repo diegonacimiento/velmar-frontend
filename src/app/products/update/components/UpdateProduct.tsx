@@ -117,8 +117,6 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
       product
     );
 
-    console.log(payload);
-
     if (payload.name === "" || payload.price === "" || payload.description === "") {
       return;
     }
@@ -127,18 +125,16 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
     if (isEmpty) return;
 
-    // const response: { message: string; product: Product } = await updateProduct(
-    //   product.id,
-    //   payload
-    // );
+    const response: { message: string; product: Product } = await updateProduct(
+      product.id,
+      payload
+    );
 
-    // if (response.product) {
-    //   setProduct(response.product);
-    // }
+    if (response.product) {
+      setProduct(response.product);
+    }
 
-    // console.log(response);
-
-    console.log("Product updated");
+    console.log(response);
   };
 
   return (
