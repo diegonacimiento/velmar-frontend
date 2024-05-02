@@ -58,16 +58,16 @@ const CategoriesInput: React.FC<CategoriesInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col">
-      <label className="text-sm font-light">Category</label>
+    <div className="flex flex-col gap-1">
+      <label className="px-1 text-sm font-light">Category</label>
 
       {categoriesDropdown.map((category, index) => (
         <div
-          className="flex items-center gap-2 w-full"
+          className="flex items-center gap-2 mb-1 w-full"
           key={category.id + category.name}
         >
           <select
-            className="px-1.5 py-2 my-1 border border-secondary rounded-lg w-full focus:outline-0"
+            className="px-1.5 py-2 border border-secondary rounded-lg w-full focus:outline-0"
             onChange={(e) => handleSelectCategory(e.target.value, index)}
             value={category.id || ""}
           >

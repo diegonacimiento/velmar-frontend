@@ -31,13 +31,13 @@ const BrandInput: React.FC<BrandInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col">
-      <label className="text-sm font-light">Brand</label>
+    <div className="flex flex-col gap-1">
+      <label className="px-1 text-sm font-light">Brand</label>
       {selectedBrand ? (
         <div className="flex items-center gap-2 w-full">
           {/* Select brand */}
           <select
-            className="px-1.5 py-2 my-1 border border-secondary rounded-lg w-full focus:outline-0"
+            className="px-1.5 py-2 border border-secondary rounded-lg w-full focus:outline-0"
             value={selectedBrand.id}
             onChange={(e) => handleSelectBrand(e.target.value)}
           >

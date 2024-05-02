@@ -117,20 +117,28 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
       product
     );
 
+    console.log(payload);
+
+    if (payload.name === "" || payload.price === "" || payload.description === "") {
+      return;
+    }
+
     const isEmpty = Object.keys(payload).length === 0;
 
     if (isEmpty) return;
 
-    const response: { message: string; product: Product } = await updateProduct(
-      product.id,
-      payload
-    );
+    // const response: { message: string; product: Product } = await updateProduct(
+    //   product.id,
+    //   payload
+    // );
 
-    if (response.product) {
-      setProduct(response.product);
-    }
+    // if (response.product) {
+    //   setProduct(response.product);
+    // }
 
-    console.log(response);
+    // console.log(response);
+
+    console.log("Product updated");
   };
 
   return (
@@ -146,7 +154,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
         <div
           className={
-            isOpenSelector ? "hidden" : "flex flex-col md:flex-row gap-12"
+            isOpenSelector ? "hidden" : "flex flex-col md:flex-row gap-2 md:gap-12"
           }
         >
           <div className="flex flex-col w-full md:w-1/2">
@@ -160,6 +168,8 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
               Change image
             </button>
           </div>
+
+          <hr className="md:hidden mt-6 mb-4 border-primary"/>
 
           <FormUpdateProduct
             onSubmit={handleSubmit}

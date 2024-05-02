@@ -28,8 +28,8 @@ const Sizes: React.FC<SizesProps> = ({
   );
 
   return (
-    <>
-      <label className="px-1 text-sm font-light mt-2">Sizes:</label>
+    <div className="flex flex-col gap-1 mt-1 mb-2">
+      <label className="px-1 text-sm font-light">Sizes</label>
       <div className="p-3 rounded-lg bg-primary">
         {/* Sizes list */}
         <div
@@ -91,7 +91,7 @@ const Sizes: React.FC<SizesProps> = ({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

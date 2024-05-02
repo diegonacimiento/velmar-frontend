@@ -8,7 +8,7 @@ export interface Product {
 
   description: string;
 
-  price: number;
+  price: string;
 
   images: ImageProduct[];
 

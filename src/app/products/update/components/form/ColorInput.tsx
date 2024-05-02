@@ -41,8 +41,8 @@ const ColorInput: React.FC<ColorInputProps> = ({
   const colorsList = mainColors.filter((color) => !colorsImage.includes(color));
 
   return (
-    <>
-      <label className="px-1 text-sm font-light mt-2">Colors:</label>
+    <div className="flex flex-col gap-1 my-1">
+      <label className="px-1 text-sm font-light">Colors</label>
       <div className="relative flex p-3 bg-primary rounded-lg">
         {isOpenModal ? (
           <ModalMsg
@@ -113,7 +113,7 @@ const ColorInput: React.FC<ColorInputProps> = ({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
