@@ -35,9 +35,9 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     description: product.description,
   });
 
-  const [categoriesDropdown, setCategoriesDropdown] = useState(
-    product.categories
-  );
+  const [categoriesDropdown, setCategoriesDropdown] = useState<Category[]>([
+    ...product.categories,
+  ]);
 
   const [selectedBrand, setSelectedBrand] = useState<Brand | null>(
     product.brand

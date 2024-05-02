@@ -28,7 +28,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
   brands,
 }) => {
   // States
-  const [product, setProduct] = useState({ ...productInitial });
+  const [product, setProduct] = useState<Product>({ ...productInitial });
   const [image, setImage] = useState<ImageProduct>({
     ...product.images[0],
   });
