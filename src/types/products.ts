@@ -29,6 +29,16 @@ export interface ImageProduct {
   sizes: Size[];
 }
 
+export enum Size {
+  XS = "XS",
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
+  "2XL" = "2XL",
+  "3XL" = "3XL",
+}
+
 export interface PayloadUpdateProduct
   extends Omit<Product, "categories" | "brand"> {
   categories: number[];
@@ -45,14 +55,4 @@ export interface SizesTools {
   addSize: (size: any) => void;
   removeSize: (size: any) => void;
   sizes: Size[];
-}
-
-export enum Size {
-  XS = "XS",
-  S = "S",
-  M = "M",
-  L = "L",
-  XL = "XL",
-  "2XL" = "2XL",
-  "3XL" = "3XL",
 }
