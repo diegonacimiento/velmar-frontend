@@ -4,12 +4,14 @@ import { Payload } from "../Form";
 import { formStyles } from "../../styles/FormStyles";
 
 interface NameProps {
-  name: { value: string; error: string };
+  name: Payload["name"];
   setPayload: Dispatch<SetStateAction<Payload>>;
 }
 
 const Name: React.FC<NameProps> = ({ name, setPayload }) => {
-  const handleInputName = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 70) return;
+    
     setPayload((prev) => ({
       ...prev,
       name: { value: event.target.value, error: "" },
@@ -28,7 +30,7 @@ const Name: React.FC<NameProps> = ({ name, setPayload }) => {
         name="name"
         value={name.value}
         maxLength={70}
-        onChange={handleInputName}
+        onChange={handleChangeName}
         className={formStyles.input + (name.error && formStyles.inputError)}
       />
       <p className={formStyles.error}>{name.error}</p>

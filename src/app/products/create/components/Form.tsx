@@ -4,6 +4,8 @@ import Name from "./fields/Name";
 import { ImageProduct } from "@/types/products";
 import { Category } from "@/types/categories";
 import { Brand } from "@/types/brands";
+import Price from "./fields/Price";
+import { validateForm } from "../utils/validate-form";
 
 export interface Payload {
   name: {
@@ -33,24 +35,11 @@ const Form = () => {
     brand: { value: {} as Brand, error: "" },
   });
 
-  const validateForm = () => {
-    let validForm: boolean = true;
-
-    if (payload.name.value.trim() === "") {
-      validForm = false;
-      setPayload((prev) => ({
-        ...prev,
-        name: { value: prev.name.value, error: "Name is empty" },
-      }));
-    }
-
-    return validForm;
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const validForm = validateForm();
+    const validForm = validateForm(payload, setPayload);
     if (!validForm) return;
+    console.log(payload);
     console.log("Submitted form");
   };
 
@@ -60,11 +49,7 @@ const Form = () => {
       <Name name={payload.name} setPayload={setPayload} />
 
       {/* Price input */}
-      <div>
-        <label>Price</label>
-        <input type="number" name="price" min={1} />
-        <p></p>
-      </div>
+      <Price price={payload.price} setPayload={setPayload} />
 
       {/* Description text-area */}
       <div>
