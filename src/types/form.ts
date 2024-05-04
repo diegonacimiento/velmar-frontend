@@ -1,4 +1,4 @@
-export interface Field {
+export interface IField {
   label: string;
   type: string;
   value: string;
@@ -9,7 +9,7 @@ export interface Field {
 export interface FormProps {
   onSubmit: (formData: any) => void;
   buttonText: string;
-  fields: Field[];
+  fields: IField[];
   dropdown?: { label: string; options: string[] };
   page?: string;
   loading?: boolean;

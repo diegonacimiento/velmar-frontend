@@ -1,10 +1,10 @@
 "use client";
 import React, { createContext, useState } from "react";
 
-import { Cart, Context, Role } from "@/types/context";
+import { ICart, IContext, TRole } from "@/types/context";
 import { IProduct } from "@/types/products";
 
-export const VelmarContext = createContext<Context>({} as Context);
+export const VelmarContext = createContext<IContext>({} as IContext);
 
 export const VelmarContextProvider = ({
   children,
@@ -13,13 +13,13 @@ export const VelmarContextProvider = ({
 }: {
   children: React.ReactNode;
   auth: boolean;
-  role: Role;
+  role: TRole;
 }) => {
   const [isAuth, setIsAuth] = useState<boolean>(auth);
   const [addressValue, setAddressValue] = useState<string>("");
-  const [cart, setCart] = useState<Cart[]>([]);
+  const [cart, setCart] = useState<ICart[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [roleUser, setRoleUser] = useState<Role>(role);
+  const [roleUser, setRoleUser] = useState<TRole>(role);
 
   const updateAddressValue = (value: string) => {
     setAddressValue(value);

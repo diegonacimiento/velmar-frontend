@@ -5,14 +5,14 @@ import { usePathname } from "next/navigation";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 import useVelmarContext from "@/hooks/useVelmarContext";
-import { Cart } from "@/types/context";
+import { ICart } from "@/types/context";
 
 const Cart = () => {
   const { cart, isAuth } = useVelmarContext();
   const [cartLength, setCartLength] = useState<number>(0);
 
   useEffect(() => {
-    const reducer = (accumulator: number, currentValue: Cart) =>
+    const reducer = (accumulator: number, currentValue: ICart) =>
       accumulator + currentValue.amount;
     const total = cart.reduce(reducer, 0);
     setCartLength(total);

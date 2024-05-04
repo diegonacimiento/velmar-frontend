@@ -1,5 +1,5 @@
 "use client";
-import { ImageProduct } from "@/types/products";
+import { IProductImage } from "@/types/products";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 
@@ -7,7 +7,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdOutlineClose } from "react-icons/md";
 
 interface ImageSectionProps {
-  image: ImageProduct;
+  image: IProductImage;
   updateImages: (urls: string[]) => void;
 }
 

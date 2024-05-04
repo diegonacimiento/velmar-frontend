@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { Field } from "@/types/form";
+import { IField } from "@/types/form";
 
 const validateForm = ({
   formFields,
   setFormFields,
 }: {
-  formFields: Field[];
-  setFormFields: Dispatch<SetStateAction<Field[]>>;
+  formFields: IField[];
+  setFormFields: Dispatch<SetStateAction<IField[]>>;
 }) => {
   const updatedFields = formFields.map((field) => {
     const isOptional = field.isOptional;

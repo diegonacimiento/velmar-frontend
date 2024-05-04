@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 
 import {
-  ImageProduct,
-  PayloadUpdateProduct,
+  IProductImage,
+  IPayloadUpdateProduct,
   IProduct,
   Size,
 } from "@/types/products";
@@ -29,10 +29,10 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 }) => {
   // States
   const [product, setProduct] = useState<IProduct>({ ...productInitial });
-  const [image, setImage] = useState<ImageProduct>({
+  const [image, setImage] = useState<IProductImage>({
     ...product.images[0],
   });
-  const [allImages, setAllImages] = useState<ImageProduct[]>(
+  const [allImages, setAllImages] = useState<IProductImage[]>(
     product.images.map((image) => ({
       color: image.color,
       urls: image.urls.map((url) => url),
@@ -112,7 +112,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
   const handleSubmit = async (formData: any) => {
     const productUpdated = { ...formData, images: allImages };
 
-    const payload: PayloadUpdateProduct = validateFormUpdateProduct(
+    const payload: IPayloadUpdateProduct = validateFormUpdateProduct(
       productUpdated,
       product
     );

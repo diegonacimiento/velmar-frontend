@@ -1,13 +1,13 @@
-import { Role } from "./context";
+import { TRole } from "./context";
 
-export interface PayloadToken {
-  role: Role;
+export interface IPayloadToken {
+  role: TRole;
   sub: number;
   iat: number;
   exp: number;
 }
 
-export interface SignInData {
+export interface ISignInData {
   "your email": string;
   "your password": string;
 }

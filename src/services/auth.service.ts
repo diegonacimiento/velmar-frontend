@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { SignInData } from "@/types/auth";
+import { ISignInData } from "@/types/auth";
 
-export const signIn = async (payload: SignInData) => {
+export const signIn = async (payload: ISignInData) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/auth/login`,

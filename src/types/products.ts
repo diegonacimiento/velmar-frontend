@@ -10,7 +10,7 @@ export interface IProduct {
 
   price: string;
 
-  images: ImageProduct[];
+  images: IProductImage[];
 
   brand: IBrand | null;
 
@@ -23,7 +23,7 @@ export interface IProduct {
   deletedAt: string;
 }
 
-export interface ImageProduct {
+export interface IProductImage {
   color: string;
   urls: string[];
   sizes: Size[];
@@ -39,7 +39,7 @@ export enum Size {
   "3XL" = "3XL",
 }
 
-export interface PayloadUpdateProduct
+export interface IPayloadUpdateProduct
   extends Omit<IProduct, "categories" | "brand"> {
   categories: number[];
   brand: number;

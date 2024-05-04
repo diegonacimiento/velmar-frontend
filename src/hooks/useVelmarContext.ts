@@ -2,7 +2,7 @@
 import { useContext } from "react";
 
 import VelmarContext from "@/context/VelmarContext";
-import { Context } from "@/types/context";;
+import { IContext } from "@/types/context";;
 
 const useVelmarContext = () => {
   const context = useContext(VelmarContext);

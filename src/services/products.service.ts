@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { PayloadUpdateProduct, IProduct } from "@/types/products";
+import { IPayloadUpdateProduct, IProduct } from "@/types/products";
 import { headers } from "next/headers";
 
 export const getProducts = async (
@@ -50,7 +50,7 @@ export const getProduct = async (id: number): Promise<IProduct> => {
 
 export const updateProduct = async (
   id: number,
-  payload: PayloadUpdateProduct
+  payload: IPayloadUpdateProduct
 ) => {
   try {
     const response = await axios.put(

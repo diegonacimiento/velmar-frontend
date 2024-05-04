@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 import validateForm from "@/utils/validate-form";
-import { Field, FormProps } from "@/types/form";
+import { IField, FormProps } from "@/types/form";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Loading from "./Loading";
@@ -15,7 +15,7 @@ const Form: React.FC<FormProps> = ({
   page,
   loading,
 }) => {
-  const [formFields, setFormFields] = useState<Field[]>(fields);
+  const [formFields, setFormFields] = useState<IField[]>(fields);
 
   const path = usePathname();
 

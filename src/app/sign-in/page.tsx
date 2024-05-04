@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
 import { signIn } from "@/services/auth.service";
-import { SignInData } from "@/types/auth";
+import { ISignInData } from "@/types/auth";
 import useVelmarContext from "@/hooks/useVelmarContext";
 
 const SignIn = () => {
@@ -17,7 +17,7 @@ const SignIn = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (formData: SignInData) => {
+  const handleSubmit = async (formData: ISignInData) => {
     try {
       setError("");
       setLoading(true);

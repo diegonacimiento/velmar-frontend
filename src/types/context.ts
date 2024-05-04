@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction } from "react";
 import { IProduct } from "./products";
 
-export interface Context {
+export interface IContext {
   isAuth: boolean;
   setIsAuth: Dispatch<SetStateAction<boolean>>;
-  roleUser: Role;
-  setRoleUser: Dispatch<SetStateAction<Role>>;
+  roleUser: TRole;
+  setRoleUser: Dispatch<SetStateAction<TRole>>;
   addressValue: string;
   updateAddressValue: (value: string) => void;
-  cart: Cart[];
+  cart: ICart[];
   updateCart: (product: IProduct, amount: number) => void;
   products: IProduct[];
   updateProducts: (products: IProduct[]) => void;
@@ -16,9 +16,9 @@ export interface Context {
   deleteAllCart: () => void;
 }
 
-export interface Cart {
+export interface ICart {
   product: IProduct;
   amount: number;
 }
 
-export type Role = "customer" | "salesperson" | null;
+export type TRole = "customer" | "salesperson" | null;
