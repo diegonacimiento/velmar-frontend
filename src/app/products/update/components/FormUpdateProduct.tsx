@@ -5,7 +5,7 @@ import { ColorsTools, IProduct, SizesTools } from "@/types/products";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 import BrandInput from "./form/BrandInput";
 import { IBrand } from "@/types/brands";
 import Sizes from "./form/Sizes";
@@ -14,7 +14,7 @@ interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
   product: IProduct;
   handleCurrentImage: (color: string) => void;
-  categories: Category[];
+  categories: ICategory[];
   brands: IBrand[];
   colors: ColorsTools;
   sizes: SizesTools;
@@ -35,7 +35,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     description: product.description,
   });
 
-  const [categoriesDropdown, setCategoriesDropdown] = useState<Category[]>([
+  const [categoriesDropdown, setCategoriesDropdown] = useState<ICategory[]>([
     ...product.categories,
   ]);
 

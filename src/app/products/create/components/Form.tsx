@@ -5,7 +5,7 @@ import Name from "./fields/Name";
 import Price from "./fields/Price";
 import Description from "./fields/Description";
 import { IBrand } from "@/types/brands";
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 import { IProduct } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
 import Dropdown from "./fields/Dropdown";
@@ -31,7 +31,7 @@ export interface Payload {
 
 interface FormProps {
   brands: IBrand[];
-  categories: Category[];
+  categories: ICategory[];
 }
 
 const Form: React.FC<FormProps> = ({ brands, categories }) => {

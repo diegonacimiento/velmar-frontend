@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 
-export const getCategories = async (): Promise<Category[]> => {
+export const getCategories = async (): Promise<ICategory[]> => {
   try {
     
     const response = await axios.get(

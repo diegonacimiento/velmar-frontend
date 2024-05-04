@@ -1,5 +1,5 @@
 import { IBrand } from "./brands";
-import { Category } from "./categories";
+import { ICategory } from "./categories";
 
 export interface IProduct {
   id: number;
@@ -14,7 +14,7 @@ export interface IProduct {
 
   brand: IBrand | null;
 
-  categories: Category[];
+  categories: ICategory[];
 
   createdAt: string;
 

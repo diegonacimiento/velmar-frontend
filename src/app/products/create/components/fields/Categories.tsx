@@ -2,14 +2,14 @@ import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
 import { Payload } from "../Form";
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 import { formStyles } from "../../styles/FormStyles";
 import { setField } from "../../utils/validate-form";
 
 interface CategoriesProps {
   categories: Payload["categories"];
   setPayload: Dispatch<SetStateAction<Payload>>;
-  allCategories: Category[];
+  allCategories: ICategory[];
 }
 
 const Categories: React.FC<CategoriesProps> = ({ categories, setPayload, allCategories, }) => {

@@ -2,12 +2,12 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 
 interface CategoriesInputProps {
-  categories: Category[];
-  categoriesDropdown: Category[];
-  setCategoriesDropdown: Dispatch<SetStateAction<Category[]>>;
+  categories: ICategory[];
+  categoriesDropdown: ICategory[];
+  setCategoriesDropdown: Dispatch<SetStateAction<ICategory[]>>;
 }
 
 const CategoriesInput: React.FC<CategoriesInputProps> = ({
@@ -19,7 +19,7 @@ const CategoriesInput: React.FC<CategoriesInputProps> = ({
     categoriesDropdown.map((category) => category.id)
   );
 
-  const updateIdsCategoriesProduct = (categoriesProduct: Category[]) => {
+  const updateIdsCategoriesProduct = (categoriesProduct: ICategory[]) => {
     setIdsCategoriesOfProducts(
       categoriesProduct.map((category) => category.id)
     );

@@ -10,7 +10,7 @@ import {
 import FormUpdateProduct from "./FormUpdateProduct";
 import ImageSection from "./ImageSection";
 import SelectorImage from "./SelectorImage";
-import { Category } from "@/types/categories";
+import { ICategory } from "@/types/categories";
 import { IBrand } from "@/types/brands";
 import { validateFormUpdateProduct } from "@/utils/form-update-product";
 import { orderSizes } from "@/utils/temporal";
@@ -18,7 +18,7 @@ import { updateProduct } from "@/services/products.service";
 
 interface UpdateProductProps {
   product: IProduct;
-  categories: Category[];
+  categories: ICategory[];
   brands: IBrand[];
 }
 
