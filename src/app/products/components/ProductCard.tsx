@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import Loading from "../../../components/Loading";
 import Amount from "../../../components/Amount";
@@ -13,7 +13,7 @@ const ProductCard = ({
   product,
   isAll,
 }: {
-  product: Product;
+  product: IProduct;
   isAll?: boolean;
 }) => {
   const [loading, setLoading] = useState<boolean>(true);

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 
 export const romanoffDescription = `Discover our women's clothing collection: where elegance meets
   comfort. Each piece celebrates your unique style. Explore the
@@ -13,9 +13,9 @@ export const shoesDescription =
   "Introducing Eco-Comfort Sneakers: the epitome of sustainability and comfort. Crafted with eco-friendly materials, these sneakers offer both style and conscience. Walk the path of sustainability in comfort and style with Eco-Comfort Sneakers.";
 
 export const getCollections = async (): Promise<{
-  men: Product[];
-  women: Product[];
-  newArrivals: Product[];
+  men: IProduct[];
+  women: IProduct[];
+  newArrivals: IProduct[];
 }> => {
   const first = await axios.get(
     "https://fakestoreapi.com/products/category/men's clothing?limit=6"

@@ -2,7 +2,7 @@
 import React, { createContext, useState } from "react";
 
 import { Cart, Context, Role } from "@/types/context";
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 
 export const VelmarContext = createContext<Context>({} as Context);
 
@@ -18,14 +18,14 @@ export const VelmarContextProvider = ({
   const [isAuth, setIsAuth] = useState<boolean>(auth);
   const [addressValue, setAddressValue] = useState<string>("");
   const [cart, setCart] = useState<Cart[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [roleUser, setRoleUser] = useState<Role>(role);
 
   const updateAddressValue = (value: string) => {
     setAddressValue(value);
   };
 
-  const updateCart = (product: Product, amount: number) => {
+  const updateCart = (product: IProduct, amount: number) => {
     const indexItem = cart.findIndex((item) => item.product.id === product.id);
 
     if (indexItem !== -1) {
@@ -38,7 +38,7 @@ export const VelmarContextProvider = ({
     setCart([...newCart]);
   };
 
-  const deleteItemCart = (product: Product) => {
+  const deleteItemCart = (product: IProduct) => {
     const indexItem = cart.findIndex((item) => item.product.id === product.id);
 
     if (indexItem !== -1) {
@@ -53,7 +53,7 @@ export const VelmarContextProvider = ({
     setCart([]);
   };
 
-  const updateProducts = (newProducts: Product[]) => {
+  const updateProducts = (newProducts: IProduct[]) => {
     setProducts(newProducts);
   };
 

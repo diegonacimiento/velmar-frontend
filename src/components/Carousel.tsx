@@ -4,10 +4,10 @@ import Image from "next/image";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import Link from "next/link";
 
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 import Loading from "./Loading";
 
-const Carousel = ({ products }: { products: Product[] }) => {
+const Carousel = ({ products }: { products: IProduct[] }) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingInitial, setLoadingInitial] = useState<boolean>(true);

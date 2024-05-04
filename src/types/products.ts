@@ -1,7 +1,7 @@
 import { Brand } from "./brands";
 import { Category } from "./categories";
 
-export interface Product {
+export interface IProduct {
   id: number;
 
   name: string;
@@ -40,7 +40,7 @@ export enum Size {
 }
 
 export interface PayloadUpdateProduct
-  extends Omit<Product, "categories" | "brand"> {
+  extends Omit<IProduct, "categories" | "brand"> {
   categories: number[];
   brand: number;
 }

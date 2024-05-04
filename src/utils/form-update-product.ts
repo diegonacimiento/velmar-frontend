@@ -1,8 +1,8 @@
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 
 export const validateFormUpdateProduct = (
-  payload: Product,
-  product: Product
+  payload: IProduct,
+  product: IProduct
 ) => {
   let newPayload: any = {};
 
@@ -42,7 +42,7 @@ export const validateFormUpdateProduct = (
 
 // Other functions
 
-function compareImagesArrays(payload: Product, product: Product) {
+function compareImagesArrays(payload: IProduct, product: IProduct) {
   if (product.images.length !== payload.images.length) {
     return false;
   }
@@ -121,8 +121,8 @@ function arraysEqual(arrayPayload: string[], arrayProduct: string[]) {
 }
 
 function compareCategoriesArrays(
-  payloadCategories: Product["categories"],
-  productCategories: Product["categories"]
+  payloadCategories: IProduct["categories"],
+  productCategories: IProduct["categories"]
 ) {
   const productCategoriesIds = productCategories.map((category) => category.id);
 

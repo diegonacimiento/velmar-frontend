@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {
   ImageProduct,
   PayloadUpdateProduct,
-  Product,
+  IProduct,
   Size,
 } from "@/types/products";
 import FormUpdateProduct from "./FormUpdateProduct";
@@ -17,7 +17,7 @@ import { orderSizes } from "@/utils/temporal";
 import { updateProduct } from "@/services/products.service";
 
 interface UpdateProductProps {
-  product: Product;
+  product: IProduct;
   categories: Category[];
   brands: Brand[];
 }
@@ -28,7 +28,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
   brands,
 }) => {
   // States
-  const [product, setProduct] = useState<Product>({ ...productInitial });
+  const [product, setProduct] = useState<IProduct>({ ...productInitial });
   const [image, setImage] = useState<ImageProduct>({
     ...product.images[0],
   });
@@ -125,7 +125,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
 
     if (isEmpty) return;
 
-    const response: { message: string; product: Product } = await updateProduct(
+    const response: { message: string; product: IProduct } = await updateProduct(
       product.id,
       payload
     );

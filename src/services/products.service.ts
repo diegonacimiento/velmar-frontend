@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { PayloadUpdateProduct, Product } from "@/types/products";
+import { PayloadUpdateProduct, IProduct } from "@/types/products";
 import { headers } from "next/headers";
 
 export const getProducts = async (
@@ -8,7 +8,7 @@ export const getProducts = async (
   limit?: number,
   category?: string,
   name?: string
-): Promise<Product[]> => {
+): Promise<IProduct[]> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const params =
@@ -30,7 +30,7 @@ export const getProducts = async (
   }
 };
 
-export const getProduct = async (id: number): Promise<Product> => {
+export const getProduct = async (id: number): Promise<IProduct> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.get(

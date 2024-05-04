@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Product } from "./products";
+import { IProduct } from "./products";
 
 export interface Context {
   isAuth: boolean;
@@ -9,15 +9,15 @@ export interface Context {
   addressValue: string;
   updateAddressValue: (value: string) => void;
   cart: Cart[];
-  updateCart: (product: Product, amount: number) => void;
-  products: Product[];
-  updateProducts: (products: Product[]) => void;
-  deleteItemCart: (product: Product) => void;
+  updateCart: (product: IProduct, amount: number) => void;
+  products: IProduct[];
+  updateProducts: (products: IProduct[]) => void;
+  deleteItemCart: (product: IProduct) => void;
   deleteAllCart: () => void;
 }
 
 export interface Cart {
-  product: Product;
+  product: IProduct;
   amount: number;
 }
 

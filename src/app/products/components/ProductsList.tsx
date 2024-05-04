@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 
 import ProductCard from "@/app/products/components/ProductCard";
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 
 interface ProductsListProps {
-  products: Product[];
+  products: IProduct[];
 }
 
 const ProductsList: React.FC<ProductsListProps> = ({ products }) => {

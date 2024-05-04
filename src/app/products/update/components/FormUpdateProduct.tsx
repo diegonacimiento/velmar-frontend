@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { ColorsTools, Product, SizesTools } from "@/types/products";
+import { ColorsTools, IProduct, SizesTools } from "@/types/products";
 import ColorInput from "./form/ColorInput";
 import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
@@ -12,7 +12,7 @@ import Sizes from "./form/Sizes";
 
 interface FormUpdateProductProps {
   onSubmit: (formData: any) => void;
-  product: Product;
+  product: IProduct;
   handleCurrentImage: (color: string) => void;
   categories: Category[];
   brands: Brand[];
