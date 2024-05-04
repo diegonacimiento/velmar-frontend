@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { Brand } from "@/types/brands";
+import { IBrand } from "@/types/brands";
 
-export const getBrands = async (): Promise<Brand[]> => {
+export const getBrands = async (): Promise<IBrand[]> => {
  try {
    
    const response = await axios.get(

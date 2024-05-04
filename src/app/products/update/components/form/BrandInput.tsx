@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
-import { Brand } from "@/types/brands";
+import { IBrand } from "@/types/brands";
 
 interface BrandInputProps {
-  brands: Brand[];
-  selectedBrand: Brand | null;
-  setSelectedBrand: Dispatch<SetStateAction<Brand | null>>;
+  brands: IBrand[];
+  selectedBrand: IBrand | null;
+  setSelectedBrand: Dispatch<SetStateAction<IBrand | null>>;
 }
 
 const BrandInput: React.FC<BrandInputProps> = ({

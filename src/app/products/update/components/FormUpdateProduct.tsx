@@ -7,7 +7,7 @@ import CategoriesInput from "./form/CategoriesInput";
 import BasicInputs from "./form/BasicInputs";
 import { Category } from "@/types/categories";
 import BrandInput from "./form/BrandInput";
-import { Brand } from "@/types/brands";
+import { IBrand } from "@/types/brands";
 import Sizes from "./form/Sizes";
 
 interface FormUpdateProductProps {
@@ -15,7 +15,7 @@ interface FormUpdateProductProps {
   product: IProduct;
   handleCurrentImage: (color: string) => void;
   categories: Category[];
-  brands: Brand[];
+  brands: IBrand[];
   colors: ColorsTools;
   sizes: SizesTools;
 }
@@ -39,7 +39,7 @@ const FormUpdateProduct: React.FC<FormUpdateProductProps> = ({
     ...product.categories,
   ]);
 
-  const [selectedBrand, setSelectedBrand] = useState<Brand | null>(
+  const [selectedBrand, setSelectedBrand] = useState<IBrand | null>(
     product.brand
   );
 

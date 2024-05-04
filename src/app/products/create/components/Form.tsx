@@ -4,9 +4,9 @@ import React, { FormEvent, useState } from "react";
 import Name from "./fields/Name";
 import Price from "./fields/Price";
 import Description from "./fields/Description";
-import { Brand } from "@/types/brands";
+import { IBrand } from "@/types/brands";
 import { Category } from "@/types/categories";
-import { Product } from "@/types/products";
+import { IProduct } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
 import Dropdown from "./fields/Dropdown";
 import Categories from "./fields/Categories";
@@ -24,13 +24,13 @@ export interface Payload {
     value: string;
     error: string;
   };
-  images: { value: Product["images"]; error: string };
-  categories: { value: Product["categories"]; error: string };
-  brand: { value: Product["brand"]; error: string };
+  images: { value: IProduct["images"]; error: string };
+  categories: { value: IProduct["categories"]; error: string };
+  brand: { value: IProduct["brand"]; error: string };
 }
 
 interface FormProps {
-  brands: Brand[];
+  brands: IBrand[];
   categories: Category[];
 }
 

@@ -1,4 +1,4 @@
-import { Brand } from "./brands";
+import { IBrand } from "./brands";
 import { Category } from "./categories";
 
 export interface IProduct {
@@ -12,7 +12,7 @@ export interface IProduct {
 
   images: ImageProduct[];
 
-  brand: Brand | null;
+  brand: IBrand | null;
 
   categories: Category[];
 

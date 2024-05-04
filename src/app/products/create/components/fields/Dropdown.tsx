@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 import { Payload } from "../Form";
-import { Brand } from "@/types/brands";
+import { IBrand } from "@/types/brands";
 import { Category } from "@/types/categories";
 
 interface DropdownProps {
   field: Payload["brand"] | Payload["categories"];
   setPayload: Dispatch<SetStateAction<Payload>>;
-  options: Brand[] | Category[];
+  options: IBrand[] | Category[];
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ field, setPayload, options }) => {
