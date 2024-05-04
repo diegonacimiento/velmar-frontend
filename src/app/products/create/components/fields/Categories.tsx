@@ -1,18 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
-import { Payload } from "../Form";
+import { IPayload } from "../Form";
 import { ICategory } from "@/types/categories";
 import { formStyles } from "../../styles/FormStyles";
 import { setField } from "../../utils/validate-form";
 
-interface CategoriesProps {
-  categories: Payload["categories"];
-  setPayload: Dispatch<SetStateAction<Payload>>;
+interface ICategoriesProps {
+  categories: IPayload["categories"];
+  setPayload: Dispatch<SetStateAction<IPayload>>;
   allCategories: ICategory[];
 }
 
-const Categories: React.FC<CategoriesProps> = ({ categories, setPayload, allCategories, }) => {
+const Categories: React.FC<ICategoriesProps> = ({ categories, setPayload, allCategories, }) => {
   const idCategoriesInProduct = categories.value.map((category) => category.id);
 
   const availableCategories = allCategories.filter(

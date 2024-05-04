@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { Payload } from "../components/Form";
+import { IPayload } from "../components/Form";
 
 const setError = (
-  field: keyof Payload,
+  field: keyof IPayload,
   msg: string,
-  setPayload: Dispatch<SetStateAction<Payload>>
+  setPayload: Dispatch<SetStateAction<IPayload>>
 ) => {
   setPayload((prev) => ({
     ...prev,
@@ -14,9 +14,9 @@ const setError = (
 };
 
 export const setField = (
-  field: keyof Payload,
-  value: string | Payload["categories"]["value"] | Payload["brand"]["value"],
-  setPayload: Dispatch<SetStateAction<Payload>>
+  field: keyof IPayload,
+  value: string | IPayload["categories"]["value"] | IPayload["brand"]["value"],
+  setPayload: Dispatch<SetStateAction<IPayload>>
 ) => {
   setPayload((prev) => ({
     ...prev,
@@ -25,8 +25,8 @@ export const setField = (
 };
 
 export const validateForm = (
-  payload: Payload,
-  setPayload: Dispatch<SetStateAction<Payload>>
+  payload: IPayload,
+  setPayload: Dispatch<SetStateAction<IPayload>>
 ) => {
   let validForm: boolean = true;
 

@@ -1,15 +1,15 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-import { Payload } from "../Form";
+import { IPayload } from "../Form";
 import { formStyles } from "../../styles/FormStyles";
 import { setField } from "../../utils/validate-form";
 
-interface NameProps {
-  name: Payload["name"];
-  setPayload: Dispatch<SetStateAction<Payload>>;
+interface INameProps {
+  name: IPayload["name"];
+  setPayload: Dispatch<SetStateAction<IPayload>>;
 }
 
-const Name: React.FC<NameProps> = ({ name, setPayload }) => {
+const Name: React.FC<INameProps> = ({ name, setPayload }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 70) return;
 

@@ -4,14 +4,14 @@ import React, { FormEvent, useState } from "react";
 import Name from "./fields/Name";
 import Price from "./fields/Price";
 import Description from "./fields/Description";
+import Brand from "./fields/Brand";
+import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { IProduct } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
-import Dropdown from "./fields/Dropdown";
-import Categories from "./fields/Categories";
 
-export interface Payload {
+export interface IPayload {
   name: {
     value: string;
     error: string;
@@ -29,13 +29,13 @@ export interface Payload {
   brand: { value: IProduct["brand"]; error: string };
 }
 
-interface FormProps {
+interface IFormProps {
   brands: IBrand[];
   categories: ICategory[];
 }
 
-const Form: React.FC<FormProps> = ({ brands, categories }) => {
-  const [payload, setPayload] = useState<Payload>({
+const Form: React.FC<IFormProps> = ({ brands, categories }) => {
+  const [payload, setPayload] = useState<IPayload>({
     name: { value: "", error: "" },
     price: { value: "", error: "" },
     description: { value: "", error: "" },
@@ -63,28 +63,15 @@ const Form: React.FC<FormProps> = ({ brands, categories }) => {
       {/* Description text-area */}
       <Description description={payload.description} setPayload={setPayload} />
 
+      {/* Brand dropdown */}
+      <Brand brand={payload.brand} setPayload={setPayload} allBrands={brands} />
+
       {/* Categories dropdown */}
       <Categories
         categories={payload.categories}
         setPayload={setPayload}
         allCategories={categories}
       />
-
-      {/* Brand dropdown */}
-      <Dropdown
-        field={payload.brand}
-        setPayload={setPayload}
-        options={brands}
-      />
-      {/* <div>
-        <label>Brand</label>
-        <select name="brands" defaultValue="">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <p></p>
-      </div> */}
 
       {/* Button send form */}
       <button type="submit" title="Send">

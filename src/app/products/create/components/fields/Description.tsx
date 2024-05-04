@@ -1,15 +1,15 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 import { formStyles } from "../../styles/FormStyles";
-import { Payload } from "../Form";
+import { IPayload } from "../Form";
 import { setField } from "../../utils/validate-form";
 
-interface DescriptionProps {
-  description: Payload["description"];
-  setPayload: Dispatch<SetStateAction<Payload>>;
+interface IDescriptionProps {
+  description: IPayload["description"];
+  setPayload: Dispatch<SetStateAction<IPayload>>;
 }
 
-const Description: React.FC<DescriptionProps> = ({
+const Description: React.FC<IDescriptionProps> = ({
   description,
   setPayload,
 }) => {

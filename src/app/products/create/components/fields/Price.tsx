@@ -6,15 +6,15 @@ import React, {
 } from "react";
 
 import { formStyles } from "../../styles/FormStyles";
-import { Payload } from "../Form";
+import { IPayload } from "../Form";
 import { setField } from "../../utils/validate-form";
 
-interface PriceProps {
-  price: Payload["price"];
-  setPayload: Dispatch<SetStateAction<Payload>>;
+interface IPriceProps {
+  price: IPayload["price"];
+  setPayload: Dispatch<SetStateAction<IPayload>>;
 }
 
-const Price: React.FC<PriceProps> = ({ price, setPayload }) => {
+const Price: React.FC<IPriceProps> = ({ price, setPayload }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     let number = event.target.value;
 
