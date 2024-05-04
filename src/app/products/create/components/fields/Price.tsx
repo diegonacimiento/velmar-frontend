@@ -7,6 +7,7 @@ import React, {
 
 import { formStyles } from "../../styles/FormStyles";
 import { Payload } from "../Form";
+import { setField } from "../../utils/validate-form";
 
 interface PriceProps {
   price: Payload["price"];
@@ -14,7 +15,7 @@ interface PriceProps {
 }
 
 const Price: React.FC<PriceProps> = ({ price, setPayload }) => {
-  const handleChangePrice = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     let number = event.target.value;
 
     // Validate if it is a decimal number
@@ -30,13 +31,10 @@ const Price: React.FC<PriceProps> = ({ price, setPayload }) => {
     if (integer.length > 8) return;
 
     // Update the value
-    setPayload((prev) => ({
-      ...prev,
-      price: { value: number.replaceAll("-", ""), error: "" },
-    }));
+    setField("price", number.replaceAll("-", ""), setPayload);
   };
 
-  const handleKeyDownPrice = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "e" || event.key === "-" || event.key === "+") {
       event.preventDefault();
     }
@@ -54,8 +52,9 @@ const Price: React.FC<PriceProps> = ({ price, setPayload }) => {
         name="price"
         value={price.value}
         min={1}
-        onChange={handleChangePrice}
-        onKeyDown={handleKeyDownPrice}
+        step={0.01}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
         className={formStyles.input + (price.error && formStyles.inputError)}
       />
       <p className={formStyles.error}>{price.error}</p>

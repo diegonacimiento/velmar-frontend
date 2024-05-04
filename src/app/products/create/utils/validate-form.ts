@@ -13,6 +13,17 @@ const setError = (
   }));
 };
 
+export const setField = (
+  field: keyof Payload,
+  value: string,
+  setPayload: Dispatch<SetStateAction<Payload>>
+) => {
+  setPayload((prev) => ({
+    ...prev,
+    [field]: { value, error: "" },
+  }));
+};
+
 export const validateForm = (
   payload: Payload,
   setPayload: Dispatch<SetStateAction<Payload>>
@@ -29,6 +40,12 @@ export const validateForm = (
   if (payload.price.value === "") {
     validForm = false;
     setError("price", "Price is empty", setPayload);
+  }
+
+  // Description text-area
+  if (payload.description.value === "") {
+    validForm = false;
+    setError("description", "Description is empty", setPayload);
   }
 
   return validForm;

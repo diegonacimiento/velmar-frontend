@@ -2,6 +2,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 import { Payload } from "../Form";
 import { formStyles } from "../../styles/FormStyles";
+import { setField } from "../../utils/validate-form";
 
 interface NameProps {
   name: Payload["name"];
@@ -9,13 +10,10 @@ interface NameProps {
 }
 
 const Name: React.FC<NameProps> = ({ name, setPayload }) => {
-  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 70) return;
-    
-    setPayload((prev) => ({
-      ...prev,
-      name: { value: event.target.value, error: "" },
-    }));
+
+    setField("name", event.target.value, setPayload);
   };
 
   return (
@@ -30,7 +28,7 @@ const Name: React.FC<NameProps> = ({ name, setPayload }) => {
         name="name"
         value={name.value}
         maxLength={70}
-        onChange={handleChangeName}
+        onChange={handleChange}
         className={formStyles.input + (name.error && formStyles.inputError)}
       />
       <p className={formStyles.error}>{name.error}</p>

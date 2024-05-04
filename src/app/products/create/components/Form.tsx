@@ -6,6 +6,7 @@ import { Category } from "@/types/categories";
 import { Brand } from "@/types/brands";
 import Price from "./fields/Price";
 import { validateForm } from "../utils/validate-form";
+import Description from "./fields/Description";
 
 export interface Payload {
   name: {
@@ -52,11 +53,7 @@ const Form = () => {
       <Price price={payload.price} setPayload={setPayload} />
 
       {/* Description text-area */}
-      <div>
-        <label>Description</label>
-        <textarea name="description" />
-        <p></p>
-      </div>
+      <Description description={payload.description} setPayload={setPayload} />
 
       {/* Categories dropdown */}
       <div>
