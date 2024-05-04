@@ -1,12 +1,15 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
+
 import Name from "./fields/Name";
-import { ImageProduct } from "@/types/products";
-import { Category } from "@/types/categories";
-import { Brand } from "@/types/brands";
 import Price from "./fields/Price";
-import { validateForm } from "../utils/validate-form";
 import Description from "./fields/Description";
+import { Brand } from "@/types/brands";
+import { Category } from "@/types/categories";
+import { Product } from "@/types/products";
+import { validateForm } from "../utils/validate-form";
+import Dropdown from "./fields/Dropdown";
+import Categories from "./fields/Categories";
 
 export interface Payload {
   name: {
@@ -21,19 +24,24 @@ export interface Payload {
     value: string;
     error: string;
   };
-  images: { value: ImageProduct[]; error: string };
-  categories: { value: Category[]; error: string };
-  brand: { value: Brand; error: string };
+  images: { value: Product["images"]; error: string };
+  categories: { value: Product["categories"]; error: string };
+  brand: { value: Product["brand"]; error: string };
 }
 
-const Form = () => {
+interface FormProps {
+  brands: Brand[];
+  categories: Category[];
+}
+
+const Form: React.FC<FormProps> = ({ brands, categories }) => {
   const [payload, setPayload] = useState<Payload>({
     name: { value: "", error: "" },
     price: { value: "", error: "" },
     description: { value: "", error: "" },
     images: { value: [], error: "" },
     categories: { value: [], error: "" },
-    brand: { value: {} as Brand, error: "" },
+    brand: { value: null, error: "" },
   });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -56,18 +64,19 @@ const Form = () => {
       <Description description={payload.description} setPayload={setPayload} />
 
       {/* Categories dropdown */}
-      <div>
-        <label>Categories</label>
-        <select name="categories" defaultValue="">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <p></p>
-      </div>
+      <Categories
+        categories={payload.categories}
+        setPayload={setPayload}
+        allCategories={categories}
+      />
 
       {/* Brand dropdown */}
-      <div>
+      <Dropdown
+        field={payload.brand}
+        setPayload={setPayload}
+        options={brands}
+      />
+      {/* <div>
         <label>Brand</label>
         <select name="brands" defaultValue="">
           <option value="1">1</option>
@@ -75,7 +84,7 @@ const Form = () => {
           <option value="3">3</option>
         </select>
         <p></p>
-      </div>
+      </div> */}
 
       {/* Button send form */}
       <button type="submit" title="Send">

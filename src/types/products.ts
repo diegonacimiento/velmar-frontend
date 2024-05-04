@@ -12,7 +12,7 @@ export interface Product {
 
   images: ImageProduct[];
 
-  brand: Brand;
+  brand: Brand | null;
 
   categories: Category[];
 

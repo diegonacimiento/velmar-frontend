@@ -15,7 +15,7 @@ const setError = (
 
 export const setField = (
   field: keyof Payload,
-  value: string,
+  value: string | Payload["categories"]["value"] | Payload["brand"]["value"],
   setPayload: Dispatch<SetStateAction<Payload>>
 ) => {
   setPayload((prev) => ({
