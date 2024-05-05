@@ -10,6 +10,7 @@ import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { IProduct } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
+import Images from "./Images";
 
 export interface IPayload {
   name: {
@@ -53,29 +54,49 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} method="POST" className="flex flex-col gap-6">
-      {/* Name input */}
-      <Name name={payload.name} setPayload={setPayload} />
+    <form
+      onSubmit={handleSubmit}
+      method="POST"
+      className="flex flex-col gap-4 p-4 w-full max-w-6xl"
+    >
+      <div className="flex flex-col md:flex-row gap-12">
+        <section className="flex md:w-1/2">
+          {/* Images */}
+          <Images images={payload.images} setPayload={setPayload} />
+        </section>
 
-      {/* Price input */}
-      <Price price={payload.price} setPayload={setPayload} />
+        <section className="flex flex-col gap-4 md:w-1/2">
+          {/* Name input */}
+          <Name name={payload.name} setPayload={setPayload} />
 
-      {/* Description text-area */}
-      <Description description={payload.description} setPayload={setPayload} />
+          {/* Price input */}
+          <Price price={payload.price} setPayload={setPayload} />
 
-      {/* Brand dropdown */}
-      <Brand brand={payload.brand} setPayload={setPayload} allBrands={brands} />
+          {/* Description text-area */}
+          <Description
+            description={payload.description}
+            setPayload={setPayload}
+          />
 
-      {/* Categories dropdown */}
-      <Categories
-        categories={payload.categories}
-        setPayload={setPayload}
-        allCategories={categories}
-      />
+          {/* Brand dropdown */}
+          <Brand
+            brand={payload.brand}
+            setPayload={setPayload}
+            allBrands={brands}
+          />
 
-      {/* Button send form */}
-      <button type="submit" title="Send">
-        Send
+          {/* Categories dropdown */}
+          <Categories
+            categories={payload.categories}
+            setPayload={setPayload}
+            allCategories={categories}
+          />
+        </section>
+      </div>
+
+      {/* Button submit form */}
+      <button type="submit" title="Save">
+        Save
       </button>
     </form>
   );
