@@ -8,7 +8,7 @@ import Brand from "./fields/Brand";
 import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
-import { IProduct } from "@/types/products";
+import { IProduct, Size } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
 import Images from "./Images";
 
@@ -62,7 +62,7 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
       <div className="flex flex-col md:flex-row gap-12">
         <section className="flex md:w-1/2">
           {/* Images */}
-          <Images images={payload.images} setPayload={setPayload} />
+          <Images images={images2} setPayload={setPayload} />
         </section>
 
         <section className="flex flex-col gap-4 md:w-1/2">
@@ -103,3 +103,24 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
 };
 
 export default Form;
+
+const images2 = {
+  value: [
+    {
+      color: "skyblue",
+      urls: ["https://iili.io/J8zaYpn.webp"],
+      sizes: [Size.M],
+    },
+    {
+      color: "green",
+      urls: ["https://iili.io/J8za7kX.webp"],
+      sizes: [Size.M],
+    },
+    {
+      color: "pink",
+      urls: ["https://iili.io/J8za57t.webp"],
+      sizes: [Size.M],
+    },
+  ],
+  error: "",
+};
