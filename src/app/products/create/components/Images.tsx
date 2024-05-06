@@ -43,14 +43,14 @@ const Images: React.FC<IImagesProps> = ({ images, setPayload }) => {
           type="button"
           title="Previous image"
           onClick={() => scrollSelector(true)}
-          className="z-10 absolute p-2 m-1 h-max text-2xl text-secondary hover:bg-secondary hover:text-primary hover:rounded-full hover:scale-105 duration-150"
+          className={formStyles.buttonSlideImage + " z-10"}
         >
           <IoIosArrowBack />
         </button>
 
         <div
           ref={containerImage}
-          className="flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full"
+          className={formStyles.containerImage}
         >
           {currentImage.urls.map((url) => (
             <div key={url} className="min-w-full snap-center">
@@ -69,7 +69,7 @@ const Images: React.FC<IImagesProps> = ({ images, setPayload }) => {
           type="button"
           title="Next image"
           onClick={() => scrollSelector()}
-          className="absolute right-0 p-2 m-1 h-max text-2xl text-secondary hover:bg-secondary hover:text-primary hover:rounded-full hover:scale-105 duration-150"
+          className={formStyles.buttonSlideImage + " right-0"}
         >
           <IoIosArrowForward />
         </button>
@@ -78,7 +78,7 @@ const Images: React.FC<IImagesProps> = ({ images, setPayload }) => {
       <button
         type="button"
         title="Change image"
-        className="p-3 text-secondary bg-primary hover:bg-secondary hover:text-primary hover:scale-105 duration-150"
+        className={formStyles.buttonPS}
       >
         Change image
       </button>

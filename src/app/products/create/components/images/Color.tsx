@@ -40,7 +40,7 @@ const Color: React.FC<IColorProps> = ({
             type="button"
             title="Close"
             onClick={toggleColorList}
-            className="flex items-center justify-center border border-red-600 h-8 w-8 rounded-full hover:scale-105 duration-150"
+            className="flex items-center justify-center border border-red-600 rounded-full h-8 w-8 hover:scale-105 hover:border-2 duration-150"
           >
             <MdOutlineClose />
           </button>

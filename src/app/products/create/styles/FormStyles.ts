@@ -19,4 +19,12 @@ export const formStyles = {
     "px-1.5 py-2 border border-secondary rounded-lg w-full focus:outline-0",
   buttonDelete:
     "flex justify-center items-center h-8 w-8 rounded-full text-xl hover:bg-primary",
+
+  // Images component
+  buttonSlideImage:
+    "absolute p-1.5 m-1 h-max text-2xl text-secondary hover:bg-secondary hover:text-primary hover:rounded-full hover:scale-105 duration-150",
+  containerImage:
+    "flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full",
+  buttonPS:
+    "p-3 text-secondary bg-primary hover:bg-secondary hover:text-primary hover:scale-105 duration-150",
 };
