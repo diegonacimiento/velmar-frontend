@@ -8,9 +8,10 @@ import Brand from "./fields/Brand";
 import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
-import { IProduct, Size } from "@/types/products";
+import { IProduct, IProductImage, Size } from "@/types/products";
 import { validateForm } from "../utils/validate-form";
 import Images from "./Images";
+import ImageSelector from "./images/Selector";
 
 export interface IPayload {
   name: {
@@ -25,7 +26,12 @@ export interface IPayload {
     value: string;
     error: string;
   };
-  images: { value: IProduct["images"]; error: string };
+  images: {
+    value: IProduct["images"];
+    error: string;
+    currentImage: IProductImage;
+    newColor: string;
+  };
   categories: { value: IProduct["categories"]; error: string };
   brand: { value: IProduct["brand"]; error: string };
 }
@@ -40,10 +46,21 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
     name: { value: "", error: "" },
     price: { value: "", error: "" },
     description: { value: "", error: "" },
-    images: { value: [], error: "" },
+    images: {
+      value: [],
+      error: "",
+      currentImage: { color: "", urls: [], sizes: [] },
+      newColor: "",
+    },
     categories: { value: [], error: "" },
     brand: { value: null, error: "" },
   });
+
+  const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
+
+  const toggleSelector = () => {
+    setIsOpenSelector((prev) => !prev);
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,6 +69,15 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
     console.log(payload);
     console.log("Submitted form");
   };
+
+  if (isOpenSelector)
+    return (
+      <ImageSelector
+        images={payload.images}
+        toggleSelector={toggleSelector}
+        setPayload={setPayload}
+      />
+    );
 
   return (
     <form
@@ -62,7 +88,11 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
       <div className="flex flex-col md:flex-row gap-12">
         <section className="flex md:w-1/2">
           {/* Images */}
-          <Images images={images2} setPayload={setPayload} />
+          <Images
+            images={payload.images}
+            setPayload={setPayload}
+            toggleSelector={toggleSelector}
+          />
         </section>
 
         <section className="flex flex-col gap-4 md:w-1/2">

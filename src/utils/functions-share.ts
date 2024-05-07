@@ -19,3 +19,8 @@ export function genId() {
   
   return uniqueId;
 }
+
+export const copyData = (data: any) => {
+  const copy = JSON.parse(JSON.stringify(data || null));
+  return copy;
+}
