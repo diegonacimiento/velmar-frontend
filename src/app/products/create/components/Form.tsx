@@ -9,9 +9,10 @@ import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { IProduct, IProductImage, Size } from "@/types/products";
-import { validateForm } from "../utils/validate-form";
+import { preparePayload, validateForm } from "../utils/validate-form";
 import Images from "./Images";
 import ImageSelector from "./images/Selector";
+import { formStyles } from "../styles/FormStyles";
 
 export interface IPayload {
   name: {
@@ -66,6 +67,8 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
     event.preventDefault();
     const validForm = validateForm(payload, setPayload);
     if (!validForm) return;
+    const finalPayload = preparePayload(payload);
+    console.log(finalPayload);
     console.log(payload);
     console.log("Submitted form");
   };
@@ -125,7 +128,7 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
       </div>
 
       {/* Button submit form */}
-      <button type="submit" title="Save">
+      <button type="submit" title="Save" className={formStyles.buttonSP + " m-auto w-full max-w-60"}>
         Save
       </button>
     </form>

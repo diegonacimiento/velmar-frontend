@@ -53,6 +53,14 @@ const Color: React.FC<IColorProps> = ({
     }
   };
 
+  const handleAddColor = () => {
+    if (images.value.length === 0) {
+      toggleSelector();
+    } else {
+      toggleColorList();
+    }
+  }
+
   const colorsProduct = images.value.map((image) => image.color);
 
   const colors = showColorList
@@ -103,7 +111,7 @@ const Color: React.FC<IColorProps> = ({
           <button
             type="button"
             title="Add color"
-            onClick={toggleColorList}
+            onClick={handleAddColor}
             className="rounded-full h-10 w-10 bg-gray-300 text-white text-xl opacity-70 hover:opacity-100 hover:border-2 hover:border-body duration-150"
           >
             +

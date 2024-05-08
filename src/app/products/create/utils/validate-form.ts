@@ -71,3 +71,15 @@ export const validateForm = (
 
   return validForm;
 };
+
+export const preparePayload = (payload: IPayload) => {
+  const finalPayload = {
+    name: payload.name.value,
+    price: payload.price.value,
+    description: payload.description.value,
+    brand: payload.brand.value?.id || null,
+    categories: payload.categories.value.map((category) => category.id),
+    images: payload.images.value,
+  }
+  return finalPayload;
+}

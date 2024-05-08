@@ -48,14 +48,27 @@ const Images: React.FC<IImagesProps> = ({
       {/* Image current section */}
 
       {images.currentImage.urls.length < 1 ? (
-        <div
-          title="Add images"
-          onClick={handleAddImages}
-          className="flex items-center justify-center h-[36.25rem] w-full text-secondary bg-primary text-5xl cursor-pointer hover:bg-opacity-40 duration-150"
-        >
-          {" "}
-          <LuImagePlus />
-        </div>
+        <>
+          <div
+            title="Add images"
+            onClick={toggleSelector}
+            className={
+              "flex items-center justify-center h-[36.25rem] w-full text-secondary bg-primary text-5xl cursor-pointer hover:bg-opacity-40 duration-150 " +
+              (images.error && "border border-red-600")
+            }
+          >
+            {" "}
+            <LuImagePlus />
+          </div>
+          <button
+            type="button"
+            title="Add images"
+            onClick={toggleSelector}
+            className={formStyles.buttonSP}
+          >
+            Add images
+          </button>
+        </>
       ) : (
         <>
           <div className="relative flex items-center">

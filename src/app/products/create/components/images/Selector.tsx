@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { IoMdCheckmark } from "react-icons/io";
 
@@ -8,6 +8,7 @@ import { IPayload } from "../Form";
 import { copyData } from "@/utils/functions-share";
 import { IProductImage, Size } from "@/types/products";
 import { MdErrorOutline } from "react-icons/md";
+import { mainColors } from "@/utils/temporal";
 
 interface IImageSelectorProps {
   images: IPayload["images"];
@@ -20,6 +21,10 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
   toggleSelector,
   setPayload,
 }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedImages, setSelectedImages] = useState<string[]>(
     images.newColor ? [] : [...images.currentImage.urls]
   );
@@ -34,6 +39,12 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
       setError("You must select at least one image");
       return;
     }
+
+    if (images.value.length === 0 && !images.newColor) {
+      setError("Select a color");
+      return;
+    }
+
     if (images.newColor) {
       const newImage: IProductImage = {
         color: images.newColor,
@@ -86,17 +97,57 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
     setOffset(offset + 10);
   };
 
+  const handleClickColor = (color: string) => {
+    setPayload((prev) => ({
+      ...prev,
+      images: { ...prev.images, newColor: color },
+    }));
+  };
+
+  const handleCancel = () => {
+    setPayload((prev) => ({
+      ...prev,
+      images: { ...prev.images, newColor: "" },
+    }));
+    toggleSelector();
+  };
+
   return (
     <div className="flex flex-col items-center gap-4 p-4 w-full">
-      <h1 className="text-2xl font-medium text-secondary">Select images</h1>
+      {images.value.length === 0 && (
+        <>
+          <h2 className="text-2xl font-medium text-secondary">
+            Select a color
+          </h2>
+          <div className="flex gap-4 flex-wrap justify-center p-4 rounded-md min-h-[4.5rem] max-w-650 bg-primary">
+            {mainColors.map((color) => (
+              <div key={color} className="relative">
+                <div
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleClickColor(color)}
+                  className={
+                    "rounded-full h-10 w-10 cursor-pointer " +
+                    (color === images.newColor
+                      ? " border-2 border-secondary"
+                      : "opacity-70 hover:opacity-100 hover:border-2 hover:border-body duration-150")
+                  }
+                ></div>{" "}
+              </div>
+            ))}
+          </div>
+          <hr className="my-4 w-full" />
+        </>
+      )}
+
+      <h2 className="text-2xl font-medium text-secondary">Select images</h2>
 
       <div className="z-20 sticky top-0 flex flex-col gap-4 items-center p-4 w-full bg-body">
         <div className="flex gap-8">
           <button
             type="button"
             title="Cancel"
-            onClick={toggleSelector}
-            className={formStyles.buttonPS + " min-w-32"}
+            onClick={handleCancel}
+            className={formStyles.buttonSP + " min-w-32"}
           >
             Cancel
           </button>
@@ -104,14 +155,14 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
             type="button"
             title="Add images"
             onClick={handleAddImages}
-            className={formStyles.buttonPS + " min-w-32"}
+            className={formStyles.buttonSP + " min-w-32"}
           >
             Add images
           </button>
         </div>
 
         {error && (
-          <p className={formStyles.error + " flex items-center gap-1"}>
+          <p className={"flex items-center gap-1 text-red-600"}>
             {" "}
             <MdErrorOutline />
             {error}
@@ -150,7 +201,7 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
           type="button"
           title="More images"
           onClick={getImages}
-          className={formStyles.buttonPS + " m-auto w-max"}
+          className={formStyles.buttonSP + " m-auto w-max"}
         >
           More images
         </button>
