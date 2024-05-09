@@ -1,6 +1,10 @@
 import axios from "axios";
 
-import { IPayloadUpdateProduct, IProduct } from "@/types/products";
+import {
+  IPayloadCreateProduct,
+  IPayloadUpdateProduct,
+  IProduct,
+} from "@/types/products";
 import { headers } from "next/headers";
 
 export const getProducts = async (
@@ -39,6 +43,25 @@ export const getProduct = async (id: number): Promise<IProduct> => {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const createProduct = async (payload: IPayloadCreateProduct) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/products`,
+      payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
       }
     );
     return response.data;

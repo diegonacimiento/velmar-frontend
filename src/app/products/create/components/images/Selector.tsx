@@ -2,13 +2,14 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { IoMdCheckmark } from "react-icons/io";
+import { MdErrorOutline } from "react-icons/md";
 
 import { formStyles } from "../../styles/FormStyles";
 import { IPayload } from "../Form";
 import { copyData } from "@/utils/functions-share";
 import { IProductImage, Size } from "@/types/products";
-import { MdErrorOutline } from "react-icons/md";
 import { mainColors } from "@/utils/temporal";
+import { setImage } from "../../utils/validate-form";
 
 interface IImageSelectorProps {
   images: IPayload["images"];
@@ -28,60 +29,71 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
   const [selectedImages, setSelectedImages] = useState<string[]>(
     images.newColor ? [] : [...images.currentImage.urls]
   );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    images.newColor ? "" : images.currentImage.color
+  );
   const [offset, setOffset] = useState<number>(10);
   const [availableImages, setAvailableImages] = useState<string[]>(
     enlaces.slice(0, 10)
   );
-  const [error, setError] = useState<string>("");
+  const [errorImages, setErrorImages] = useState<string>("");
+  const [errorColor, setErrorColor] = useState<string>("");
 
-  const handleAddImages = () => {
+  const incompleteSteps = () => {
     if (selectedImages.length === 0) {
-      setError("You must select at least one image");
-      return;
+      setErrorImages("You must select at least one image");
+      return true;
     }
 
-    if (images.value.length === 0 && !images.newColor) {
-      setError("Select a color");
-      return;
+    if (!selectedColor) {
+      setErrorColor("Select a color");
+      window.scrollTo(0, 0);
+      return true;
     }
 
-    if (images.newColor) {
-      const newImage: IProductImage = {
-        color: images.newColor,
-        urls: [...selectedImages],
-        sizes: [Size.XS],
-      };
-      setPayload((prev) => ({
-        ...prev,
-        images: {
-          value: [...prev.images.value, { ...newImage }],
-          currentImage: newImage,
-          error: "",
-          newColor: "",
-        },
-      }));
+    return false;
+  };
+
+  const addImages = () => {
+    if (incompleteSteps()) return;
+
+    const newImage: IProductImage = {
+      color: selectedColor,
+      urls: [...selectedImages],
+      sizes: [Size.XS],
+    };
+
+    setImage(setPayload, newImage);
+  };
+
+  const updateImage = () => {
+    if (incompleteSteps()) return;
+
+    const color = images.currentImage.color;
+
+    const index = images.value.findIndex((image) => image.color === color);
+
+    const copy: IProductImage[] = copyData(images.value);
+
+    copy[index].color = selectedColor;
+    copy[index].urls = [...selectedImages];
+
+    setImage(setPayload, copy[index], copy);
+  };
+
+  const handleSubmit = () => {
+    if (incompleteSteps()) return;
+
+    if (images.newColor || images.value.length === 0) {
+      addImages();
     } else {
-      const index = images.value.findIndex(
-        (image) => image.color === images.currentImage.color
-      );
-
-      const copyImagesValue: IProductImage[] = copyData(images.value);
-      copyImagesValue[index].urls = [...selectedImages];
-      setPayload((prev) => ({
-        ...prev,
-        images: {
-          value: copyImagesValue,
-          error: "",
-          currentImage: copyImagesValue[index],
-          newColor: "",
-        },
-      }));
+      updateImage();
     }
     toggleSelector();
   };
 
   const handleSelectedImages = (url: string) => {
-    setError("");
+    setErrorImages("");
     if (selectedImages.includes(url)) {
       const newSelectedImages = selectedImages.filter((image) => image !== url);
       setSelectedImages([...newSelectedImages]);
@@ -98,46 +110,52 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
   };
 
   const handleClickColor = (color: string) => {
-    setPayload((prev) => ({
-      ...prev,
-      images: { ...prev.images, newColor: color },
-    }));
+    setErrorColor("");
+    setSelectedColor(color);
   };
 
   const handleCancel = () => {
     setPayload((prev) => ({
       ...prev,
-      images: { ...prev.images, newColor: "" },
+      images: { ...prev.images, newColor: false },
     }));
     toggleSelector();
   };
 
   return (
     <div className="flex flex-col items-center gap-4 p-4 w-full">
-      {images.value.length === 0 && (
-        <>
-          <h2 className="text-2xl font-medium text-secondary">
-            Select a color
-          </h2>
-          <div className="flex gap-4 flex-wrap justify-center p-4 rounded-md min-h-[4.5rem] max-w-650 bg-primary">
-            {mainColors.map((color) => (
-              <div key={color} className="relative">
-                <div
-                  style={{ backgroundColor: color }}
-                  onClick={() => handleClickColor(color)}
-                  className={
-                    "rounded-full h-10 w-10 cursor-pointer " +
-                    (color === images.newColor
-                      ? " border-2 border-secondary"
-                      : "opacity-70 hover:opacity-100 hover:border-2 hover:border-body duration-150")
-                  }
-                ></div>{" "}
-              </div>
-            ))}
-          </div>
-          <hr className="my-4 w-full" />
-        </>
-      )}
+      <>
+        <h2 className="text-2xl font-medium text-secondary">Select a color</h2>
+        <div
+          className={
+            "flex gap-4 flex-wrap justify-center p-4 rounded-md min-h-[4.5rem] max-w-650 bg-primary " +
+            (errorColor && "border-2 border-red-600")
+          }
+        >
+          {mainColors.map((color) => (
+            <div key={color} className="relative">
+              <div
+                style={{ backgroundColor: color }}
+                onClick={() => handleClickColor(color)}
+                className={
+                  "rounded-full h-10 w-10 cursor-pointer " +
+                  (color === selectedColor
+                    ? " border-2 border-body scale-125"
+                    : "opacity-50 hover:opacity-100 hover:border-2 hover:border-body duration-150")
+                }
+              ></div>{" "}
+            </div>
+          ))}
+        </div>
+        {errorColor && (
+          <p className={"flex items-center gap-1 text-red-600"}>
+            {" "}
+            <MdErrorOutline />
+            {errorColor}
+          </p>
+        )}
+        <hr className="my-4 w-full" />
+      </>
 
       <h2 className="text-2xl font-medium text-secondary">Select images</h2>
 
@@ -154,18 +172,18 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
           <button
             type="button"
             title="Add images"
-            onClick={handleAddImages}
+            onClick={handleSubmit}
             className={formStyles.buttonSP + " min-w-32"}
           >
             Add images
           </button>
         </div>
 
-        {error && (
+        {errorImages && (
           <p className={"flex items-center gap-1 text-red-600"}>
             {" "}
             <MdErrorOutline />
-            {error}
+            {errorImages}
           </p>
         )}
       </div>

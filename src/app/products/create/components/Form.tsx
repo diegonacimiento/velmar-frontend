@@ -13,6 +13,8 @@ import { preparePayload, validateForm } from "../utils/validate-form";
 import Images from "./Images";
 import ImageSelector from "./images/Selector";
 import { formStyles } from "../styles/FormStyles";
+import { createProduct } from "@/services/products.service";
+import { useRouter } from "next/navigation";
 
 export interface IPayload {
   name: {
@@ -31,7 +33,7 @@ export interface IPayload {
     value: IProduct["images"];
     error: string;
     currentImage: IProductImage;
-    newColor: string;
+    newColor: boolean;
   };
   categories: { value: IProduct["categories"]; error: string };
   brand: { value: IProduct["brand"]; error: string };
@@ -43,6 +45,8 @@ interface IFormProps {
 }
 
 const Form: React.FC<IFormProps> = ({ brands, categories }) => {
+  const router = useRouter();
+
   const [payload, setPayload] = useState<IPayload>({
     name: { value: "", error: "" },
     price: { value: "", error: "" },
@@ -51,7 +55,7 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
       value: [],
       error: "",
       currentImage: { color: "", urls: [], sizes: [] },
-      newColor: "",
+      newColor: false,
     },
     categories: { value: [], error: "" },
     brand: { value: null, error: "" },
@@ -59,18 +63,24 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
 
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
 
+  const [errorForm, setErrorForm] = useState<string>("");
+
   const toggleSelector = () => {
     setIsOpenSelector((prev) => !prev);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const validForm = validateForm(payload, setPayload);
-    if (!validForm) return;
-    const finalPayload = preparePayload(payload);
-    console.log(finalPayload);
-    console.log(payload);
-    console.log("Submitted form");
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+      const validForm = validateForm(payload, setPayload);
+      if (!validForm) return;
+      const finalPayload = preparePayload(payload);
+      await createProduct(finalPayload);
+      router.push("/products");
+    } catch (error) {
+      console.error(error);
+      setErrorForm("A problem occurred, please try again later");
+    }
   };
 
   if (isOpenSelector)
@@ -128,9 +138,15 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
       </div>
 
       {/* Button submit form */}
-      <button type="submit" title="Save" className={formStyles.buttonSP + " m-auto w-full max-w-60"}>
+      <button
+        type="submit"
+        title="Save"
+        className={formStyles.buttonSP + " m-auto w-full max-w-60"}
+      >
         Save
       </button>
+
+      <p className="text-red-600 m-auto">{errorForm}</p>
     </form>
   );
 };

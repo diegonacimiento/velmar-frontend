@@ -1,16 +1,13 @@
 "use client";
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 import Image from "next/image";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import { IPayload } from "./Form";
 import { formStyles } from "../styles/FormStyles";
-import { IProductImage, Size } from "@/types/products";
 import Color from "./images/Color";
 import Sizes from "./images/Sizes";
-import { copyData } from "@/utils/functions-share";
 import { LuImagePlus } from "react-icons/lu";
-import { setCurrentImage, setError, setField } from "../utils/validate-form";
 
 interface IImagesProps {
   images: IPayload["images"];
@@ -24,14 +21,6 @@ const Images: React.FC<IImagesProps> = ({
   toggleSelector,
 }) => {
   const containerImage = useRef<HTMLDivElement>(null);
-
-  const handleAddImages = () => {
-    setError(
-      "images",
-      "To add images, you must first select a color",
-      setPayload
-    );
-  };
 
   const scrollSelector = (back?: boolean) => {
     if (containerImage.current) {

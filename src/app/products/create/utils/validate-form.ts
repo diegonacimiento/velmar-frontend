@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { IPayload } from "../components/Form";
-import { IProductImage } from "@/types/products";
+import { IPayloadCreateProduct, IProductImage } from "@/types/products";
 
 export const setError = (
   field: keyof IPayload,
@@ -19,8 +19,7 @@ export const setField = (
   value:
     | string
     | IPayload["categories"]["value"]
-    | IPayload["brand"]["value"]
-    | IPayload["images"]["value"],
+    | IPayload["brand"]["value"],
   setPayload: Dispatch<SetStateAction<IPayload>>
 ) => {
   setPayload((prev) => ({
@@ -29,13 +28,18 @@ export const setField = (
   }));
 };
 
-export const setCurrentImage = (
+export const setImage = (
+  setPayload: Dispatch<SetStateAction<IPayload>>,
   currentImage: IProductImage,
-  setPayload: Dispatch<SetStateAction<IPayload>>
+  images?: IProductImage[]
 ) => {
   setPayload((prev) => ({
     ...prev,
-    images: { ...prev.images, currentImage },
+    images: {
+      ...prev.images,
+      currentImage,
+      value: images ? images : prev.images.value,
+    },
   }));
 };
 
@@ -73,13 +77,13 @@ export const validateForm = (
 };
 
 export const preparePayload = (payload: IPayload) => {
-  const finalPayload = {
+  const finalPayload: IPayloadCreateProduct = {
     name: payload.name.value,
     price: payload.price.value,
     description: payload.description.value,
-    brand: payload.brand.value?.id || null,
-    categories: payload.categories.value.map((category) => category.id),
+    brandId: payload.brand.value?.id || null,
+    categoriesIds: payload.categories.value.map((category) => category.id),
     images: payload.images.value,
-  }
+  };
   return finalPayload;
-}
+};

@@ -39,6 +39,15 @@ export enum Size {
   "3XL" = "3XL",
 }
 
+export interface IPayloadCreateProduct
+  extends Omit<
+    IProduct,
+    "id" | "createdAt" | "updatedAt" | "deletedAt" | "brand" | "categories"
+  > {
+  brandId: number | null;
+  categoriesIds: number[];
+}
+
 export interface IPayloadUpdateProduct
   extends Omit<IProduct, "categories" | "brand"> {
   categories: number[];
