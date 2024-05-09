@@ -9,7 +9,7 @@ import Brand from "./fields/Brand";
 import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
-import { IProductFields } from "@/types/products";
+import { IProduct, IProductFields } from "@/types/products";
 import { preparePayload, validateForm } from "../utils/validate-form";
 import Images from "./Images";
 import ImageSelector from "./images/Selector";
@@ -17,25 +17,26 @@ import { formStyles } from "../styles/FormStyles";
 import { createProduct } from "@/services/products.service";
 
 interface IFormProps {
+  products?: IProduct;
   brands: IBrand[];
   categories: ICategory[];
 }
 
-const Form: React.FC<IFormProps> = ({ brands, categories }) => {
+const Form: React.FC<IFormProps> = ({ products, brands, categories }) => {
   const router = useRouter();
 
   const [fields, setFields] = useState<IProductFields>({
-    name: { value: "", error: "" },
-    price: { value: "", error: "" },
-    description: { value: "", error: "" },
+    name: { value: products?.name || "", error: "" },
+    price: { value: products?.price || "", error: "" },
+    description: { value: products?.description || "", error: "" },
     images: {
-      value: [],
+      value: products?.images || [],
       error: "",
-      currentImage: { color: "", urls: [], sizes: [] },
+      currentImage: products?.images[0] || { color: "", urls: [], sizes: [] },
       newColor: false,
     },
-    categories: { value: [], error: "" },
-    brand: { value: null, error: "" },
+    categories: { value: products?.categories || [], error: "" },
+    brand: { value: products?.brand || null, error: "" },
   });
 
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
