@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { MdErrorOutline } from "react-icons/md";
 import { IoMdCheckmark } from "react-icons/io";
@@ -7,17 +7,15 @@ import { IoMdCheckmark } from "react-icons/io";
 import { formStyles } from "../../styles/FormStyles";
 
 interface IGalleryProps {
-  selectedImages: string[];
-  errorImages: string;
-  handleSelectedImages: (image: string) => void;
+  selectedImages: { value: string[], error: string };
+  setSelectedImages: Dispatch<SetStateAction<{ value: string[], error: string }>>;
   handleSubmit: () => void;
   handleCancel: () => void;
 }
 
 const Gallery: React.FC<IGalleryProps> = ({
   selectedImages,
-  errorImages,
-  handleSelectedImages,
+  setSelectedImages,
   handleSubmit,
   handleCancel,
 }) => {
@@ -30,6 +28,21 @@ const Gallery: React.FC<IGalleryProps> = ({
     const images = enlaces.slice(offset, offset + 10);
     setAvailableImages((prev) => [...prev, ...images]);
     setOffset(offset + 10);
+  };
+
+  const handleSelectedImages = (url: string) => {
+    if (selectedImages.value.includes(url)) {
+      const newSelectedImages = selectedImages.value.filter(
+        (image) => image !== url
+      );
+      setSelectedImages(() => ({
+        value: [...newSelectedImages],
+        error: "",
+      }));
+      return;
+    }
+
+    setSelectedImages((prev) => ({ value: [...prev.value, url], error: "" }));
   };
 
   return (
@@ -56,11 +69,11 @@ const Gallery: React.FC<IGalleryProps> = ({
           </button>
         </div>
 
-        {errorImages && (
+        {selectedImages.error && (
           <p className={"flex items-center gap-1 text-red-600"}>
             {" "}
             <MdErrorOutline />
-            {errorImages}
+            {selectedImages.error}
           </p>
         )}
       </div>
@@ -75,7 +88,7 @@ const Gallery: React.FC<IGalleryProps> = ({
             >
               <div
                 className={
-                  selectedImages.includes(image)
+                  selectedImages.value.includes(image)
                     ? "absolute flex justify-center items-center h-full w-full bg-secondary opacity-60"
                     : "hidden"
                 }

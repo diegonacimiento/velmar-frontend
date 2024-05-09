@@ -1,5 +1,6 @@
 "use client";
 import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Name from "./fields/Name";
 import Price from "./fields/Price";
@@ -8,36 +9,12 @@ import Brand from "./fields/Brand";
 import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
-import { IProduct, IProductImage, Size } from "@/types/products";
+import { IProductFields } from "@/types/products";
 import { preparePayload, validateForm } from "../utils/validate-form";
 import Images from "./Images";
 import ImageSelector from "./images/Selector";
 import { formStyles } from "../styles/FormStyles";
 import { createProduct } from "@/services/products.service";
-import { useRouter } from "next/navigation";
-
-export interface IPayload {
-  name: {
-    value: string;
-    error: string;
-  };
-  price: {
-    value: string;
-    error: string;
-  };
-  description: {
-    value: string;
-    error: string;
-  };
-  images: {
-    value: IProduct["images"];
-    error: string;
-    currentImage: IProductImage;
-    newColor: boolean;
-  };
-  categories: { value: IProduct["categories"]; error: string };
-  brand: { value: IProduct["brand"]; error: string };
-}
 
 interface IFormProps {
   brands: IBrand[];
@@ -47,7 +24,7 @@ interface IFormProps {
 const Form: React.FC<IFormProps> = ({ brands, categories }) => {
   const router = useRouter();
 
-  const [payload, setPayload] = useState<IPayload>({
+  const [fields, setFields] = useState<IProductFields>({
     name: { value: "", error: "" },
     price: { value: "", error: "" },
     description: { value: "", error: "" },
@@ -72,9 +49,9 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
-      const validForm = validateForm(payload, setPayload);
+      const validForm = validateForm(fields, setFields);
       if (!validForm) return;
-      const finalPayload = preparePayload(payload);
+      const finalPayload = preparePayload(fields);
       await createProduct(finalPayload);
       router.push("/products");
     } catch (error) {
@@ -86,9 +63,9 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
   if (isOpenSelector)
     return (
       <ImageSelector
-        images={payload.images}
+        images={fields.images}
         toggleSelector={toggleSelector}
-        setPayload={setPayload}
+        setFields={setFields}
       />
     );
 
@@ -102,36 +79,36 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
         <section className="flex md:w-1/2">
           {/* Images */}
           <Images
-            images={payload.images}
-            setPayload={setPayload}
+            images={fields.images}
+            setFields={setFields}
             toggleSelector={toggleSelector}
           />
         </section>
 
         <section className="flex flex-col gap-4 md:w-1/2">
           {/* Name input */}
-          <Name name={payload.name} setPayload={setPayload} />
+          <Name name={fields.name} setFields={setFields} />
 
           {/* Price input */}
-          <Price price={payload.price} setPayload={setPayload} />
+          <Price price={fields.price} setFields={setFields} />
 
           {/* Description text-area */}
           <Description
-            description={payload.description}
-            setPayload={setPayload}
+            description={fields.description}
+            setFields={setFields}
           />
 
           {/* Brand dropdown */}
           <Brand
-            brand={payload.brand}
-            setPayload={setPayload}
+            brand={fields.brand}
+            setFields={setFields}
             allBrands={brands}
           />
 
           {/* Categories dropdown */}
           <Categories
-            categories={payload.categories}
-            setPayload={setPayload}
+            categories={fields.categories}
+            setFields={setFields}
             allCategories={categories}
           />
         </section>
@@ -152,24 +129,3 @@ const Form: React.FC<IFormProps> = ({ brands, categories }) => {
 };
 
 export default Form;
-
-const images2 = {
-  value: [
-    {
-      color: "skyblue",
-      urls: ["https://iili.io/J8zaYpn.webp"],
-      sizes: [Size.M],
-    },
-    {
-      color: "green",
-      urls: ["https://iili.io/J8za7kX.webp"],
-      sizes: [Size.M],
-    },
-    {
-      color: "pink",
-      urls: ["https://iili.io/J8za57t.webp"],
-      sizes: [Size.M],
-    },
-  ],
-  error: "",
-};

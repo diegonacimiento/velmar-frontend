@@ -39,6 +39,29 @@ export enum Size {
   "3XL" = "3XL",
 }
 
+export interface IProductFields {
+  name: {
+    value: string;
+    error: string;
+  };
+  price: {
+    value: string;
+    error: string;
+  };
+  description: {
+    value: string;
+    error: string;
+  };
+  images: {
+    value: IProduct["images"];
+    error: string;
+    currentImage: IProductImage;
+    newColor: boolean;
+  };
+  categories: { value: IProduct["categories"]; error: string };
+  brand: { value: IProduct["brand"]; error: string };
+}
+
 export interface IPayloadCreateProduct
   extends Omit<
     IProduct,

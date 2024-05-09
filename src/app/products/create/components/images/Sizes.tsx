@@ -5,16 +5,16 @@ import { formStyles } from "../../styles/FormStyles";
 import { MdOutlineClose } from "react-icons/md";
 import { allSizes, orderSizes } from "@/utils/temporal";
 import { IProductImage, Size } from "@/types/products";
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { setImage } from "../../utils/validate-form";
 import { copyData } from "@/utils/functions-share";
 
 interface ISizesProps {
-  images: IPayload["images"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  images: IProductFields["images"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
 }
 
-const Sizes: React.FC<ISizesProps> = ({ images, setPayload }) => {
+const Sizes: React.FC<ISizesProps> = ({ images, setFields }) => {
   const [showSizeList, setShowSizeList] = useState<boolean>(false);
 
   const toggleSizeList = () => {
@@ -28,7 +28,7 @@ const Sizes: React.FC<ISizesProps> = ({ images, setPayload }) => {
       );
       const copy: IProductImage[] = copyData(images.value);
       copy[index].sizes = orderSizes([...copy[index].sizes, size]);
-      setImage(setPayload, copy[index], copy);
+      setImage(setFields, copy[index], copy);
       toggleSizeList();
     }
   };
@@ -39,7 +39,7 @@ const Sizes: React.FC<ISizesProps> = ({ images, setPayload }) => {
     );
     const copy: IProductImage[] = copyData(images.value);
     copy[indexImage].sizes.splice(index, 1);
-    setImage(setPayload, copy[indexImage], copy);
+    setImage(setFields, copy[indexImage], copy);
   };
 
   const sizes = showSizeList

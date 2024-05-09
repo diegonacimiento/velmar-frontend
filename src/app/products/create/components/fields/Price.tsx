@@ -6,15 +6,15 @@ import React, {
 } from "react";
 
 import { formStyles } from "../../styles/FormStyles";
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { setField } from "../../utils/validate-form";
 
 interface IPriceProps {
-  price: IPayload["price"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  price: IProductFields["price"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
 }
 
-const Price: React.FC<IPriceProps> = ({ price, setPayload }) => {
+const Price: React.FC<IPriceProps> = ({ price, setFields }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     let number = event.target.value;
 
@@ -31,7 +31,7 @@ const Price: React.FC<IPriceProps> = ({ price, setPayload }) => {
     if (integer.length > 8) return;
 
     // Update the value
-    setField("price", number.replaceAll("-", ""), setPayload);
+    setField("price", number.replaceAll("-", ""), setFields);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

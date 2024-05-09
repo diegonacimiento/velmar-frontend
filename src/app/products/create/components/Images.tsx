@@ -3,21 +3,21 @@ import React, { Dispatch, SetStateAction, useRef } from "react";
 import Image from "next/image";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-import { IPayload } from "./Form";
+import { IProductFields } from "@/types/products";
 import { formStyles } from "../styles/FormStyles";
 import Color from "./images/Color";
 import Sizes from "./images/Sizes";
 import { LuImagePlus } from "react-icons/lu";
 
 interface IImagesProps {
-  images: IPayload["images"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  images: IProductFields["images"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
   toggleSelector: () => void;
 }
 
 const Images: React.FC<IImagesProps> = ({
   images,
-  setPayload,
+  setFields,
   toggleSelector,
 }) => {
   const containerImage = useRef<HTMLDivElement>(null);
@@ -43,7 +43,7 @@ const Images: React.FC<IImagesProps> = ({
             onClick={toggleSelector}
             className={
               "flex items-center justify-center h-[36.25rem] w-full text-secondary bg-primary text-5xl cursor-pointer hover:bg-opacity-40 duration-150 " +
-              (images.error && "border border-red-600")
+              (images.error && "border border-red-600 bg-red-300 bg-opacity-30")
             }
           >
             {" "}
@@ -109,12 +109,12 @@ const Images: React.FC<IImagesProps> = ({
       {/* Color section */}
       <Color
         images={images}
-        setPayload={setPayload}
+        setFields={setFields}
         toggleSelector={toggleSelector}
       />
 
       {/* Sizes section */}
-      <Sizes images={images} setPayload={setPayload} />
+      <Sizes images={images} setFields={setFields} />
     </div>
   );
 };

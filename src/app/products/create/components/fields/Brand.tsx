@@ -1,32 +1,32 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { IBrand } from "@/types/brands";
 import { formStyles } from "../../styles/FormStyles";
 import { setField } from "../../utils/validate-form";
 import { MdOutlineDelete } from "react-icons/md";
 
 interface IBrandProps {
-  brand: IPayload["brand"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  brand: IProductFields["brand"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
   allBrands: IBrand[];
 }
 
-const Brand: React.FC<IBrandProps> = ({ brand, setPayload, allBrands }) => {
+const Brand: React.FC<IBrandProps> = ({ brand, setFields, allBrands }) => {
   const handleSelectBrand = (id: string) => {
     const brand = allBrands.find((brand) => brand.id === Number(id));
 
     if (brand) {
-      setField("brand", brand, setPayload);
+      setField("brand", brand, setFields);
     }
   };
 
   const handleAddBrand = () => {
-    setField("brand", allBrands[0], setPayload);
+    setField("brand", allBrands[0], setFields);
   };
 
   const handleDeleteBrand = () => {
-    setField("brand", null, setPayload);
+    setField("brand", null, setFields);
   };
 
   return (

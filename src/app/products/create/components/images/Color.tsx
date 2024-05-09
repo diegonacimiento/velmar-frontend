@@ -2,35 +2,35 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { formStyles } from "../../styles/FormStyles";
 import { setImage } from "../../utils/validate-form";
 import { IProductImage } from "@/types/products";
 import { copyData } from "@/utils/functions-share";
 
 interface IColorProps {
-  images: IPayload["images"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  images: IProductFields["images"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
   toggleSelector: () => void;
 }
 
 const Color: React.FC<IColorProps> = ({
   images,
-  setPayload,
+  setFields,
   toggleSelector,
 }) => {
   const handleSelectedColor = (color: string) => {
     const colorImages: IProductImage | undefined = copyData(
       images.value.find((image) => image.color === color)
     );
-    if (colorImages) setImage(setPayload, colorImages);
+    if (colorImages) setImage(setFields, colorImages);
   };
 
   const handleDeleteColor = (color: string) => {
     const newImages = images.value.filter((image) => image.color !== color);
     if (images.currentImage.color === color) {
       setImage(
-        setPayload,
+        setFields,
         newImages[0] || { color: "", urls: [], sizes: [] },
         newImages,
       );
@@ -38,7 +38,7 @@ const Color: React.FC<IColorProps> = ({
   };
 
   const handleAddColor = () => {
-    setPayload((prev) => ({
+    setFields((prev) => ({
       ...prev,
       images: { ...prev.images, newColor: true },
     }));

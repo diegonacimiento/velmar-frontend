@@ -1,47 +1,48 @@
 "use client";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { MdErrorOutline } from "react-icons/md";
 
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { copyData } from "@/utils/functions-share";
 import { IProductImage, Size } from "@/types/products";
-import { mainColors } from "@/utils/temporal";
 import { setImage } from "../../utils/validate-form";
 import Gallery from "./Gallery";
+import ColorPicker from "./ColorPicker";
 
 interface IImageSelectorProps {
-  images: IPayload["images"];
+  images: IProductFields["images"];
   toggleSelector: () => void;
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  setFields: Dispatch<SetStateAction<IProductFields>>;
 }
 
 const ImageSelector: React.FC<IImageSelectorProps> = ({
   images,
   toggleSelector,
-  setPayload,
+  setFields,
 }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [selectedImages, setSelectedImages] = useState<string[]>(
-    images.newColor ? [] : [...images.currentImage.urls]
-  );
-  const [selectedColor, setSelectedColor] = useState<string>(
-    images.newColor ? "" : images.currentImage.color
-  );
-
-  const [errorImages, setErrorImages] = useState<string>("");
-  const [errorColor, setErrorColor] = useState<string>("");
+  const [selectedImages, setSelectedImages] = useState({
+    value: images.newColor ? [] : [...images.currentImage.urls],
+    error: "",
+  });
+  const [selectedColor, setSelectedColor] = useState({
+    value: images.newColor ? "" : images.currentImage.color,
+    error: "",
+  });
 
   const incompleteSteps = () => {
-    if (selectedImages.length === 0) {
-      setErrorImages("You must select at least one image");
+    if (selectedImages.value.length === 0) {
+      setSelectedImages((prev) => ({
+        ...prev,
+        error: "You must select at least one image",
+      }));
       return true;
     }
 
-    if (!selectedColor) {
-      setErrorColor("Select a color");
+    if (!selectedColor.value) {
+      setSelectedColor((prev) => ({ ...prev, error: "Select a color" }));
       window.scrollTo(0, 0);
       return true;
     }
@@ -50,30 +51,26 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
   };
 
   const addImages = () => {
-    if (incompleteSteps()) return;
-
     const newImage: IProductImage = {
-      color: selectedColor,
-      urls: [...selectedImages],
+      color: selectedColor.value,
+      urls: [...selectedImages.value],
       sizes: [Size.XS],
     };
 
-    setImage(setPayload, newImage, [...images.value, newImage]);
+    setImage(setFields, newImage, [...images.value, newImage]);
   };
 
   const updateImage = () => {
-    if (incompleteSteps()) return;
-
     const color = images.currentImage.color;
 
     const index = images.value.findIndex((image) => image.color === color);
 
     const copy: IProductImage[] = copyData(images.value);
 
-    copy[index].color = selectedColor;
-    copy[index].urls = [...selectedImages];
+    copy[index].color = selectedColor.value;
+    copy[index].urls = [...selectedImages.value];
 
-    setImage(setPayload, copy[index], copy);
+    setImage(setFields, copy[index], copy);
   };
 
   const handleSubmit = () => {
@@ -87,24 +84,8 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
     toggleSelector();
   };
 
-  const handleSelectedImages = (url: string) => {
-    setErrorImages("");
-    if (selectedImages.includes(url)) {
-      const newSelectedImages = selectedImages.filter((image) => image !== url);
-      setSelectedImages([...newSelectedImages]);
-      return;
-    }
-
-    setSelectedImages((prev) => [...prev, url]);
-  };
-
-  const handleClickColor = (color: string) => {
-    setErrorColor("");
-    setSelectedColor(color);
-  };
-
   const handleCancel = () => {
-    setPayload((prev) => ({
+    setFields((prev) => ({
       ...prev,
       images: { ...prev.images, newColor: false },
     }));
@@ -113,43 +94,15 @@ const ImageSelector: React.FC<IImageSelectorProps> = ({
 
   return (
     <div className="flex flex-col items-center gap-4 p-4 w-full">
-      <>
-        <h2 className="text-2xl font-medium text-secondary">Select a color</h2>
-        <div
-          className={
-            "flex gap-4 flex-wrap justify-center p-4 rounded-md min-h-[4.5rem] max-w-650 bg-primary " +
-            (errorColor && "border-2 border-red-600")
-          }
-        >
-          {mainColors.map((color) => (
-            <div key={color} className="relative">
-              <div
-                style={{ backgroundColor: color }}
-                onClick={() => handleClickColor(color)}
-                className={
-                  "rounded-full h-10 w-10 cursor-pointer " +
-                  (color === selectedColor
-                    ? " border-2 border-body scale-125"
-                    : "opacity-50 hover:opacity-100 hover:border-2 hover:border-body duration-150")
-                }
-              ></div>{" "}
-            </div>
-          ))}
-        </div>
-        {errorColor && (
-          <p className={"flex items-center gap-1 text-red-600"}>
-            {" "}
-            <MdErrorOutline />
-            {errorColor}
-          </p>
-        )}
-        <hr className="my-4 w-full" />
-      </>
+      <ColorPicker
+        imagesValue={images.value}
+        selectedColor={selectedColor}
+        setSelectedColor={setSelectedColor}
+      />
 
       <Gallery
         selectedImages={selectedImages}
-        errorImages={errorImages}
-        handleSelectedImages={handleSelectedImages}
+        setSelectedImages={setSelectedImages}
         handleSubmit={handleSubmit}
         handleCancel={handleCancel}
       />

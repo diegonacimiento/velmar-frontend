@@ -1,22 +1,22 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 import { formStyles } from "../../styles/FormStyles";
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { setField } from "../../utils/validate-form";
 
 interface IDescriptionProps {
-  description: IPayload["description"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  description: IProductFields["description"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
 }
 
 const Description: React.FC<IDescriptionProps> = ({
   description,
-  setPayload,
+  setFields,
 }) => {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length > 600) return;
 
-    setField("description", event.target.value, setPayload);
+    setField("description", event.target.value, setFields);
   };
 
   return (

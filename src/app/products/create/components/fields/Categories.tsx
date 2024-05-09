@@ -1,18 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
-import { IPayload } from "../Form";
+import { IProductFields } from "@/types/products";
 import { ICategory } from "@/types/categories";
 import { formStyles } from "../../styles/FormStyles";
 import { setField } from "../../utils/validate-form";
 
 interface ICategoriesProps {
-  categories: IPayload["categories"];
-  setPayload: Dispatch<SetStateAction<IPayload>>;
+  categories: IProductFields["categories"];
+  setFields: Dispatch<SetStateAction<IProductFields>>;
   allCategories: ICategory[];
 }
 
-const Categories: React.FC<ICategoriesProps> = ({ categories, setPayload, allCategories, }) => {
+const Categories: React.FC<ICategoriesProps> = ({ categories, setFields, allCategories, }) => {
   const idCategoriesInProduct = categories.value.map((category) => category.id);
 
   const availableCategories = allCategories.filter(
@@ -23,7 +23,7 @@ const Categories: React.FC<ICategoriesProps> = ({ categories, setPayload, allCat
     setField(
       "categories",
       [...categories.value, availableCategories[0]],
-      setPayload
+      setFields
     );
   };
 
@@ -32,14 +32,14 @@ const Categories: React.FC<ICategoriesProps> = ({ categories, setPayload, allCat
     if (category) {
       const copyCategoriesValue = [...categories.value];
       copyCategoriesValue[index] = category;
-      setField("categories", copyCategoriesValue, setPayload);
+      setField("categories", copyCategoriesValue, setFields);
     }
   };
 
   const handleDeleteCategory = (index: number) => {
     const copyCategoriesValue = [...categories.value];
     copyCategoriesValue.splice(index, 1);
-    setField("categories", copyCategoriesValue, setPayload);
+    setField("categories", copyCategoriesValue, setFields);
   };
 
   return (
