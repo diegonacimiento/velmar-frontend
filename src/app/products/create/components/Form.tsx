@@ -17,26 +17,26 @@ import { formStyles } from "../styles/FormStyles";
 import { createProduct } from "@/services/products.service";
 
 interface IFormProps {
-  products?: IProduct;
+  product?: IProduct;
   brands: IBrand[];
   categories: ICategory[];
 }
 
-const Form: React.FC<IFormProps> = ({ products, brands, categories }) => {
+const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
   const router = useRouter();
 
   const [fields, setFields] = useState<IProductFields>({
-    name: { value: products?.name || "", error: "" },
-    price: { value: products?.price || "", error: "" },
-    description: { value: products?.description || "", error: "" },
+    name: { value: product?.name || "", error: "" },
+    price: { value: product?.price || "", error: "" },
+    description: { value: product?.description || "", error: "" },
     images: {
-      value: products?.images || [],
+      value: product?.images || [],
       error: "",
-      currentImage: products?.images[0] || { color: "", urls: [], sizes: [] },
+      currentImage: product?.images[0] || { color: "", urls: [], sizes: [] },
       newColor: false,
     },
-    categories: { value: products?.categories || [], error: "" },
-    brand: { value: products?.brand || null, error: "" },
+    categories: { value: product?.categories || [], error: "" },
+    brand: { value: product?.brand || null, error: "" },
   });
 
   const [isOpenSelector, setIsOpenSelector] = useState<boolean>(false);
