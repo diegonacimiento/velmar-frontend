@@ -1,10 +1,9 @@
 import React from "react";
 
-import UpdateProduct from "../components/UpdateProduct";
 import { getProduct } from "@/services/products.service";
 import { getCategories } from "@/services/categories.service";
 import { getBrands } from "@/services/brands.service";
-import Form from "../../create/components/Form";
+import Form from "../../components/form/Form";
 
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);

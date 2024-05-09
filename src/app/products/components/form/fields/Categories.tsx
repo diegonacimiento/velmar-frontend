@@ -3,8 +3,8 @@ import { MdOutlineDelete } from "react-icons/md";
 
 import { IProductFields } from "@/types/products";
 import { ICategory } from "@/types/categories";
-import { formStyles } from "../../styles/FormStyles";
-import { setField } from "../../utils/validate-form";
+import { formStyles } from "../styles/FormStyles";
+import { setField } from "../utils/validate-form";
 
 interface ICategoriesProps {
   categories: IProductFields["categories"];

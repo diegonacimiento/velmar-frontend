@@ -1,7 +1,7 @@
-import { IProduct } from "@/types/products";
+import { IPayloadCreateProduct, IProduct } from "@/types/products";
 
-export const validateFormUpdateProduct = (
-  payload: IProduct,
+export const prepareUpdatePayload = (
+  payload: IPayloadCreateProduct,
   product: IProduct
 ) => {
   let newPayload: any = {};
@@ -27,14 +27,13 @@ export const validateFormUpdateProduct = (
   }
 
   // Categories input
-  if (!compareCategoriesArrays(payload.categories, product.categories)) {
-    const categoriesToSend = payload.categories.map((category) => category.id);
-    newPayload.categoriesIds = categoriesToSend;
+  if (!compareCategoriesArrays(payload.categoriesIds, product.categories)) {
+    newPayload.categoriesIds = payload.categoriesIds;
   }
 
   // Brand input
-  if (product?.brand?.id !== payload?.brand?.id) {
-    newPayload.brandId = payload?.brand?.id || null;
+  if (product?.brand?.id !== payload?.brandId) {
+    newPayload.brandId = payload?.brandId || null;
   }
 
   return newPayload;
@@ -42,7 +41,7 @@ export const validateFormUpdateProduct = (
 
 // Other functions
 
-function compareImagesArrays(payload: IProduct, product: IProduct) {
+function compareImagesArrays(payload: IPayloadCreateProduct, product: IProduct) {
   if (product.images.length !== payload.images.length) {
     return false;
   }
@@ -121,7 +120,7 @@ function arraysEqual(arrayPayload: string[], arrayProduct: string[]) {
 }
 
 function compareCategoriesArrays(
-  payloadCategories: IProduct["categories"],
+  payloadCategories: IPayloadCreateProduct["categoriesIds"],
   productCategories: IProduct["categories"]
 ) {
   const productCategoriesIds = productCategories.map((category) => category.id);
@@ -131,7 +130,7 @@ function compareCategoriesArrays(
   }
 
   const sameIds = productCategoriesIds.every(
-    (id, index) => id === payloadCategories[index].id
+    (id, index) => id === payloadCategories[index]
   );
 
   return sameIds;

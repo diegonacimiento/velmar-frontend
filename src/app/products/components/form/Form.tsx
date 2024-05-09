@@ -10,11 +10,12 @@ import Categories from "./fields/Categories";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { IProduct, IProductFields } from "@/types/products";
-import { preparePayload, validateForm } from "../utils/validate-form";
-import Images from "./Images";
+import { preparePayload, validateForm } from "./utils/validate-form";
+import Images from "./images/Images";
 import ImageSelector from "./images/Selector";
-import { formStyles } from "../styles/FormStyles";
-import { createProduct } from "@/services/products.service";
+import { formStyles } from "./styles/FormStyles";
+import { createProduct, updateProduct } from "@/services/products.service";
+import { prepareUpdatePayload } from "@/app/products/components/form/utils/update-product-validate";
 
 interface IFormProps {
   product?: IProduct;
@@ -53,8 +54,14 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
       const validForm = validateForm(fields, setFields);
       if (!validForm) return;
       const finalPayload = preparePayload(fields);
-      await createProduct(finalPayload);
-      router.push("/products");
+      if (product) {
+        const updatePayload = prepareUpdatePayload(finalPayload, product);
+        await updateProduct(product.id, updatePayload);
+        router.push(`/products/${product.id}`);
+      } else {
+        await createProduct(finalPayload);
+        router.push("/products");
+      }
     } catch (error) {
       console.error(error);
       setErrorForm("A problem occurred, please try again later");
@@ -94,10 +101,7 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
           <Price price={fields.price} setFields={setFields} />
 
           {/* Description text-area */}
-          <Description
-            description={fields.description}
-            setFields={setFields}
-          />
+          <Description description={fields.description} setFields={setFields} />
 
           {/* Brand dropdown */}
           <Brand

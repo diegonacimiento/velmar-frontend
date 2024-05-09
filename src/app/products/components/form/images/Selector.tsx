@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IProductFields } from "@/types/products";
 import { copyData } from "@/utils/functions-share";
 import { IProductImage, Size } from "@/types/products";
-import { setImage } from "../../utils/validate-form";
+import { setImage } from "../utils/validate-form";
 import Gallery from "./Gallery";
 import ColorPicker from "./ColorPicker";
 

@@ -3,8 +3,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 import { IProductFields } from "@/types/products";
-import { formStyles } from "../../styles/FormStyles";
-import { setImage } from "../../utils/validate-form";
+import { formStyles } from "../styles/FormStyles";
+import { setImage } from "../utils/validate-form";
 import { IProductImage } from "@/types/products";
 import { copyData } from "@/utils/functions-share";
 
@@ -28,13 +28,18 @@ const Color: React.FC<IColorProps> = ({
 
   const handleDeleteColor = (color: string) => {
     const newImages = images.value.filter((image) => image.color !== color);
-    if (images.currentImage.color === color) {
-      setImage(
-        setFields,
-        newImages[0] || { color: "", urls: [], sizes: [] },
-        newImages,
-      );
-    }
+
+    setImage(
+      setFields,
+      images.currentImage.color === color
+        ? newImages[0] || {
+            color: "",
+            urls: [],
+            sizes: [],
+          }
+        : undefined,
+      newImages
+    );
   };
 
   const handleAddColor = () => {
@@ -67,7 +72,7 @@ const Color: React.FC<IColorProps> = ({
 
             <button
               type="button"
-              title="Delete size"
+              title="Delete color"
               onClick={() => handleDeleteColor(color)}
               className="absolute flex justify-center items-center -top-2 -right-1 rounded-full bg-red-600 h-5 w-5 text-primary text-base hover:scale-110 z-10 duration-150"
             >

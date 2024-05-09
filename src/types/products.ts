@@ -71,11 +71,7 @@ export interface IPayloadCreateProduct
   categoriesIds: number[];
 }
 
-export interface IPayloadUpdateProduct
-  extends Omit<IProduct, "categories" | "brand"> {
-  categories: number[];
-  brand: number;
-}
+export interface IPayloadUpdateProduct extends Partial<IPayloadCreateProduct> {}
 
 export interface ColorsTools {
   colorsImage: string[];

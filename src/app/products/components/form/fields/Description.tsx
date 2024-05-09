@@ -1,8 +1,8 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-import { formStyles } from "../../styles/FormStyles";
+import { formStyles } from "../styles/FormStyles";
 import { IProductFields } from "@/types/products";
-import { setField } from "../../utils/validate-form";
+import { setField } from "../utils/validate-form";
 
 interface IDescriptionProps {
   description: IProductFields["description"];

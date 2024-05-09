@@ -30,14 +30,14 @@ export const setField = (
 
 export const setImage = (
   setFields: Dispatch<SetStateAction<IProductFields>>,
-  currentImage: IProductImage,
+  currentImage?: IProductImage,
   images?: IProductImage[]
 ) => {
   setFields((prev) => ({
     ...prev,
     images: {
       ...prev.images,
-      currentImage,
+      currentImage: currentImage ? currentImage : prev.images.currentImage,
       value: images ? images : prev.images.value,
       newColor: false,
       error: "",
@@ -79,7 +79,7 @@ export const validateForm = (
 };
 
 export const preparePayload = (payload: IProductFields) => {
-  const finalPayload: IPayloadCreateProduct = {
+  const finalPayload = {
     name: payload.name.value,
     price: payload.price.value,
     description: payload.description.value,

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { MdErrorOutline } from "react-icons/md";
 import { IoMdCheckmark } from "react-icons/io";
 
-import { formStyles } from "../../styles/FormStyles";
+import { formStyles } from "../styles/FormStyles";
 
 interface IGalleryProps {
   selectedImages: { value: string[], error: string };
