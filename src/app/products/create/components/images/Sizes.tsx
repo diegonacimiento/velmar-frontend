@@ -6,7 +6,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { allSizes, orderSizes } from "@/utils/temporal";
 import { IProductImage, Size } from "@/types/products";
 import { IPayload } from "../Form";
-import { setCurrentImage, setField } from "../../utils/validate-form";
+import { setImage } from "../../utils/validate-form";
 import { copyData } from "@/utils/functions-share";
 
 interface ISizesProps {
@@ -28,8 +28,7 @@ const Sizes: React.FC<ISizesProps> = ({ images, setPayload }) => {
       );
       const copy: IProductImage[] = copyData(images.value);
       copy[index].sizes = orderSizes([...copy[index].sizes, size]);
-      setField("images", copy, setPayload);
-      setCurrentImage(copy[index], setPayload);
+      setImage(setPayload, copy[index], copy);
       toggleSizeList();
     }
   };
@@ -40,8 +39,7 @@ const Sizes: React.FC<ISizesProps> = ({ images, setPayload }) => {
     );
     const copy: IProductImage[] = copyData(images.value);
     copy[indexImage].sizes.splice(index, 1);
-    setField("images", copy, setPayload);
-    setCurrentImage(copy[indexImage], setPayload);
+    setImage(setPayload, copy[indexImage], copy);
   };
 
   const sizes = showSizeList
