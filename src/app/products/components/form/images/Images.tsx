@@ -85,7 +85,7 @@ const Images: React.FC<IImagesProps> = ({
             </button>
 
             <div ref={containerImage} className={formStyles.containerImage}>
-              {images.currentImage.urls.map((url, index) => (
+              {images.currentImage.urls.map((url) => (
                 <div key={url} className="relative min-w-full snap-center">
                   <Image
                     src={url}
