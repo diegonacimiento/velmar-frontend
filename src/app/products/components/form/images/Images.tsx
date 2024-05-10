@@ -8,6 +8,9 @@ import { formStyles } from "../styles/FormStyles";
 import Color from "./Color";
 import Sizes from "./Sizes";
 import { LuImagePlus } from "react-icons/lu";
+import { TiDelete } from "react-icons/ti";
+import { copyData } from "@/utils/functions-share";
+import { setImage } from "../utils/validate-form";
 
 interface IImagesProps {
   images: IProductFields["images"];
@@ -30,6 +33,17 @@ const Images: React.FC<IImagesProps> = ({
         : (containerImage.current.scrollLeft +=
             containerImage.current.clientWidth);
     }
+  };
+
+  const handleDeleteImage = (url: string) => {
+    const index = images.value.findIndex(
+      (image) => image.color === images.currentImage.color
+    );
+    const copy: IProductFields["images"]["value"] = copyData(images.value);
+    copy[index].urls = images.value[index].urls.filter(
+      (urlItem) => urlItem !== url
+    );
+    setImage(setFields, copy[index], copy);
   };
 
   return (
@@ -71,8 +85,8 @@ const Images: React.FC<IImagesProps> = ({
             </button>
 
             <div ref={containerImage} className={formStyles.containerImage}>
-              {images.currentImage.urls.map((url) => (
-                <div key={url} className="min-w-full snap-center">
+              {images.currentImage.urls.map((url, index) => (
+                <div key={url} className="relative min-w-full snap-center">
                   <Image
                     src={url}
                     alt={url}
@@ -80,6 +94,16 @@ const Images: React.FC<IImagesProps> = ({
                     width={960}
                     quality={100}
                   />
+                  {images.currentImage.urls.length > 1 && (
+                    <button
+                      type="button"
+                      title="Delete image"
+                      onClick={() => handleDeleteImage(url)}
+                      className="absolute top-1 left-1 text-3xl text-secondary hover:scale-105 hover:text-red-600 duration-500"
+                    >
+                      <TiDelete />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
