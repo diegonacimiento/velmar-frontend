@@ -5,22 +5,13 @@ import {
   IPayloadUpdateProduct,
   IProduct,
 } from "@/types/products";
-import { headers } from "next/headers";
+import { LIMIT } from "@/utils/constants";
 
-export const getProducts = async (
-  offset?: number,
-  limit?: number,
-  category?: string,
-  name?: string
-): Promise<IProduct[]> => {
-  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+export const getProducts = async (offset?: number): Promise<IProduct[]> => {
+  await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
-    const params =
-      (limit ? `?limit=${limit}` : "") +
-      (offset ? `&offset=${offset}` : "") +
-      (name ? `?name=${name}` : "");
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products${params}`,
+      `${process.env.NEXT_PUBLIC_URL}/products?offset=${offset || 0}&limit=${LIMIT}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,

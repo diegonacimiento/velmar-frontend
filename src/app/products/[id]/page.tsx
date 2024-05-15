@@ -1,8 +1,6 @@
 import React, { Suspense } from "react";
-import axios from "axios";
 
 import ProductCard from "@/app/products/components/ProductCard";
-import { Product } from "@/types/products";
 import ProductsList from "../components/ProductsList";
 import LoadingProducts from "../components/LoadingProducts";
 import { getProduct, getProducts } from "@/services/products.service";
@@ -10,7 +8,7 @@ import { getProduct, getProducts } from "@/services/products.service";
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
 
-  const products = (await getProducts(0, 6, product.categories)).filter(
+  const products = (await getProducts()).filter(
     (item) => item.id !== product.id
   );
 

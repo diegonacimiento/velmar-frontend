@@ -1,9 +1,12 @@
 import React from "react";
 
-import Products from "./components/Products";
+import { getProducts } from "@/services/products.service";
+import ProductsList from "./components/ProductsList";
 
 const ProductsPage = async () => {
-  return <Products params={ { currentPage: 1 } } url="/products/page" />;
+  const products = await getProducts();
+
+  return <ProductsList products={products} />
 };
 
 export default ProductsPage;
