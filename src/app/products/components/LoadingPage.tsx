@@ -14,9 +14,7 @@ const LoadingPage = () => {
         <LoadingProducts length={6} />
       </div>
 
-      <div className="flex flex-wrap gap-4 justify-center p-4">
-        <div className="m-1 h-7 w-48 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
-      </div>
+      <div className="m-1 h-16 w-48 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
     </div>
   );
 };

@@ -1,30 +1,74 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { MdErrorOutline } from "react-icons/md";
 
 import { LIMIT } from "@/utils/constants";
+import Loading from "@/components/Loading";
+import { IProduct } from "@/types/products";
+import { getProducts } from "@/services/products.service";
 
 interface IMoreProductsProps {
- moreProducts: (offset: number) => void;
+  allProducts: IProduct[];
+  setAllProducts: Dispatch<SetStateAction<IProduct[]>>;
 }
 
-const MoreProducts: React.FC<IMoreProductsProps> = ({moreProducts}) => {
- const [offset, setOffset] = useState<number>(0);
+const MoreProducts: React.FC<IMoreProductsProps> = ({
+  allProducts,
+  setAllProducts,
+}) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [noProducts, setNoProducts] = useState<boolean>(
+    allProducts.length < LIMIT
+  );
 
- const handleMoreProducts = () => {
-  moreProducts(offset + LIMIT);
-  setOffset((prev) => prev + LIMIT);
- }
+  const handleMoreProducts = async () => {
+    try {
+      setLoading(true);
+      const newProducts = await getProducts(allProducts.length);
+      if (newProducts.length < LIMIT) {
+        setNoProducts(true);
+      }
+      setAllProducts((prev) => [...prev, ...newProducts]);
+    } catch (error) {
+      console.error(error);
+      setError("An error occurred, please try again");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-8">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
-    <button
-      type="button"
-      title="More products"
-      onClick={handleMoreProducts}
-      className="p-4 m-4 self-center w-max text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150"
-    >
-      More products
-    </button>
+    <>
+      <p className="flex justify-center items-center gap-1 text-red-600">
+        {error && (
+          <>
+            <MdErrorOutline /> {error}
+          </>
+        )}
+      </p>
+      <button
+        type="button"
+        title="More products"
+        disabled={noProducts}
+        onClick={handleMoreProducts}
+        className={
+          "block p-4 m-4 self-center w-max text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 " +
+          (noProducts && "hidden")
+        }
+      >
+        More products
+      </button>
+    </>
   );
 };
 
