@@ -23,19 +23,19 @@ const Amount: React.FC<AmountProps> = ({ amount, setAmount }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 w-1/2">
+    <div className="flex items-center gap-4 w-1/2">
       <button
         type="button"
-        className="bg-secondary text-body rounded-full text-xl w-5 h-5 hover:bg-primary hover:scale-125 duration-150"
+        className="bg-secondary text-body rounded-md text-2xl  hover:bg-primary hover:scale-125 duration-150"
         title="Remove a product"
         onClick={handleRemove}
       >
         <MdRemove />
       </button>
-      <span className="text-lg">{amount}</span>
+      <span className="text-xl">{amount}</span>
       <button
         type="button"
-        className="bg-secondary text-body rounded-full text-xl w-5 h-5 hover:bg-primary hover:scale-125 duration-150"
+        className="bg-secondary text-body rounded-md text-2xl  hover:bg-primary hover:scale-125 duration-150"
         title="Add a product"
         onClick={handleAdd}
       >

@@ -14,7 +14,7 @@ const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
   const [allProducts, setAllProducts] = useState([...products]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-4">
       {/* Product cards */}
       <div className="flex justify-center gap-8 p-4 w-full flex-wrap">
         {allProducts.map((product) => (
