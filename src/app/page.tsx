@@ -87,7 +87,7 @@ const Home: React.FC = async () => {
         <h2 className="text-3xl font-semibold text-center">New Arrivals</h2>
 
         <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
-          <ProductsList products={products} />
+          <ProductsList products={products} moreProductsButton={false} />
         </div>
 
         <button

@@ -22,7 +22,7 @@ const page = async ({ params: { id } }: { params: { id: number } }) => {
       <h3 className="sm:p-4 text-2xl font-medium">Recommended products</h3>
 
       <Suspense fallback={<LoadingProducts length={6} />}>
-        <ProductsList products={products} />
+        <ProductsList products={products} moreProductsButton={false} />
       </Suspense>
     </div>
   );

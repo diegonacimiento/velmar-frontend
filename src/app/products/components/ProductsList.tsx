@@ -8,9 +8,13 @@ import MoreProducts from "./MoreProducts";
 
 interface IProductsListProps {
   products: IProduct[];
+  moreProductsButton?: boolean;
 }
 
-const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
+const ProductsList: React.FC<IProductsListProps> = ({
+  products,
+  moreProductsButton = true,
+}) => {
   const [allProducts, setAllProducts] = useState([...products]);
 
   return (
@@ -38,7 +42,12 @@ const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
       </div>
 
       {/* Button more products */}
-      <MoreProducts allProducts={allProducts} setAllProducts={setAllProducts} />
+      {moreProductsButton && (
+        <MoreProducts
+          allProducts={allProducts}
+          setAllProducts={setAllProducts}
+        />
+      )}
     </div>
   );
 };
