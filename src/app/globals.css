@@ -12,17 +12,52 @@ body {
   @apply text-letter bg-body
 }
 
+/* Estilos para el scroll */
+body::-webkit-scrollbar {
+  width: 6px; /* Ancho del scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply bg-secondary ; /* Color del thumb (la barra deslizante) */
+  border-radius: 6px; /* Radio de borde del thumb */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600; /* Color del thumb al pasar el mouse por encima */
+}
+
+body::-webkit-scrollbar-track{
+  @apply bg-body; /* Color del track (el área del scrollbar) */
+  border-radius: 6px; /* Radio de borde del track */
+}
+
+#carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+#carousel::-webkit-scrollbar-thumb {
+  opacity: 0;
+}
+
+/* #carousel::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400; Color del thumb al pasar el mouse por encima
+} */
+
+#carousel::-webkit-scrollbar-track {
+  opacity: 0;
+}
+
 @media (hover:hover) {
   .bt-paginator:hover {
-    @apply bg-primary text-secondary  
+    @apply bg-primary text-secondary;
   }
 
   #carousel-item:hover {
-    @apply bg-gray-400
+    @apply bg-gray-400;
   }
 
   .carousel-bts:hover {
-    @apply bg-secondary
+    @apply bg-secondary;
   }
 }
 

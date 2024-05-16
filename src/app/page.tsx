@@ -11,9 +11,12 @@ import {
   shoesDescription,
 } from "@/utils/home-page-data";
 import ProductsList from "./products/components/ProductsList";
+import { getProducts } from "@/services/products.service";
 
 const Home: React.FC = async () => {
-  const { men, women, newArrivals } = await getCollections();
+  // const { men, women, newArrivals } = await getCollections();
+
+  const products = await getProducts();
 
   return (
     <div className="flex flex-col w-full leading-8">
@@ -61,20 +64,20 @@ const Home: React.FC = async () => {
         </h2>
         <div className="flex flex-col md:flex-row max-w-2k m-auto">
           <div className="w-full">
-            <div className="max-w-1k m-auto md:ml-auto px-6 pb-12 pt-24 md:py-24">
+            <div className="max-w-1k m-auto md:ml-auto px-1 sm:px-6 pb-12 pt-24 md:py-24">
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
                 Men collection
               </h3>
-              <Carousel products={men} />
+              <Carousel products={products} />
             </div>
           </div>
 
           <div className="w-full">
-            <div className="max-w-1k m-auto md:mr-auto px-6 py-12 md:py-24">
+            <div className="max-w-1k m-auto md:mr-auto px-1 sm:px-6 py-12 md:py-24">
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
                 Women collection
               </h3>
-              <Carousel products={women} />
+              <Carousel products={products} />
             </div>
           </div>
         </div>
@@ -84,7 +87,7 @@ const Home: React.FC = async () => {
         <h2 className="text-3xl font-semibold text-center">New Arrivals</h2>
 
         <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
-          <ProductsList products={newArrivals} />
+          <ProductsList products={products} />
         </div>
 
         <button
