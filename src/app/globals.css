@@ -12,23 +12,22 @@ body {
   @apply text-letter bg-body
 }
 
-/* Estilos para el scroll */
 body::-webkit-scrollbar {
-  width: 6px; /* Ancho del scrollbar */
+  width: 6px;
 }
 
 body::-webkit-scrollbar-thumb {
-  @apply bg-secondary ; /* Color del thumb (la barra deslizante) */
-  border-radius: 6px; /* Radio de borde del thumb */
+  @apply bg-secondary;
+  border-radius: 6px; 
 }
 
 body::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-600; /* Color del thumb al pasar el mouse por encima */
+  @apply bg-gray-600;
 }
 
 body::-webkit-scrollbar-track{
-  @apply bg-body; /* Color del track (el área del scrollbar) */
-  border-radius: 6px; /* Radio de borde del track */
+  @apply bg-body;
+  border-radius: 6px;
 }
 
 #carousel::-webkit-scrollbar {
@@ -38,10 +37,6 @@ body::-webkit-scrollbar-track{
 #carousel::-webkit-scrollbar-thumb {
   opacity: 0;
 }
-
-/* #carousel::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400; Color del thumb al pasar el mouse por encima
-} */
 
 #carousel::-webkit-scrollbar-track {
   opacity: 0;
