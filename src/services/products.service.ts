@@ -46,6 +46,7 @@ export const getProduct = async (id: number): Promise<IProduct> => {
 };
 
 export const createProduct = async (payload: IPayloadCreateProduct) => {
+    // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/products`,

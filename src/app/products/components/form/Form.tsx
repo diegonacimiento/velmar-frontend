@@ -44,11 +44,14 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
 
   const [errorForm, setErrorForm] = useState<string>("");
 
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
   const toggleSelector = () => {
     setIsOpenSelector((prev) => !prev);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    setDisabledButton(true);
     try {
       event.preventDefault();
       const validForm = validateForm(fields, setFields);
@@ -65,6 +68,7 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
         router.refresh();
       }
     } catch (error) {
+      setDisabledButton(false);
       console.error(error);
       setErrorForm("A problem occurred, please try again later");
     }
@@ -125,7 +129,12 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
       <button
         type="submit"
         title="Save"
-        className={formStyles.buttonSP + " m-auto w-full max-w-60"}
+        disabled={disabledButton}
+        className={
+          formStyles.buttonSP +
+          " m-auto w-full max-w-60 " +
+          (disabledButton && "cursor-not-allowed opacity-40")
+        }
       >
         Save
       </button>
