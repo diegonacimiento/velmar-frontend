@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { IProduct } from "@/types/products";
 import MoreProducts from "./MoreProducts";
+import useVelmarContext from "@/hooks/useVelmarContext";
 
 interface IProductsListProps {
   products: IProduct[];
@@ -16,17 +17,19 @@ const ProductsList: React.FC<IProductsListProps> = ({
   products,
   moreProductsButton = true,
 }) => {
+  const { roleUser } = useVelmarContext();
+
   const router = useRouter();
 
   const [allProducts, setAllProducts] = useState([...products]);
 
   const goCreateProduct = () => {
     router.push("/products/create");
-  }
+  };
 
   return (
     <div className="flex flex-col p-4">
-      {moreProductsButton && (
+      {moreProductsButton && roleUser === "salesperson" && (
         <button
           type="button"
           title="Create product"

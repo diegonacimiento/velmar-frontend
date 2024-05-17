@@ -5,7 +5,6 @@ import Amount from "@/components/Amount";
 import Slides from "@/components/Slides";
 import { IProduct, Size } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
-import { useRouter } from "next/navigation";
 import OptionsButtons from "./OptionsButtons";
 
 interface IProductDetails {
