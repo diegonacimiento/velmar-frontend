@@ -2,14 +2,21 @@
 import React, { useState } from "react";
 
 import Amount from "@/components/Amount";
-import Carousel2 from "@/components/Carousel2";
+import Slides from "@/components/Slides";
 import { IProduct, Size } from "@/types/products";
+import useVelmarContext from "@/hooks/useVelmarContext";
+import { useRouter } from "next/navigation";
+import OptionsButtons from "./OptionsButtons";
 
 interface IProductDetails {
   product: IProduct;
 }
 
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
+  // Hooks
+  const { roleUser } = useVelmarContext();
+
+  // States
   const [amount, setAmount] = useState<number>(1);
   const [btIsChecked, setBtIsChecked] = useState<boolean>(false);
   const [colors, setColors] = useState<string[]>(
@@ -21,10 +28,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   });
   const [selectedSizes, setSelectedSizes] = useState<Size>();
 
-  const handleSelectedSize = (size: Size) => {
-    setSelectedSizes(size);
-  };
-
+  // Functions
   const handleSelectColor = (color: string) => {
     const image = product.images.find((image) => image.color === color);
     if (image) {
@@ -38,12 +42,14 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   return (
     <div className="flex flex-col md:flex-row gap-8 py-4 sm:p-4">
       {/* Images */}
-      <div className="md:w-1/2"> 
-        <Carousel2 images={images.currentImage.urls} />
+      <div className="md:w-1/2">
+        <Slides images={images.currentImage.urls} />
       </div>
 
       {/* Data */}
       <div className="flex flex-col gap-4 md:w-1/2 text-secondary">
+        {roleUser === "salesperson" && <OptionsButtons id={product.id} />}
+
         <h1 className="text-2xl font-bold line-clamp-2">{product.name}</h1>
         <p className="w-30 text-lg font-semibold">$ {product.price}</p>
 
@@ -69,7 +75,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           {images.currentImage.sizes.map((size) => (
             <div
               key={size}
-              onClick={() => handleSelectedSize(size)}
+              onClick={() => setSelectedSizes(size)}
               className={
                 "relative flex justify-center items-center rounded-full h-10 w-10 cursor-pointer text-sm border-2 border-body hover:bg-body duration-150 " +
                 (selectedSizes === size && "bg-body")

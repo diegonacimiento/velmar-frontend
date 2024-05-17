@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { IProduct } from "@/types/products";
 import MoreProducts from "./MoreProducts";
@@ -15,10 +16,27 @@ const ProductsList: React.FC<IProductsListProps> = ({
   products,
   moreProductsButton = true,
 }) => {
+  const router = useRouter();
+
   const [allProducts, setAllProducts] = useState([...products]);
+
+  const goCreateProduct = () => {
+    router.push("/products/create");
+  }
 
   return (
     <div className="flex flex-col p-4">
+      {moreProductsButton && (
+        <button
+          type="button"
+          title="Create product"
+          onClick={goCreateProduct}
+          className="block p-4 m-4 self-center w-max text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 "
+        >
+          Create product
+        </button>
+      )}
+
       {/* Product cards */}
       <div className="flex justify-center gap-8 p-4 w-full flex-wrap">
         {allProducts.map((product) => (

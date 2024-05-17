@@ -8,10 +8,12 @@ import {
 import { LIMIT } from "@/utils/constants";
 
 export const getProducts = async (offset?: number): Promise<IProduct[]> => {
-  await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products?offset=${offset || 0}&limit=${LIMIT}`,
+      `${process.env.NEXT_PUBLIC_URL}/products?offset=${
+        offset || 0
+      }&limit=${LIMIT}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -70,6 +72,25 @@ export const updateProduct = async (
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
       payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteProduct = async (id: number) => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+  try {
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,

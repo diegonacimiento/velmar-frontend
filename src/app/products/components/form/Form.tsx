@@ -58,9 +58,11 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
         const updatePayload = prepareUpdatePayload(finalPayload, product);
         await updateProduct(product.id, updatePayload);
         router.push(`/products/${product.id}`);
+        router.refresh();
       } else {
         await createProduct(finalPayload);
         router.push("/products");
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
