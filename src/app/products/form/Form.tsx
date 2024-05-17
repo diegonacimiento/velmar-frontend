@@ -74,6 +74,10 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
     }
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   if (isOpenSelector)
     return (
       <ImageSelector
@@ -125,19 +129,30 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
         </section>
       </div>
 
-      {/* Button submit form */}
-      <button
-        type="submit"
-        title="Save"
-        disabled={disabledButton}
-        className={
-          formStyles.buttonSP +
-          " m-auto w-full max-w-60 " +
-          (disabledButton && "cursor-not-allowed opacity-40")
-        }
-      >
-        Save
-      </button>
+      {/* Buttons cancel and submit form */}
+      <div className="flex justify-center gap-4">
+        <button
+          type="button"
+          title="Cancel"
+          onClick={handleCancel}
+          className={formStyles.buttonPS + " w-full max-w-60 "}
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          title="Save"
+          disabled={disabledButton}
+          className={
+            formStyles.buttonSP +
+            " w-full max-w-60 " +
+            (disabledButton && "cursor-not-allowed opacity-40")
+          }
+        >
+          Save
+        </button>
+      </div>
 
       <p className="text-red-600 m-auto">{errorForm}</p>
     </form>

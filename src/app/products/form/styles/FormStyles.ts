@@ -26,6 +26,6 @@ export const formStyles = {
   containerImage:
     "flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full",
   buttonPS:
-    "p-3 text-secondary bg-primary hover:bg-secondary hover:text-primary hover:scale-105 duration-150",
+    "p-3 mt-4 text-secondary bg-primary hover:bg-secondary hover:text-primary hover:scale-105 duration-150",
     buttonSP: "p-3 mt-4 text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150"
 };
