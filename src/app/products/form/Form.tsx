@@ -15,7 +15,7 @@ import Images from "./images/Images";
 import ImageSelector from "./images/Selector";
 import { formStyles } from "./styles/FormStyles";
 import { createProduct, updateProduct } from "@/services/products.service";
-import { prepareUpdatePayload } from "@/app/products/components/form/utils/update-product-validate";
+import { prepareUpdatePayload } from "@/app/products/form/utils/update-product-validate";
 
 interface IFormProps {
   product?: IProduct;

@@ -3,7 +3,7 @@ import React from "react";
 import { getProduct } from "@/services/products.service";
 import { getCategories } from "@/services/categories.service";
 import { getBrands } from "@/services/brands.service";
-import Form from "../../components/form/Form";
+import Form from "../../form/Form";
 
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
