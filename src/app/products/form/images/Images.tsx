@@ -79,7 +79,11 @@ const Images: React.FC<IImagesProps> = ({
               type="button"
               title="Previous image"
               onClick={() => scrollSelector(true)}
-              className={formStyles.buttonSlideImage + " z-10"}
+              className={
+                images.currentImage.urls.length > 1
+                  ? formStyles.buttonSlideImage + " z-10"
+                  : "hidden"
+              }
             >
               <IoIosArrowBack />
             </button>
@@ -112,7 +116,11 @@ const Images: React.FC<IImagesProps> = ({
               type="button"
               title="Next image"
               onClick={() => scrollSelector()}
-              className={formStyles.buttonSlideImage + " right-0"}
+              className={
+                images.currentImage.urls.length > 1
+                  ? formStyles.buttonSlideImage + " right-0"
+                  : "hidden"
+              }
             >
               <IoIosArrowForward />
             </button>

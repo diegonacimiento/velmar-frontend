@@ -3,11 +3,11 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-interface ICarousel {
+interface ISlides {
   images: string[];
 }
 
-const Carousel2: React.FC<ICarousel> = ({ images }) => {
+const Slides: React.FC<ISlides> = ({ images }) => {
   const containerImage = useRef<HTMLDivElement>(null);
 
   const scrollSelector = (back?: boolean) => {
@@ -68,4 +68,4 @@ const Carousel2: React.FC<ICarousel> = ({ images }) => {
   );
 };
 
-export default Carousel2;
+export default Slides;

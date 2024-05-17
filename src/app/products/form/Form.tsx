@@ -55,7 +55,10 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
     try {
       event.preventDefault();
       const validForm = validateForm(fields, setFields);
-      if (!validForm) return;
+      if (!validForm) {
+        setDisabledButton(false);
+        return;
+      };
       const finalPayload = preparePayload(fields);
       if (product) {
         const updatePayload = prepareUpdatePayload(finalPayload, product);
