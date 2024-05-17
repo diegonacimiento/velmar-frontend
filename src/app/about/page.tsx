@@ -2,10 +2,8 @@ import React from "react";
 import { MdProductionQuantityLimits, MdOutlineSecurity } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import Image from "next/image";
-import { getProducts } from "@/services/products.service";
 
-const About = async () => {
-  const products = await getProducts();
+const About = () => {
   return (
     <div className="flex flex-col leading-8 w-full">
       <section className="bg-secondary p-4 text-primary">
