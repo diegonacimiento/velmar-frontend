@@ -1,11 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 
 import Carousel from "@/components/Carousel";
 import Collection from "@/components/Collection";
-import ProductCard from "@/app/products/components/ProductCard";
 import {
-  getCollections,
   rogersDescription,
   romanoffDescription,
   shoesDescription,
@@ -14,8 +11,6 @@ import ProductsList from "./products/components/ProductsList";
 import { getProducts } from "@/services/products.service";
 
 const Home: React.FC = async () => {
-  // const { men, women, newArrivals } = await getCollections();
-
   const products = await getProducts();
 
   return (
@@ -87,7 +82,7 @@ const Home: React.FC = async () => {
         <h2 className="text-3xl font-semibold text-center">New Arrivals</h2>
 
         <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
-          <ProductsList products={products} moreProductsButton={false} />
+          <ProductsList products={products} />
         </div>
 
         <button

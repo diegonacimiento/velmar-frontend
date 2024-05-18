@@ -58,7 +58,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
     <div className="flex flex-col items-center">
       <div ref={containerImage} id="carousel" className="flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full max-w-88">
         {slides.map((slide, index) => (
-          <div key={slide} className="relative flex flex-col justify-center p-2 sm:p-4 min-w-full snap-center">
+          <div key={slide + index} className="relative flex flex-col justify-center p-2 sm:p-4 min-w-full snap-center">
             <Link
               href={`/products/${products[index].id}`}
               className="flex flex-col gap-2 pb-4 rounded-xl shadow-md w-full max-w-80 overflow-hidden"

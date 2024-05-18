@@ -1,74 +1,34 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import { IProduct } from "@/types/products";
-import MoreProducts from "./MoreProducts";
-import useVelmarContext from "@/hooks/useVelmarContext";
 
 interface IProductsListProps {
   products: IProduct[];
-  moreProductsButton?: boolean;
 }
 
-const ProductsList: React.FC<IProductsListProps> = ({
-  products,
-  moreProductsButton = true,
-}) => {
-  const { roleUser } = useVelmarContext();
-
-  const router = useRouter();
-
-  const [allProducts, setAllProducts] = useState([...products]);
-
-  const goCreateProduct = () => {
-    router.push("/products/create");
-  };
-
+const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
   return (
-    <div className="flex flex-col p-4">
-      {moreProductsButton && roleUser === "salesperson" && (
-        <button
-          type="button"
-          title="Create product"
-          onClick={goCreateProduct}
-          className="block p-4 m-4 self-center w-max text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 "
+    <div className="flex justify-center gap-8 p-4 w-full flex-wrap">
+      {products.map((product) => (
+        <Link
+          key={product.id}
+          href={"/products/" + product.id}
+          className="max-w-88 w-full"
         >
-          Create product
-        </button>
-      )}
-
-      {/* Product cards */}
-      <div className="flex justify-center gap-8 p-4 w-full flex-wrap">
-        {allProducts.map((product) => (
-          <Link
-            key={product.id}
-            href={"/products/" + product.id}
-            className="max-w-88 w-full"
-          >
-            <div className="shadow-lg rounded-lg overflow-hidden text-secondary hover:scale-105 duration-500">
-              <Image
-                src={product.images[0].urls[0]}
-                alt={product.name}
-                height={960}
-                width={1170}
-              />
-              <h2 className="p-2 text-lg font-bold">{product.name}</h2>
-              <h2 className="p-2 text-sm font-semibold">$ {product.price}</h2>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* Button more products */}
-      {moreProductsButton && (
-        <MoreProducts
-          allProducts={allProducts}
-          setAllProducts={setAllProducts}
-        />
-      )}
+          <div className="shadow-lg rounded-lg overflow-hidden text-secondary hover:scale-105 duration-500">
+            <Image
+              src={product.images[0].urls[0]}
+              alt={product.name}
+              height={960}
+              width={1170}
+            />
+            <h2 className="p-2 text-lg font-bold">{product.name}</h2>
+            <h2 className="p-2 text-sm font-semibold">$ {product.price}</h2>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 };

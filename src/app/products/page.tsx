@@ -1,12 +1,12 @@
 import React from "react";
 
 import { getProducts } from "@/services/products.service";
-import ProductsList from "./components/ProductsList";
+import ProductsPage from "./components/ProductsPage";
 
-const ProductsPage = async () => {
+const page = async () => {
   const products = await getProducts();
 
-  return <ProductsList products={products} />
+  return <ProductsPage products={products} />
 };
 
-export default ProductsPage;
+export default page;

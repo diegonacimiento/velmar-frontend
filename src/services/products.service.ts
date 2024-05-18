@@ -8,7 +8,7 @@ import {
 import { LIMIT } from "@/utils/constants";
 
 export const getProducts = async (offset?: number): Promise<IProduct[]> => {
-  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_URL}/products?offset=${

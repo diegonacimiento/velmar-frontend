@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 
-import ProductCard from "@/app/products/components/ProductCard";
 import ProductsList from "../components/ProductsList";
 import LoadingProducts from "../components/LoadingProducts";
 import { getProduct, getProducts } from "@/services/products.service";
@@ -22,7 +21,7 @@ const page = async ({ params: { id } }: { params: { id: number } }) => {
       <h3 className="sm:p-4 text-2xl font-medium">Recommended products</h3>
 
       <Suspense fallback={<LoadingProducts length={6} />}>
-        <ProductsList products={products} moreProductsButton={false} />
+        <ProductsList products={products} />
       </Suspense>
     </div>
   );
