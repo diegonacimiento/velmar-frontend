@@ -1,10 +1,11 @@
 "use client";
-import useVelmarContext from "@/hooks/useVelmarContext";
-import { IProduct } from "@/types/products";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import MoreProducts from "./MoreProducts";
 import ProductsList from "./ProductsList";
+import useVelmarContext from "@/hooks/useVelmarContext";
+import { IProduct } from "@/types/products";
 
 interface IProductsPage {
   products: IProduct[];

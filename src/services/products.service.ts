@@ -7,13 +7,34 @@ import {
 } from "@/types/products";
 import { LIMIT } from "@/utils/constants";
 
-export const getProducts = async (offset?: number): Promise<IProduct[]> => {
-  // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
+export const getProducts = async (
+  offset?: number,
+  limit?: number
+): Promise<IProduct[]> => {
+  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products?offset=${
-        offset || 0
-      }&limit=${LIMIT}`,
+      `${process.env.NEXT_PUBLIC_URL}/products?offset=${offset || 0}&limit=${
+        limit || LIMIT
+      }`,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getProductsByName = async (name: string): Promise<IProduct[]> => {
+  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_URL}/products?name=${name}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -46,7 +67,7 @@ export const getProduct = async (id: number): Promise<IProduct> => {
 };
 
 export const createProduct = async (payload: IPayloadCreateProduct) => {
-    // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/products`,

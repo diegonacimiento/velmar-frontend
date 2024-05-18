@@ -8,7 +8,7 @@ import ProductDetails from "./components/ProductDetails";
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
 
-  const products = (await getProducts()).filter(
+  const products = (await getProducts(undefined, 3)).filter(
     (item) => item.id !== product.id
   );
 

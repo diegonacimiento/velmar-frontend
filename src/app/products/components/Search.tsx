@@ -1,78 +1,60 @@
 "use client";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineCancel } from "react-icons/md";
 
-interface SearchProps {
-  currentCategory?: string;
-  currentSearch?: string;
-}
-
-const Search: React.FC<SearchProps> = ({ currentCategory, currentSearch }) => {
+const Search: React.FC = () => {
   const router = useRouter();
 
-  const [value, setValue] = useState<string>(currentSearch || "");
-  const [optionSelected, setOptionSelected] = useState<string>(
-    decodeURIComponent(currentCategory || "")
-  );
+  const [value, setValue] = useState<string>("");
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
-  const handleChangeOption = (event: ChangeEvent<HTMLSelectElement>) => {
-    router.push(`/products/category/${event.target.value}`);
+  const handleDeleteSearch = () => {
+    if (value) {
+      setValue("");
+      router.push(`/products`);
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push(`/products/results/${value}`);
+
+    router.push(`/products?name=${value}`);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col-reverse sm:flex-row">
-        <select
-          className="-sm:w-30 -sm:py-2.5 -sm:my-2 -sm:rounded-md flex-shrink-0 z-10 inline-flex items-center px-2 text-sm font-medium text-center text-primary bg-secondary border border-gray-300 rounded-s-lg hover:bg-primary hover:text-secondary focus:ring-4 focus:outline-none focus:ring-gray-100 duration-150"
-          title="Select category"
-          onChange={handleChangeOption}
-          value={optionSelected}
-        >
-          <option value="">All</option>
-          <option value="men's clothing">Men</option>
-          <option value="women's clothing">Women</option>
-          <option value="jewelery">Jewelery</option>
-        </select>
-
-        <div className="relative w-full">
-          <input
-            type="search"
-            className="block p-2.5 w-full z-20 text-sm text-secondary bg-primary rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 -sm:rounded-md -sm:border-2 -sm:border-gray-300"
-            placeholder="Search product"
-            required
-            title="Search product"
-            value={value}
-            onChange={handleChangeInput}
-          />
+      <div className="flex flex-col-reverse sm:flex-row max-w-520 m-auto">
+        <div className="flex w-full">
+          <div className="relative flex w-full">
+            <input
+              type="search"
+              className="border border-gray-300 p-2.5 w-full rounded-s-md text-sm text-secondary bg-primary focus:outline-none focus:border-secondary"
+              placeholder="Search product"
+              required
+              title="Search product"
+              value={value}
+              onChange={handleChangeInput}
+            />
+            <button
+              type="button"
+              title="Delete search"
+              onClick={handleDeleteSearch}
+              className="absolute right-0 p-2 flex self-center text-secondary text-xl"
+            >
+              <MdOutlineCancel />
+            </button>
+          </div>
           <button
             type="submit"
             title="Search"
-            className="absolute top-0 end-0 p-2.5 text-sm text-primary font-medium h-full bg-secondary rounded-e-lg border border-secondary hover:bg-primary hover:text-secondary focus:ring-4 focus:outline-none focus:ring-blue-300 duration-150"
+            className="border border-secondary p-2.5 h-full rounded-e-lg text-sm text-primary font-medium bg-secondary  hover:bg-primary hover:text-secondary duration-150"
           >
-            <svg
-              className="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
+            <IoSearch />
           </button>
         </div>
       </div>
