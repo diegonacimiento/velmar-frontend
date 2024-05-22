@@ -28,7 +28,7 @@ const Search: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col-reverse sm:flex-row max-w-520 m-auto">
+      <div className="flex flex-col-reverse sm:flex-row p-4 max-w-650 m-auto">
         <div className="flex w-full">
           <div className="relative flex w-full">
             <input
@@ -52,7 +52,7 @@ const Search: React.FC = () => {
           <button
             type="submit"
             title="Search"
-            className="border border-secondary p-2.5 h-full rounded-e-lg text-sm text-primary font-medium bg-secondary  hover:bg-primary hover:text-secondary duration-150"
+            className="border border-secondary p-4 h-full rounded-e-lg text-sm text-primary font-medium bg-secondary  hover:bg-primary hover:text-secondary duration-150"
           >
             <IoSearch />
           </button>

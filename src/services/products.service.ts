@@ -27,7 +27,7 @@ export const getProducts = async (
 ): Promise<IProduct[]> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
-    const paramsUrl = parseParamsToURL(params);
+    const paramsUrl = params ? parseParamsToURL(params) : params;
 
     const queryParams = paramsUrl
       ? paramsUrl + `&offset=${offset || 0}&limit=${limit || LIMIT}`

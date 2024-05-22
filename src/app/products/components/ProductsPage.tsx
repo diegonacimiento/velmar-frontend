@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { MdErrorOutline } from "react-icons/md";
 
 import MoreProducts from "./MoreProducts";
 import ProductsList from "./ProductsList";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { IProduct } from "@/types/products";
 import Filters from "./Filters";
-import { MdErrorOutline } from "react-icons/md";
 
 interface IProductsPage {
   products: { value: IProduct[]; error: string };

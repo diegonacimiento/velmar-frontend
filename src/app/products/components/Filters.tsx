@@ -9,6 +9,8 @@ import { getCategories } from "@/services/categories.service";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { parseParamsToURL } from "@/utils/functions-share";
+import { BsFillFilterSquareFill, BsFilterSquare } from "react-icons/bs";
+import { CgOptions } from "react-icons/cg";
 
 const Filters = () => {
   // Hooks
@@ -28,6 +30,7 @@ const Filters = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorPriceRange, setErrorPriceRange] = useState<string>("");
+  const [openFilters, setOpenFilters] = useState<boolean>(false);
 
   // useEffects
   useEffect(() => {
@@ -41,6 +44,7 @@ const Filters = () => {
     get();
   }, []);
 
+  // Functions
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (form.current) {
@@ -68,70 +72,122 @@ const Filters = () => {
     }
   };
 
+  const handleCleanFilters = () => {
+    router.push("/products");
+  };
+
+  const toggleFilters = () => {
+    setOpenFilters((prev) => !prev);
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <form
-      ref={form}
-      onSubmit={handleSubmit}
-      className="grid place-content-center"
-    >
-      <div className="p-4">
-        <h3>Brands</h3>
-        {brands.map((brand, index) => (
-          <label key={brand.id}>
+    <>
+      <div className="flex self-center p-4 w-full max-w-650">
+        <button
+          type="button"
+          onClick={toggleFilters}
+          className="flex justify-center items-center gap-1 border border-secondary p-2 rounded-md bg-secondary w-max self-center font-medium text-body"
+        >
+          <CgOptions />
+          Filters
+        </button>
+      </div>
+      <form
+        ref={form}
+        onSubmit={handleSubmit}
+        className={
+          openFilters
+            ? "flex flex-col self-center gap-2 mb-4 w-full max-w-520 text-secondary"
+            : "hidden"
+        }
+      >
+        <div>
+          <h3 className="font-semibold">Brands</h3>
+          <div className="flex flex-wrap">
+            {brands.map((brand) => (
+              <label key={brand.id} className="m-2">
+                <input
+                  name="brands"
+                  type="checkbox"
+                  value={brand.id}
+                  defaultChecked={brandsParam.includes(brand.id.toString())}
+                />{" "}
+                {brand.name}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold">Categories</h3>
+          <div className="flex flex-wrap">
+            {categories.map((category) => (
+              <label key={category.id} className="m-2">
+                <input
+                  name="categories"
+                  type="checkbox"
+                  value={category.id}
+                  defaultChecked={categoriesParam.includes(
+                    category.id.toString()
+                  )}
+                />{" "}
+                {category.name}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <h3 className="font-semibold">Ranges prices</h3>
+          <div className="flex gap-2">
             <input
-              name="brands"
-              type="checkbox"
-              value={brand.id}
-              defaultChecked={brandsParam.includes(brand.id.toString())}
-            />{" "}
-            {brand.name}
-          </label>
-        ))}
-      </div>
-
-      <div className="p-4">
-        <h3>Categories</h3>
-        {categories.map((category) => (
-          <label key={category.id}>
+              name="min-price"
+              type="number"
+              defaultValue={minPriceParam || undefined}
+              placeholder="Minimal price"
+              className="border border-gray-300 p-2 my-2 w-full rounded-md text-sm text-secondary bg-primary focus:outline-none focus:border-secondary"
+            />
             <input
-              name="categories"
-              type="checkbox"
-              value={category.id}
-              defaultChecked={categoriesParam.includes(category.id.toString())}
-            />{" "}
-            {category.name}
-          </label>
-        ))}
-      </div>
+              name="max-price"
+              type="number"
+              defaultValue={maxPriceParam || undefined}
+              placeholder="Maximum price"
+              className="border border-gray-300 p-2 my-2 w-full rounded-md text-sm text-secondary bg-primary focus:outline-none focus:border-secondary"
+            />
+          </div>
+          <p className="flex items-center gap-1 min-h-5 text-sm sm:text-base text-red-600">
+            {errorPriceRange && (
+              <>
+                <MdOutlineError />
+                {errorPriceRange}
+              </>
+            )}
+          </p>
+        </div>
 
-      <div>
-        <h3>Ranges prices</h3>
-        <input
-          name="min-price"
-          type="number"
-          defaultValue={minPriceParam || undefined}
-        />
-        <input
-          name="max-price"
-          type="number"
-          defaultValue={maxPriceParam || undefined}
-        />
-        <p className="flex items-center gap-1 mb-4 min-h-5 text-sm sm:text-base text-red-600">
-          {errorPriceRange && (
-            <>
-              <MdOutlineError />
-              {errorPriceRange}
-            </>
-          )}
-        </p>
-      </div>
-
-      <button type="submit">Apply filters</button>
-    </form>
+        <div className="flex gap-2 justify-center">
+          <button
+            type="button"
+            title="Clean filters"
+            onClick={handleCleanFilters}
+            className="border border-primary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-secondary font-medium bg-primary hover:bg-body hover:text-secondary duration-150"
+          >
+            Clean filters
+          </button>
+          <button
+            type="submit"
+            title="Apply filters"
+            className="border border-secondary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-primary font-medium bg-secondary  hover:bg-body hover:text-secondary duration-150"
+          >
+            Apply filters
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
