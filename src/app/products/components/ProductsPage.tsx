@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MdErrorOutline } from "react-icons/md";
 
@@ -20,13 +20,33 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
 
   const [allProducts, setAllProducts] = useState([...products.value]);
 
+  const handleSelectedSort = (event: ChangeEvent<HTMLSelectElement>) => {
+    handleSortBy(event.target.value);
+  };
+
+  const handleSortBy = (order: string) => {
+    if (order) {
+      setAllProducts(
+        allProducts.slice().sort((a, b) => {
+          if (order === "higher") {
+            return Number(b.price) - Number(a.price);
+          } else {
+            return Number(a.price) - Number(b.price);
+          }
+        })
+      );
+    } else {
+      setAllProducts([...products.value]);
+    }
+  };
+
   const goCreateProduct = () => {
     router.push("/products/create");
   };
 
   return (
     <div className="flex flex-col p-4">
-      <Filters />
+      <Filters handleSelectedSort={handleSelectedSort} />
 
       {roleUser === "salesperson" && (
         <button

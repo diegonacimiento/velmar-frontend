@@ -1,5 +1,11 @@
 "use client";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdOutlineError } from "react-icons/md";
 
@@ -12,7 +18,11 @@ import { parseParamsToURL } from "@/utils/functions-share";
 import { BsFillFilterSquareFill, BsFilterSquare } from "react-icons/bs";
 import { CgOptions } from "react-icons/cg";
 
-const Filters = () => {
+const Filters = ({
+  handleSelectedSort,
+}: {
+  handleSelectedSort: (event: ChangeEvent<HTMLSelectElement>) => void;
+}) => {
   // Hooks
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -86,22 +96,31 @@ const Filters = () => {
 
   return (
     <>
-      <div className="flex self-center p-4 w-full max-w-650">
+      <div className="flex self-center gap-4 sm:gap-8 justify-center pb-4 w-full max-w-650">
         <button
           type="button"
           onClick={toggleFilters}
-          className="flex justify-center items-center gap-1 border border-secondary p-2 rounded-md bg-secondary w-max self-center font-medium text-body"
+          className="flex justify-center items-center gap-1 border border-secondary p-2 rounded-md w-full max-w-32 bg-secondary self-center font-medium text-body hover:scale-105 duration-150"
         >
           <CgOptions />
           Filters
         </button>
+
+        <select
+          onChange={handleSelectedSort}
+          className="border border-gray-300 p-2 rounded-md w-full max-w-32 text-sm text-secondary bg-primary focus:outline-none focus:border-secondary"
+        >
+          <option value="">Sort by</option>
+          <option value="lower">Lower price</option>
+          <option value="higher">Higher price</option>
+        </select>
       </div>
       <form
         ref={form}
         onSubmit={handleSubmit}
         className={
           openFilters
-            ? "flex flex-col self-center gap-2 mb-4 w-full max-w-520 text-secondary"
+            ? "flex flex-col self-center gap-2 px-2 py-4 sm:p-4 mb-4 rounded-md w-full max-w-520 bg-primary bg-opacity-30 text-secondary"
             : "hidden"
         }
       >
