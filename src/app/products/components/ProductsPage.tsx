@@ -6,9 +6,11 @@ import MoreProducts from "./MoreProducts";
 import ProductsList from "./ProductsList";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { IProduct } from "@/types/products";
+import Filters from "./Filters";
+import { MdErrorOutline } from "react-icons/md";
 
 interface IProductsPage {
-  products: IProduct[];
+  products: { value: IProduct[]; error: string };
 }
 
 const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
@@ -16,7 +18,7 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
 
   const router = useRouter();
 
-  const [allProducts, setAllProducts] = useState([...products]);
+  const [allProducts, setAllProducts] = useState([...products.value]);
 
   const goCreateProduct = () => {
     router.push("/products/create");
@@ -24,6 +26,8 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
 
   return (
     <div className="flex flex-col p-4">
+      <Filters />
+
       {roleUser === "salesperson" && (
         <button
           type="button"
@@ -36,6 +40,14 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
       )}
 
       <ProductsList products={allProducts} />
+
+      <p className="flex gap-1 justify-center items-center text-red-600 font-semibold">
+        {products.error && (
+          <>
+            <MdErrorOutline /> {products.error}
+          </>
+        )}
+      </p>
 
       {/* Button more products */}
       <MoreProducts allProducts={allProducts} setAllProducts={setAllProducts} />

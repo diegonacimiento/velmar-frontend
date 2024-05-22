@@ -6,35 +6,35 @@ import {
   IProduct,
 } from "@/types/products";
 import { LIMIT } from "@/utils/constants";
+import { parseParamsToURL } from "@/utils/functions-share";
+
+interface IParamsGetProducts {
+  name?: string;
+
+  categories?: number[];
+
+  brands?: number[];
+
+  minPrice?: number;
+
+  maxPrice?: number;
+}
 
 export const getProducts = async (
+  params?: IParamsGetProducts,
   offset?: number,
   limit?: number
 ): Promise<IProduct[]> => {
-  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products?offset=${offset || 0}&limit=${
-        limit || LIMIT
-      }`,
-      {
-        headers: {
-          "api-key": process.env.NEXT_PUBLIC_API_KEY,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+    const paramsUrl = parseParamsToURL(params);
 
-export const getProductsByName = async (name: string): Promise<IProduct[]> => {
-  await new Promise<void>((resolve) => setTimeout(resolve, 5000));
-  try {
+    const queryParams = paramsUrl
+      ? paramsUrl + `&offset=${offset || 0}&limit=${limit || LIMIT}`
+      : `?offset=${offset || 0}&limit=${limit || LIMIT}`;
+
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products?name=${name}`,
+      `${process.env.NEXT_PUBLIC_URL}/products${queryParams}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
