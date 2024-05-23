@@ -88,7 +88,7 @@ const Images: React.FC<IImagesProps> = ({
               <IoIosArrowBack />
             </button>
 
-            <div ref={containerImage} className={formStyles.containerImage}>
+            <div id="slide-img" ref={containerImage} className={formStyles.containerImage}>
               {images.currentImage.urls.map((url) => (
                 <div key={url} className="relative min-w-full snap-center">
                   <Image

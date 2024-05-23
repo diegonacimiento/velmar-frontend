@@ -36,6 +36,7 @@ const Slides: React.FC<ISlides> = ({ images }) => {
       </button>
 
       <div
+        id="slide-img"
         ref={containerImage}
         className="flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full"
       >

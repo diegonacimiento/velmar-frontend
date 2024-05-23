@@ -30,15 +30,15 @@ body::-webkit-scrollbar-track {
   border-radius: 6px;
 }
 
-#carousel::-webkit-scrollbar {
+#carousel::-webkit-scrollbar, #slide-img::-webkit-scrollbar {
   height: 8px;
 }
 
-#carousel::-webkit-scrollbar-thumb {
+#carousel::-webkit-scrollbar-thumb, #slide-img::-webkit-scrollbar-thumb {
   opacity: 0;
 }
 
-#carousel::-webkit-scrollbar-track {
+#carousel::-webkit-scrollbar-track, #slide-img::-webkit-scrollbar-track {
   opacity: 0;
 }
 
