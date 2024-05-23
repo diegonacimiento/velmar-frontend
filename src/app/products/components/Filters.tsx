@@ -15,7 +15,6 @@ import { getCategories } from "@/services/categories.service";
 import { IBrand } from "@/types/brands";
 import { ICategory } from "@/types/categories";
 import { parseParamsToURL } from "@/utils/functions-share";
-import { BsFillFilterSquareFill, BsFilterSquare } from "react-icons/bs";
 import { CgOptions } from "react-icons/cg";
 
 const Filters = ({
@@ -98,9 +97,10 @@ const Filters = ({
     <>
       <div className="flex self-center gap-4 sm:gap-8 justify-center pb-4 w-full max-w-650">
         <button
+          id="bt-filters"
           type="button"
           onClick={toggleFilters}
-          className="flex justify-center items-center gap-1 border border-secondary p-2 rounded-md w-full max-w-32 bg-secondary self-center font-medium text-body hover:scale-105 duration-150"
+          className="flex justify-center items-center gap-1 border border-secondary p-2 rounded-md w-full max-w-32 bg-secondary self-center font-medium text-body active:scale-105 duration-150"
         >
           <CgOptions />
           Filters
@@ -193,14 +193,14 @@ const Filters = ({
             type="button"
             title="Clean filters"
             onClick={handleCleanFilters}
-            className="border border-primary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-secondary font-medium bg-primary hover:bg-body hover:text-secondary duration-150"
+            className="border border-primary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-secondary font-medium bg-primary active:bg-body active:text-secondary duration-150 bt-clean-filters"
           >
             Clean filters
           </button>
           <button
             type="submit"
             title="Apply filters"
-            className="border border-secondary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-primary font-medium bg-secondary  hover:bg-body hover:text-secondary duration-150"
+            className="border border-secondary p-2.5 h-full w-full max-w-36 rounded-lg text-sm text-primary font-medium bg-secondary active:bg-body active:text-secondary duration-150 bt-apply-filters"
           >
             Apply filters
           </button>

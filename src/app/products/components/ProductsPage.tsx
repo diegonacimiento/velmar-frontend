@@ -53,7 +53,7 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
           type="button"
           title="Create product"
           onClick={goCreateProduct}
-          className="block p-4 m-4 self-center w-max text-primary bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 "
+          className="block p-4 m-4 self-center w-max rounded-md text-body bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 "
         >
           Create product
         </button>

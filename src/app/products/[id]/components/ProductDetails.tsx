@@ -94,7 +94,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
             </span>
           ) : (
             <button
-              className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-primary hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
+              className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
               type="button"
               title="Add to cart"
               // onClick={handleAddToCart}

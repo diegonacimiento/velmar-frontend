@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import { deleteProduct } from "@/services/products.service";
 import { MdOutlineError } from "react-icons/md";
 
@@ -75,7 +76,7 @@ const OptionsButtons: React.FC<IOptionsButtons> = ({ id }) => {
         <button
           type="button"
           title="Edit product"
-          className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-primary hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
+          className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
           onClick={goUpdateProduct}
         >
           Edit product
@@ -83,7 +84,7 @@ const OptionsButtons: React.FC<IOptionsButtons> = ({ id }) => {
         <button
           type="button"
           title="Delete product"
-          className="border-2 border-red-700 p-3 bg-red-700 rounded-lg text-lg font-semibold text-primary hover:scale-105 hover:bg-red-300 hover:text-secondary duration-150"
+          className="border-2 border-red-700 p-3 bg-red-700 rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-red-300 hover:text-secondary duration-150"
           onClick={handleButtonDelete}
         >
           Delete product

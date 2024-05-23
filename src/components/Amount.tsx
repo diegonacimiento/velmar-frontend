@@ -26,7 +26,7 @@ const Amount: React.FC<AmountProps> = ({ amount, setAmount }) => {
     <div className="flex items-center gap-4 w-1/2">
       <button
         type="button"
-        className="bg-secondary text-body rounded-md text-2xl  hover:bg-primary hover:scale-125 duration-150"
+        className="bg-secondary text-body rounded-md text-2xl  active:bg-primary active:scale-125 duration-150 bt-amount"
         title="Remove a product"
         onClick={handleRemove}
       >
@@ -35,7 +35,7 @@ const Amount: React.FC<AmountProps> = ({ amount, setAmount }) => {
       <span className="text-xl">{amount}</span>
       <button
         type="button"
-        className="bg-secondary text-body rounded-md text-2xl  hover:bg-primary hover:scale-125 duration-150"
+        className="bg-secondary text-body rounded-md text-2xl  active:bg-primary active:scale-125 duration-150 bt-amount"
         title="Add a product"
         onClick={handleAdd}
       >

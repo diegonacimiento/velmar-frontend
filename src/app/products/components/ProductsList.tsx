@@ -17,7 +17,7 @@ const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
           href={"/products/" + product.id}
           className="max-w-88 w-full"
         >
-          <div className="shadow-lg rounded-lg overflow-hidden text-secondary hover:scale-105 duration-500">
+          <div id="card-product" className="shadow-lg rounded-lg overflow-hidden text-secondary active:scale-105 duration-500">
             <Image
               src={product.images[0].urls[0]}
               alt={product.name}

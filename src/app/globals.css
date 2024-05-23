@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply text-letter bg-body
+  @apply text-letter bg-body;
 }
 
 body::-webkit-scrollbar {
@@ -18,14 +18,14 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   @apply bg-secondary;
-  border-radius: 6px; 
+  border-radius: 6px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-600;
 }
 
-body::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track {
   @apply bg-body;
   border-radius: 6px;
 }
@@ -42,8 +42,28 @@ body::-webkit-scrollbar-track{
   opacity: 0;
 }
 
-@media (hover:hover) {
+@media (hover: hover) {
+  .bt-amount:hover {
+    @apply scale-105 bg-primary text-secondary
+  }
+
+  #bt-filters:hover, #card-product:hover {
+    @apply scale-105;
+  }
+
+  .bt-clean-filters:hover {
+    @apply bg-body text-secondary;
+  }
+
+  .bt-apply-filters:hover {
+    @apply bg-body text-secondary;
+  }
+
   .bt-paginator:hover {
+    @apply bg-primary text-secondary;
+  }
+
+  #bt-search-prod:hover {
     @apply bg-primary text-secondary;
   }
 
@@ -57,7 +77,7 @@ body::-webkit-scrollbar-track{
 }
 
 .input-error {
-  @apply border-red-600 text-red-600
+  @apply border-red-600 text-red-600;
 }
 
 /* @media (prefers-color-scheme: dark) {

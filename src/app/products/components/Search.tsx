@@ -50,9 +50,10 @@ const Search: React.FC = () => {
             </button>
           </div>
           <button
+            id="bt-search-prod"
             type="submit"
             title="Search"
-            className="border border-secondary p-4 h-full rounded-e-lg text-sm text-primary font-medium bg-secondary  hover:bg-primary hover:text-secondary duration-150"
+            className="border border-secondary p-4 h-full rounded-e-lg text-sm text-primary font-medium bg-secondary  active:bg-primary active:text-secondary duration-150"
           >
             <IoSearch />
           </button>
