@@ -23,8 +23,8 @@ const CartPage = () => {
       {cart.length > 0 ? (
         <div className="md:flex">
           <section className="md:w-4/5">
-            {cart.map(({ product, amount }) => (
-              <CartItem product={product} amount={amount} key={product.id} />
+            {cart.map(({ product, amount, size }) => (
+              <CartItem product={product} amount={amount} size={size} key={product.id + size} />
             ))}
           </section>
 

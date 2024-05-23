@@ -18,6 +18,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   // Hooks
   const { roleUser } = useVelmarContext();
   const router = useRouter();
+  const { updateCart } = useVelmarContext();
 
   // States
   const [amount, setAmount] = useState<number>(1);
@@ -29,7 +30,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
     value: product.images,
     currentImage: product.images[0],
   });
-  const [selectedSizes, setSelectedSizes] = useState<Size>();
+  const [selectedSize, setSelectedSize] = useState<Size>();
 
   // Functions
   const handleSelectColor = (color: string) => {
@@ -39,6 +40,17 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
         ...prev,
         currentImage: image,
       }));
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (selectedSize) {
+      setBtIsChecked(true);
+      updateCart(product, amount, selectedSize);
+      setAmount(1);
+      setTimeout(() => {
+        setBtIsChecked(false);
+      }, 5000);
     }
   };
 
@@ -103,10 +115,10 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
             {images.currentImage.sizes.map((size) => (
               <div
                 key={size}
-                onClick={() => setSelectedSizes(size)}
+                onClick={() => setSelectedSize(size)}
                 className={
                   "relative flex justify-center items-center rounded-full h-10 w-10 cursor-pointer text-sm border-2 border-body hover:bg-body duration-150 " +
-                  (selectedSizes === size && "bg-body")
+                  (selectedSize === size && "bg-body")
                 }
               >
                 {size}
@@ -126,7 +138,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
                 className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
                 type="button"
                 title="Add to cart"
-                // onClick={handleAddToCart}
+                onClick={handleAddToCart}
                 id="bt-addToCart"
               >
                 Add to cart

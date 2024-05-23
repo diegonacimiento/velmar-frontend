@@ -2,7 +2,7 @@
 import React, { createContext, useState } from "react";
 
 import { ICart, IContext, TRole } from "@/types/context";
-import { IProduct } from "@/types/products";
+import { IProduct, Size } from "@/types/products";
 
 export const VelmarContext = createContext<IContext>({} as IContext);
 
@@ -25,26 +25,29 @@ export const VelmarContextProvider = ({
     setAddressValue(value);
   };
 
-  const updateCart = (product: IProduct, amount: number) => {
-    const indexItem = cart.findIndex((item) => item.product.id === product.id);
+  const updateCart = (product: IProduct, amount: number, size: Size) => {
+    const indexItem = cart.findIndex(
+      (item) => item.product.id === product.id && item.size === size
+    );
 
-    if (indexItem !== -1) {
-      const temporalCart = cart;
+    if (cart[indexItem]?.size === size) {
+      const temporalCart = [...cart];
       temporalCart[indexItem].amount += amount;
       setCart([...temporalCart]);
       return;
     }
-    const newCart = [...cart, { product, amount }];
+    const newCart = [...cart, { product, amount, size }];
     setCart([...newCart]);
   };
 
-  const deleteItemCart = (product: IProduct) => {
-    const indexItem = cart.findIndex((item) => item.product.id === product.id);
+  const deleteItemCart = (product: IProduct, size: Size) => {
+    const indexItem = cart.findIndex(
+      (item) => item.product.id === product.id && item.size === size
+    );
 
     if (indexItem !== -1) {
-      const temporalCart = cart.filter(
-        (item) => item.product.id !== product.id
-      );
+      const temporalCart = [...cart];
+      temporalCart.splice(indexItem, 1);
       setCart([...temporalCart]);
     }
   };

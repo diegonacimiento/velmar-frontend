@@ -3,30 +3,31 @@ import React from "react";
 import Image from "next/image";
 import { RxCross2 } from "react-icons/rx";
 
-import { Product } from "@/types/products";
+import { IProduct, Size } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import Counter from "./Counter";
 
 interface CartItemProps {
-  product: Product;
+  product: IProduct;
   amount: number;
+  size: Size;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ product, amount }) => {
+const CartItem: React.FC<CartItemProps> = ({ product, amount, size }) => {
   const { updateCart, deleteItemCart } = useVelmarContext();
 
   const handleRemove = () => {
    if(amount > 1) {
-    updateCart(product, - 1);
+    updateCart(product, - 1, size);
    }
   };
 
   const handleAdd = () => {
-    updateCart(product, + 1);
+    updateCart(product, + 1, size);
   };
 
   const handleDeleteProduct = () => {
-   deleteItemCart(product);
+   deleteItemCart(product, size);
   }
 
   return (
@@ -34,10 +35,10 @@ const CartItem: React.FC<CartItemProps> = ({ product, amount }) => {
         key={product.id}
         className="relative grid grid-cols-[1fr_2fr] gap-3 sm:gap-6 border-b border-primary p-2 py-8 sm:p-6"
       >
-        <figure className="h-32 w-20 sm:h-52 sm:w-52 bg-white">
+        <figure className="h-32 w-20 sm:h-52 sm:w-52">
           <Image
-            src={product.image}
-            alt={product.title}
+            src={product.images[0].urls[0]}
+            alt={product.name}
             height={80}
             width={80}
             className="h-full w-full object-contain"
@@ -45,7 +46,11 @@ const CartItem: React.FC<CartItemProps> = ({ product, amount }) => {
         </figure>
         <div className="flex flex-col gap-y-4 justify-around w-fit">
           <span className="text-sm sm:text-base font-bold text-justify w-fit line-clamp-1">
-            {product.title}
+            {product.name}
+          </span>
+
+          <span className="text-xs sm:text-sm font-medium text-justify w-fit line-clamp-1">
+            Size: {size}
           </span>
 
           <Counter

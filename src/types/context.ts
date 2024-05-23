@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { IProduct } from "./products";
+import { IProduct, Size } from "./products";
 
 export interface IContext {
   isAuth: boolean;
@@ -9,16 +9,17 @@ export interface IContext {
   addressValue: string;
   updateAddressValue: (value: string) => void;
   cart: ICart[];
-  updateCart: (product: IProduct, amount: number) => void;
+  updateCart: (product: IProduct, amount: number, size: Size) => void;
   products: IProduct[];
   updateProducts: (products: IProduct[]) => void;
-  deleteItemCart: (product: IProduct) => void;
+  deleteItemCart: (product: IProduct, size: Size) => void;
   deleteAllCart: () => void;
 }
 
 export interface ICart {
   product: IProduct;
   amount: number;
+  size: Size;
 }
 
 export type TRole = "customer" | "salesperson" | null;
