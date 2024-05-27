@@ -19,12 +19,16 @@ const PaymentPage = () => {
     <div className="w-full max-w-650 p-4">
       <div className="bg-primary p-4 text-secondary rounded-lg">
         <h3 className="text-xl font-semibold">Order summary:</h3>
-        {cart.map(({ product, amount }) => (
-          <div className="border-b border-secondary m-4" key={product.id}>
+        {cart.map(({ product, amount, size }) => (
+          <div
+            className="border-b border-secondary m-4"
+            key={product.id + size}
+          >
             <div className="flex flex-col">
-              <h4 className="font-light my-4">{product.title}</h4>
+              <h4 className="font-semibold text-lg my-4">{product.name}</h4>
+              <span className="mb-4">Size: {size}</span>
               <span className="mb-4">x {amount}</span>
-              <span className="">${product.price}</span>
+              <span className="font-semibold">${product.price}</span>
             </div>
           </div>
         ))}

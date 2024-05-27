@@ -18,7 +18,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   // Hooks
   const { roleUser } = useVelmarContext();
   const router = useRouter();
-  const { updateCart } = useVelmarContext();
+  const { updateCart, isAuth } = useVelmarContext();
 
   // States
   const [amount, setAmount] = useState<number>(1);
@@ -44,6 +44,10 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   };
 
   const handleAddToCart = () => {
+    if (!isAuth) {
+      router.push("/sign-in");
+      return;
+    }
     if (selectedSize) {
       setBtIsChecked(true);
       updateCart(product, amount, selectedSize);
