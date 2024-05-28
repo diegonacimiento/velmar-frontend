@@ -80,3 +80,22 @@ export const updateCategory = async (
     throw error;
   }
 };
+
+export const deleteCategory = async (id: number) => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+  try {
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_URL}/categories/${id}`,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
