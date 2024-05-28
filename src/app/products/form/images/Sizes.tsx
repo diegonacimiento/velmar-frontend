@@ -1,7 +1,7 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { formStyles } from "../styles/FormStyles";
+import { formStyles } from "../../../styles/FormStyles";
 import { MdOutlineClose } from "react-icons/md";
 import { allSizes, orderSizes } from "@/utils/temporal";
 import { IProductImage, Size } from "@/types/products";

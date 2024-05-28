@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 import { IProductFields } from "@/types/products";
-import { formStyles } from "../styles/FormStyles";
+import { formStyles } from "../../../styles/FormStyles";
 import { setImage } from "../utils/validate-form";
 import { IProductImage } from "@/types/products";
 import { copyData } from "@/utils/functions-share";

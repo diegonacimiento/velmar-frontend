@@ -13,7 +13,7 @@ import { IProduct, IProductFields } from "@/types/products";
 import { preparePayload, validateForm } from "./utils/validate-form";
 import Images from "./images/Images";
 import ImageSelector from "./images/Selector";
-import { formStyles } from "./styles/FormStyles";
+import { formStyles } from "../../styles/FormStyles";
 import { createProduct, updateProduct } from "@/services/products.service";
 import { prepareUpdatePayload } from "@/app/products/form/utils/update-product-validate";
 

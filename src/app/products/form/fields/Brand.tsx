@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 
 import { IProductFields } from "@/types/products";
 import { IBrand } from "@/types/brands";
-import { formStyles } from "../styles/FormStyles";
+import { formStyles } from "../../../styles/FormStyles";
 import { setField } from "../utils/validate-form";
 import { MdOutlineDelete } from "react-icons/md";
 

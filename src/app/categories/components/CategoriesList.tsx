@@ -7,6 +7,7 @@ import { ICategory } from "@/types/categories";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 interface ICategoriesList {
   categories: ICategory[];
@@ -14,6 +15,11 @@ interface ICategoriesList {
 
 const CategoriesList: React.FC<ICategoriesList> = ({ categories }) => {
   const { roleUser } = useVelmarContext();
+  const router = useRouter();
+
+  const goToUpdateCategory = (id: number) => {
+    router.push(`/categories/update/${id}`);
+  };
 
   return (
     <div className="py-4">
@@ -54,6 +60,7 @@ const CategoriesList: React.FC<ICategoriesList> = ({ categories }) => {
                 <button
                   type="button"
                   title="Update category"
+                  onClick={() => goToUpdateCategory(category.id)}
                   className="text-lg hover:scale-110 duration-150"
                 >
                   <FaPencilAlt />

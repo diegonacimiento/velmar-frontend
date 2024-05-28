@@ -1,29 +1,31 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { MdErrorOutline } from "react-icons/md";
 import { IoMdCheckmark } from "react-icons/io";
-
-import { formStyles } from "../../../styles/FormStyles";
+import { MdErrorOutline } from "react-icons/md";
 import { imageUrls } from "@/utils/all-images";
+import { formStyles } from "@/app/styles/FormStyles";
+import { ICategory } from "@/types/categories";
 
-interface IGalleryProps {
-  selectedImages: { value: string[], error: string };
-  setSelectedImages: Dispatch<SetStateAction<{ value: string[], error: string }>>;
-  handleSubmit: () => void;
+interface IGallery {
+  copyCategory: ICategory;
+  setCopyCategory: React.Dispatch<React.SetStateAction<ICategory>>;
   handleCancel: () => void;
 }
 
-const Gallery: React.FC<IGalleryProps> = ({
-  selectedImages,
-  setSelectedImages,
-  handleSubmit,
+const Gallery: React.FC<IGallery> = ({
+  copyCategory,
+  setCopyCategory,
   handleCancel,
 }) => {
   const [offset, setOffset] = useState<number>(10);
   const [availableImages, setAvailableImages] = useState<string[]>(
     imageUrls.slice(0, 10)
   );
+  const [selectedImage, setSelectedImage] = useState({
+    value: copyCategory.image,
+    error: "",
+  });
 
   const getImages = () => {
     const images = imageUrls.slice(offset, offset + 10);
@@ -31,23 +33,28 @@ const Gallery: React.FC<IGalleryProps> = ({
     setOffset(offset + 10);
   };
 
-  const handleSelectedImages = (url: string) => {
-    if (selectedImages.value.includes(url)) {
-      const newSelectedImages = selectedImages.value.filter(
-        (image) => image !== url
-      );
-      setSelectedImages(() => ({
-        value: [...newSelectedImages],
-        error: "",
+  const handleSelectedImages = (image: string) => {
+    if (selectedImage.value === image) {
+      setSelectedImage(() => ({ value: "", error: "" }));
+      return;
+    }
+    setSelectedImage(() => ({ value: image, error: "" }));
+  };
+
+  const handleAddImage = () => {
+    if (!selectedImage.value) {
+      setSelectedImage((prev) => ({
+        ...prev,
+        error: "You must select an image",
       }));
       return;
     }
-
-    setSelectedImages((prev) => ({ value: [...prev.value, url], error: "" }));
+    setCopyCategory((prev) => ({ ...prev, image: selectedImage.value }));
+    handleCancel();
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center p-4">
       <h2 className="text-2xl font-medium text-secondary">Select images</h2>
 
       <div className="z-20 sticky top-0 flex flex-col gap-4 items-center p-4 w-full bg-body">
@@ -63,18 +70,18 @@ const Gallery: React.FC<IGalleryProps> = ({
           <button
             type="button"
             title="Add images"
-            onClick={handleSubmit}
+            onClick={handleAddImage}
             className={formStyles.buttonSP + " min-w-32"}
           >
             Add images
           </button>
         </div>
 
-        {selectedImages.error && (
+        {selectedImage.error && (
           <p className={"flex items-center gap-1 text-red-600"}>
             {" "}
             <MdErrorOutline />
-            {selectedImages.error}
+            {selectedImage.error}
           </p>
         )}
       </div>
@@ -89,7 +96,7 @@ const Gallery: React.FC<IGalleryProps> = ({
             >
               <div
                 className={
-                  selectedImages.value.includes(image)
+                  selectedImage.value.includes(image)
                     ? "absolute flex justify-center items-center h-full w-full bg-secondary opacity-60"
                     : "hidden"
                 }
@@ -115,7 +122,7 @@ const Gallery: React.FC<IGalleryProps> = ({
           More images
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

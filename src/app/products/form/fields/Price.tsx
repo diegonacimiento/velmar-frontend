@@ -5,7 +5,7 @@ import React, {
   SetStateAction,
 } from "react";
 
-import { formStyles } from "../styles/FormStyles";
+import { formStyles } from "../../../styles/FormStyles";
 import { IProductFields } from "@/types/products";
 import { setField } from "../utils/validate-form";
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import { IProductFields } from "@/types/products";
-import { formStyles } from "../styles/FormStyles";
+import { formStyles } from "../../../styles/FormStyles";
 import Color from "./Color";
 import Sizes from "./Sizes";
 import { LuImagePlus } from "react-icons/lu";
