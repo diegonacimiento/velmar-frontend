@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import useVelmarContext from "@/hooks/useVelmarContext";
 
 const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
@@ -36,12 +37,61 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
             Home
           </Link>
         </li>
-        <li>
+        <li className="group hidden rd:block">
+          <div
+            id="header-shop"
+            onClick={handleDrawer}
+            className={
+              liStyles +
+              " cursor-pointer " +
+              ((pathname.includes("/products") ||
+                pathname.includes("/categories") ||
+                pathname.includes("/brands")) &&
+                " text-secondary border-secondary")
+            }
+          >
+            Shop
+          </div>
+          <div
+            className={
+              "hidden z-10 absolute md:flex flex-col h-0 p-0 bg-secondary overflow-hidden text-body rounded-lg group-hover:h-max "
+            }
+          >
+            <Link
+              href="/products"
+              className={
+                "p-2 hover:bg-body hover:text-secondary " +
+                (pathname.includes("/products") && "bg-body text-secondary")
+              }
+            >
+              Products
+            </Link>
+            <Link
+              href="/brands"
+              className={
+                "p-2 hover:bg-body hover:text-secondary " +
+                (pathname.includes("/brands") && "bg-body text-secondary")
+              }
+            >
+              Brands
+            </Link>
+            <Link
+              href="/categories"
+              className={
+                "p-2 hover:bg-body hover:text-secondary " +
+                (pathname.includes("/categories") && "bg-body text-secondary")
+              }
+            >
+              Categories
+            </Link>
+          </div>
+        </li>
+
+        <li className="rd:hidden">
           <Link
             className={
               liStyles +
-              (pathname.includes("/products") &&
-                " text-secondary border-secondary")
+              (pathname === "/products" && " text-secondary border-secondary")
             }
             onClick={handleDrawer}
             href="/products"
@@ -49,6 +99,33 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
             Products
           </Link>
         </li>
+
+        <li className="rd:hidden">
+          <Link
+            className={
+              liStyles +
+              (pathname === "/brands" && " text-secondary border-secondary")
+            }
+            onClick={handleDrawer}
+            href="/brands"
+          >
+            Brands
+          </Link>
+        </li>
+
+        <li className="rd:hidden">
+          <Link
+            className={
+              liStyles +
+              (pathname === "/categories" && " text-secondary border-secondary")
+            }
+            onClick={handleDrawer}
+            href="/categories"
+          >
+            Categories
+          </Link>
+        </li>
+
         <li>
           <Link
             className={
