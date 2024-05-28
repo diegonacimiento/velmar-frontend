@@ -17,6 +17,10 @@ const CategoriesList: React.FC<ICategoriesList> = ({ categories }) => {
   const { roleUser } = useVelmarContext();
   const router = useRouter();
 
+  const goToCreateCategory = () => {
+    router.push("/categories/create");
+  };
+
   const goToUpdateCategory = (id: number) => {
     router.push(`/categories/update/${id}`);
   };
@@ -31,6 +35,7 @@ const CategoriesList: React.FC<ICategoriesList> = ({ categories }) => {
         <button
           type="button"
           title="Create category"
+          onClick={goToCreateCategory}
           className="block p-4 m-auto self-center w-max rounded-md text-body bg-secondary hover:bg-primary hover:text-secondary hover:scale-105 duration-150 "
         >
           Create category

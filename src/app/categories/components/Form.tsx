@@ -3,15 +3,21 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Slides from "@/components/Slides";
-import { ICategory } from "@/types/categories";
+import { ICategory, ICategoryField } from "@/types/categories";
 import { formStyles } from "@/app/styles/FormStyles";
 import Gallery from "./Gallery";
 import { copyData } from "@/utils/functions-share";
-import { updateCategory } from "@/services/categories.service";
-import { validateForm } from "../utils/validate-form";
+import { createCategory, updateCategory } from "@/services/categories.service";
+import {
+  checkEmptyFields,
+  validateCreateForm,
+  validateUpdateForm,
+} from "../utils/validate-form";
+import Name from "./Name";
+import Picture from "./Image";
 
 interface IForm {
-  category: ICategory;
+  category?: ICategory;
 }
 
 const Form: React.FC<IForm> = ({ category }) => {
@@ -19,18 +25,15 @@ const Form: React.FC<IForm> = ({ category }) => {
   const router = useRouter();
 
   // States
-  const [copyCategory, setCopyCategory] = useState<ICategory>(
-    copyData(category)
-  );
+  const [categoryFields, setCategoryFields] = useState<ICategoryField>({
+    image: { value: category?.image || "", error: "" },
+    name: { value: category?.name || "", error: "" },
+  });
   const [isOpenGallery, setIsOpenGallery] = useState<boolean>(false);
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
   const [errorForm, setErrorForm] = useState<string>("");
 
   // Functions
-  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setCopyCategory((prev) => ({ ...prev, name: event.target.value }));
-  };
-
   const toggleGallery = () => {
     setIsOpenGallery((prev) => !prev);
   };
@@ -42,13 +45,21 @@ const Form: React.FC<IForm> = ({ category }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const { payload, hasChanges } = validateForm(category, copyCategory);
+      const areGaps = checkEmptyFields(categoryFields, setCategoryFields);
+
+      if (areGaps) return;
+
+      const { payload, hasChanges } = category
+        ? validateUpdateForm(category, categoryFields)
+        : validateCreateForm(categoryFields);
 
       if (!hasChanges) return;
 
       setDisabledButton(true);
 
-      await updateCategory(category.id, payload);
+      category
+        ? await updateCategory(category.id, payload)
+        : await createCategory(payload);
 
       router.push("/categories");
       router.refresh();
@@ -62,8 +73,8 @@ const Form: React.FC<IForm> = ({ category }) => {
   if (isOpenGallery) {
     return (
       <Gallery
-        copyCategory={copyCategory}
-        setCopyCategory={setCopyCategory}
+        categoryFields={categoryFields}
+        setCategoryFields={setCategoryFields}
         handleCancel={toggleGallery}
       />
     );
@@ -76,26 +87,13 @@ const Form: React.FC<IForm> = ({ category }) => {
       className="flex flex-col gap-4 p-4 w-full max-w-96 text-secondary"
     >
       {/* Image */}
-      <Slides images={[copyCategory.image]} />
-      <button
-        type="button"
-        title="Change image"
-        onClick={toggleGallery}
-        className={formStyles.buttonPS}
-      >
-        Change image
-      </button>
+      <Picture categoryFields={categoryFields} toggleGallery={toggleGallery} />
 
       {/* Name */}
-      <div className={formStyles.container}>
-        <label className={formStyles.label}>Name:</label>
-        <input
-          type="text"
-          value={copyCategory.name}
-          onChange={handleChangeName}
-          className={formStyles.input}
-        />
-      </div>
+      <Name
+        categoryFields={categoryFields}
+        setCategoryFields={setCategoryFields}
+      />
 
       {/* Buttons form */}
       <div className="flex gap-4 justify-center">

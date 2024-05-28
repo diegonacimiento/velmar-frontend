@@ -11,3 +11,8 @@ export interface IPaylaodCreateCategory {
 
 export interface IPayloadUpdateCategory
   extends Partial<IPaylaodCreateCategory> {}
+
+export interface ICategoryField {
+  image: { value: string; error: string };
+  name: { value: string; error: string };
+}

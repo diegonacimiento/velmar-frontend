@@ -1,21 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { IoMdCheckmark } from "react-icons/io";
 import { MdErrorOutline } from "react-icons/md";
+
 import { imageUrls } from "@/utils/all-images";
 import { formStyles } from "@/app/styles/FormStyles";
-import { ICategory } from "@/types/categories";
+import { ICategoryField } from "@/types/categories";
 
 interface IGallery {
-  copyCategory: ICategory;
-  setCopyCategory: React.Dispatch<React.SetStateAction<ICategory>>;
+  categoryFields: ICategoryField;
+  setCategoryFields: Dispatch<SetStateAction<ICategoryField>>;
   handleCancel: () => void;
 }
 
 const Gallery: React.FC<IGallery> = ({
-  copyCategory,
-  setCopyCategory,
+  categoryFields,
+  setCategoryFields,
   handleCancel,
 }) => {
   const [offset, setOffset] = useState<number>(10);
@@ -23,7 +24,7 @@ const Gallery: React.FC<IGallery> = ({
     imageUrls.slice(0, 10)
   );
   const [selectedImage, setSelectedImage] = useState({
-    value: copyCategory.image,
+    value: categoryFields.image.value,
     error: "",
   });
 
@@ -49,7 +50,10 @@ const Gallery: React.FC<IGallery> = ({
       }));
       return;
     }
-    setCopyCategory((prev) => ({ ...prev, image: selectedImage.value }));
+    setCategoryFields((prev) => ({
+      ...prev,
+      image: { value: selectedImage.value, error: "" },
+    }));
     handleCancel();
   };
 

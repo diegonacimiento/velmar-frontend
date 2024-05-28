@@ -1,6 +1,10 @@
 import axios from "axios";
 
-import { ICategory, IPayloadUpdateCategory } from "@/types/categories";
+import {
+  ICategory,
+  IPaylaodCreateCategory,
+  IPayloadUpdateCategory,
+} from "@/types/categories";
 
 export const getCategories = async (): Promise<ICategory[]> => {
   try {
@@ -27,6 +31,25 @@ export const getCategory = async (id: number): Promise<ICategory> => {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const createCategory = async (payload: IPaylaodCreateCategory) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/categories`,
+      payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
       }
     );
     return response.data;
