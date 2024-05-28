@@ -30,13 +30,22 @@ export const parseParamsToURL = (params: any) => {
   let url = name ? `?name=${name}&` : `?`;
 
   if (brands && brands.length > 0) {
-    for (let index = 0; index < brands.length; index++) {
-      url += `brands=${brands[index]}&`;
+    if (Array.isArray(brands)) {
+      for (let index = 0; index < brands.length; index++) {
+        url += `brands=${brands[index]}&`;
+      }
+    } else {
+      url += `brands=${brands}&`;
     }
   }
+
   if (categories && categories.length > 0) {
-    for (let index = 0; index < categories.length; index++) {
-      url += `categories=${categories[index]}&`;
+    if (Array.isArray(categories)) {
+      for (let index = 0; index < categories.length; index++) {
+        url += `categories=${categories[index]}&`;
+      }
+    } else {
+      url += `categories=${categories}&`;
     }
   }
   if (minPrice) {
