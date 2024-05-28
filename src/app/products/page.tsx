@@ -8,7 +8,7 @@ const page = async ({ searchParams }: { searchParams: any}) => {
   const searchKey = JSON.stringify(searchParams);
 
   return (
-    <div className="flex flex-col py-4">
+    <div className="flex flex-col py-4 w-full">
       <Search />
       <Suspense key={searchKey} fallback={<LoadingProducts />}>
         <Products params={searchParams} />
