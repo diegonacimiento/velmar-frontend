@@ -1,12 +1,10 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Slides from "@/components/Slides";
 import { ICategory, ICategoryField } from "@/types/categories";
 import { formStyles } from "@/app/styles/FormStyles";
 import Gallery from "./Gallery";
-import { copyData } from "@/utils/functions-share";
 import { createCategory, updateCategory } from "@/services/categories.service";
 import {
   checkEmptyFields,

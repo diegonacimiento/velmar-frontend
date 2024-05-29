@@ -23,7 +23,7 @@ export const getCategories = async (): Promise<ICategory[]> => {
   }
 };
 
-export const getCategory = async (id: number): Promise<ICategory> => {
+export const getCategory = async (id: string): Promise<ICategory> => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_URL}/categories/${id}`,

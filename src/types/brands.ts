@@ -1,5 +1,10 @@
 export interface IBrand {
   id: number;
   name: string;
-  image: string;
 }
+
+export interface IPayloadCreateBrand {
+  name: string;
+}
+
+export interface IPayloadUpdateBrand extends Partial<IPayloadCreateBrand> {}

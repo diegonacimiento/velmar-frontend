@@ -29,6 +29,7 @@ const Name: React.FC<IName> = ({ categoryFields, setCategoryFields }) => {
       <input
         type="text"
         value={categoryFields.name.value}
+        maxLength={60}
         onChange={handleChangeName}
         className={
           formStyles.input +
