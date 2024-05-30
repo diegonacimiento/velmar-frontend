@@ -1,12 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import Form from "@/components/Form";
-import { IUser } from "@/types/user";
+import { IPayloadUpdateUser, IUser } from "@/types/user";
+import { preparePayload } from "./utils/functions-form";
+import { updateUser } from "@/services/users.service";
+import { MdOutlineError } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const Data = ({ user }: { user: IUser }) => {
-  const handleSubmit = (formData: any) => {
-    console.log({ ...formData });
+  const router = useRouter();
+
+  const [error, setError] = useState<string>("");
+
+  const handleSubmit = async (formData: IPayloadUpdateUser) => {
+    const payload = preparePayload(user, formData);
+    try {
+      await updateUser(payload);
+      router.refresh();
+    } catch (error) {
+      setError("An error occurred, please try again");
+    }
   };
 
   return (
@@ -48,6 +62,15 @@ const Data = ({ user }: { user: IUser }) => {
         ]}
         onSubmit={(formData) => handleSubmit(formData)}
       />
+
+      <p className="flex justify-center items-center gap-1 px-1 min-h-4 text-center text-red-600">
+        {error && (
+          <>
+            <MdOutlineError />
+            {error}
+          </>
+        )}
+      </p>
     </div>
   );
 };

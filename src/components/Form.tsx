@@ -78,10 +78,7 @@ const Form: React.FC<FormProps> = ({
               field.hasError ? "input-error" : ""
             }`}
           >
-            {field.label +
-              (field.label === "Phone" || field.label === "Address"
-                ? " (optional)"
-                : "")}
+            {field.label + (field.isOptional ? " (optional)" : "")}
           </label>
 
           {field.label === "Address" ? (
