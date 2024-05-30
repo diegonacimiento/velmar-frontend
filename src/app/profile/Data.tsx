@@ -1,15 +1,20 @@
 "use client";
-
-import Form from "@/components/Form";
-import useVelmarContext from "@/hooks/useVelmarContext";
 import React from "react";
 
-const Data = ({ user }: { user: any }) => {
-  const { addressValue } = useVelmarContext();
-  // const handleSubmit = (formData: any) => {
-  // }
+import Form from "@/components/Form";
+import { IUser } from "@/types/user";
+
+const Data = ({ user }: { user: IUser }) => {
+  const handleSubmit = (formData: any) => {
+    console.log({ ...formData });
+  };
+
   return (
     <div>
+      <h1 className="text-2xl text-center font-semibold text-secondary my-4 sm:text-3xl">
+        Hi {user.fullname}
+      </h1>
+
       <Form
         buttonText="Save"
         fields={[
@@ -21,7 +26,7 @@ const Data = ({ user }: { user: any }) => {
           {
             label: "Fullname",
             type: "text",
-            value: user.name,
+            value: user.fullname,
           },
           {
             label: "Email",
@@ -31,17 +36,17 @@ const Data = ({ user }: { user: any }) => {
           {
             label: "Phone",
             type: "number",
-            value: "",
+            value: user.phone?.toString() || "",
             isOptional: true,
           },
           {
             label: "Address",
             type: "text",
-            value: addressValue,
+            value: user.address || "",
             isOptional: true,
           },
         ]}
-        onSubmit={(formData) => console.log(formData)}
+        onSubmit={(formData) => handleSubmit(formData)}
       />
     </div>
   );

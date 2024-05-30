@@ -3,9 +3,9 @@ import React, { useState } from "react";
 
 import validateForm from "@/utils/validate-form";
 import { IField, FormProps } from "@/types/form";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Loading from "./Loading";
+import { copyData } from "@/utils/functions-share";
+import SetAddress from "./SetAddress";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -15,9 +15,12 @@ const Form: React.FC<FormProps> = ({
   page,
   loading,
 }) => {
-  const [formFields, setFormFields] = useState<IField[]>(fields);
+  const [formFields, setFormFields] = useState<IField[]>(copyData(fields));
+  const [openSetAddress, setOpenSetAddress] = useState<boolean>(false);
 
-  const path = usePathname();
+  const toogleSetAddress = () => {
+    setOpenSetAddress((prev) => !prev);
+  };
 
   const handleFieldChange = (index: number, value: string) => {
     const updatedFields = [...formFields];
@@ -57,6 +60,15 @@ const Form: React.FC<FormProps> = ({
     }
   };
 
+  if (openSetAddress)
+    return (
+      <SetAddress
+        formFields={formFields}
+        handleFieldChange={handleFieldChange}
+        toogleSetAddress={toogleSetAddress}
+      />
+    );
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 my-4">
       {formFields.map((field, index) => (
@@ -73,20 +85,17 @@ const Form: React.FC<FormProps> = ({
           </label>
 
           {field.label === "Address" ? (
-            <Link href={`${path}/set-address`}>
-              <input
-                readOnly={true}
-                name={field.label.toLowerCase()}
-                type={field.type}
-                value={field.value}
-                onChange={(e) =>
-                  handleFieldChange(index, e.currentTarget.value)
-                }
-                className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${
-                  field.hasError ? "input-error" : ""
-                }`}
-              />
-            </Link>
+            <input
+              readOnly={true}
+              name={field.label.toLowerCase()}
+              type={field.type}
+              value={field.value}
+              onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
+              onClick={toogleSetAddress}
+              className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${
+                field.hasError ? "input-error" : ""
+              }`}
+            />
           ) : (
             <input
               name={field.label.toLowerCase()}
@@ -120,7 +129,7 @@ const Form: React.FC<FormProps> = ({
         </div>
       )}
       <button
-        type={ loading ? "button" : "submit" }
+        type={loading ? "button" : "submit"}
         title={buttonText}
         className="p-3 mt-4 text-primary bg-secondary hover:bg-body hover:text-secondary hover:scale-105 duration-150"
       >

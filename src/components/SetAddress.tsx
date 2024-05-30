@@ -1,22 +1,30 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
-import useVelmarContext from "@/hooks/useVelmarContext";
+import { IField } from "@/types/form";
 
-const SetAddress = () => {
-  const { addressValue, updateAddressValue } = useVelmarContext();
-  const router = useRouter();
+interface ISetAddress {
+  formFields: IField[];
+  toogleSetAddress: () => void;
+  handleFieldChange: (index: number, value: string) => void;
+}
 
-  const addressToArray = addressValue.split(", ");
+const SetAddress: React.FC<ISetAddress> = ({
+  formFields,
+  toogleSetAddress,
+  handleFieldChange,
+}) => {
+  const index = formFields.findIndex((field) => field.label === "Address");
+
+  const addressToArray = formFields[index].value.split(", ");
 
   if (addressToArray.length === 4) {
     addressToArray.splice(1, 0, "");
   }
 
   const handleBack = () => {
-    router.back();
+    toogleSetAddress();
   };
 
   const handleSubmit = (dataForm: any) => {
@@ -33,16 +41,14 @@ const SetAddress = () => {
 
     const addressComplete = addressesNoGaps.join(", ");
 
-    updateAddressValue(addressComplete);
+    handleFieldChange(index, addressComplete);
 
-    router.back();
+    toogleSetAddress();
   };
 
   return (
-    <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 mx-4 sm:mx-24 my-12 shadow-md rounded-lg w-500p bg-primary text-secondary">
-      <h1 className="text-2xl text-center font-semibold text-secondary my-4 sm:text-3xl">
-        Set your address
-      </h1>
+    <div>
+      <h2 className="text-lg">Set your address</h2>
       <Form
         buttonText="Save"
         fields={[

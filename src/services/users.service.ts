@@ -1,13 +1,22 @@
 import axios from "axios";
 
+import { IUser } from "@/types/user";
 
-export class UsersService {
- async getUser () {
+export const getUser = async (): Promise<IUser> => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
-   const response = await axios.get(`${process.env.BACKEND_URL}/users/profile`);
-   return response.data;
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_URL}/users/profile`,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        withCredentials: true,
+      }
+    );
+    return response.data;
   } catch (error) {
-   console.error(error);
+    console.error(error);
+    throw error;
   }
- }
-}
+};
