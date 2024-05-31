@@ -19,7 +19,7 @@ export interface IUser {
 
   phone?: number;
 
-  address?: string;
+  address?: IAddress;
 }
 
 export interface IPayloadCreateUser
@@ -29,9 +29,17 @@ export interface IPayloadCreateUser
   > {}
 
 export interface IPayloadUpdateUser
-  extends Partial <Omit<IPayloadCreateUser, "role">> {}
+  extends Partial<Omit<IPayloadCreateUser, "role">> {}
 
 export enum ROLE {
   CUSTOMER = "customer",
   SALESPERSON = "salesperson",
+}
+
+export interface IAddress {
+  street: string;
+  apartment: string;
+  city: string;
+  state: string;
+  country: string;
 }

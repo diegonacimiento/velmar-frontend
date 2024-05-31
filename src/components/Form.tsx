@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import validateForm from "@/utils/validate-form";
 import { IField, FormProps } from "@/types/form";
 import Loading from "./Loading";
-import { copyData } from "@/utils/functions-share";
+import { addressToString, copyData } from "@/utils/functions-share";
 import SetAddress from "./SetAddress";
 
 const Form: React.FC<FormProps> = ({
@@ -86,7 +86,7 @@ const Form: React.FC<FormProps> = ({
               readOnly={true}
               name={field.label.toLowerCase()}
               type={field.type}
-              value={field.value}
+              value={addressToString(field.value)}
               onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
               onClick={toogleSetAddress}
               className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${

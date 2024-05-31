@@ -3,6 +3,7 @@ import React from "react";
 
 import Form from "@/components/Form";
 import { IField } from "@/types/form";
+import { IAddress } from "@/types/user";
 
 interface ISetAddress {
   formFields: IField[];
@@ -17,31 +18,24 @@ const SetAddress: React.FC<ISetAddress> = ({
 }) => {
   const index = formFields.findIndex((field) => field.label === "Address");
 
-  const addressToArray = formFields[index].value.split(", ");
-
-  if (addressToArray.length === 4) {
-    addressToArray.splice(1, 0, "");
-  }
+  const address: IAddress = formFields[index].value;
 
   const handleBack = () => {
     toogleSetAddress();
   };
 
-  const handleSubmit = (dataForm: any) => {
-    const addresses: string[] = Object.values(dataForm);
+  const handleSubmit = (dataForm: IAddress) => {
+    const addresses: [string, string][] = Object.entries(dataForm);
 
     const addressesNoGaps = addresses
-      .map((address) => address.trim())
-      .filter((element, index) => {
-        if (index === 1) {
-          return parseInt(element) > 0;
-        }
-        return element !== "";
+      .map((address) => [address[0], address[1].trim()])
+      .filter((element) => {
+        return element[1] !== "";
       });
 
-    const addressComplete = addressesNoGaps.join(", ");
-
-    handleFieldChange(index, addressComplete);
+    const addressFinal = Object.fromEntries(addressesNoGaps);
+    
+    handleFieldChange(index, addressFinal);
 
     toogleSetAddress();
   };
@@ -55,31 +49,31 @@ const SetAddress: React.FC<ISetAddress> = ({
           {
             label: "Street",
             type: "text",
-            value: addressToArray[0] || "",
+            value: address.street || "",
             isOptional: true,
           },
           {
             label: "Apartment",
-            type: "number",
-            value: addressToArray[1] || "",
+            type: "text",
+            value: address.apartment || "",
             isOptional: true,
           },
           {
             label: "City",
             type: "text",
-            value: addressToArray[2] || "",
+            value: address.city || "",
             isOptional: true,
           },
           {
             label: "State",
             type: "text",
-            value: addressToArray[3] || "",
+            value: address.state || "",
             isOptional: true,
           },
           {
             label: "Country",
             type: "text",
-            value: addressToArray[4] || "",
+            value: address.country || "",
             isOptional: true,
           },
         ]}

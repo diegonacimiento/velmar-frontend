@@ -1,7 +1,7 @@
 export interface IField {
   label: string;
   type: string;
-  value: string;
+  value: any;
   isOptional?: boolean;
   hasError?: string;
 }

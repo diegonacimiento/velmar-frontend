@@ -1,4 +1,5 @@
 import { ICart } from "@/types/context";
+import { IAddress } from "@/types/user";
 
 export const totalPrice = (cart: ICart[]): number => {
   const reducer = (accumulator: number, currentValue: ICart) =>
@@ -6,6 +7,12 @@ export const totalPrice = (cart: ICart[]): number => {
   const total = cart.reduce(reducer, 0);
   return Number(total.toFixed(2));
 };
+
+export const addressToString = (address: IAddress) => {
+  const addressArray = Object.values(address);
+  const addressString = addressArray.join(", ");
+  return addressString;
+}
 
 export function genId() {
   const suffix = Math.random().toString(36).substring(2);
