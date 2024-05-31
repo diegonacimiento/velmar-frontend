@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { MdOutlineError } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
 import { IPayloadUpdateUser, IUser } from "@/types/user";
 import { preparePayload } from "./utils/functions-form";
 import { updateUser } from "@/services/users.service";
-import { MdOutlineError } from "react-icons/md";
-import { useRouter } from "next/navigation";
 
 const Data = ({ user }: { user: IUser }) => {
   const router = useRouter();
@@ -15,6 +15,7 @@ const Data = ({ user }: { user: IUser }) => {
 
   const handleSubmit = async (formData: IPayloadUpdateUser) => {
     const payload = preparePayload(user, formData);
+    console.log(payload);
     try {
       await updateUser(payload);
       router.refresh();
@@ -50,7 +51,7 @@ const Data = ({ user }: { user: IUser }) => {
           {
             label: "Phone",
             type: "number",
-            value: user.phone?.toString() || "",
+            value: user.phone || "",
             isOptional: true,
           },
           {

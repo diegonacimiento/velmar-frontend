@@ -33,8 +33,9 @@ const SetAddress: React.FC<ISetAddress> = ({
         return element[1] !== "";
       });
 
-    const addressFinal = Object.fromEntries(addressesNoGaps);
-    
+    const addressFinal =
+      addressesNoGaps.length > 0 ? Object.fromEntries(addressesNoGaps) : "";
+
     handleFieldChange(index, addressFinal);
 
     toogleSetAddress();

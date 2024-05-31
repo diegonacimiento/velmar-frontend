@@ -17,16 +17,18 @@ export interface IUser {
 
   role: ROLE;
 
-  phone?: number;
+  phone?: number | null;
 
-  address?: IAddress;
+  address?: IAddress | null;
 }
 
 export interface IPayloadCreateUser
   extends Omit<
     IUser,
-    "id" | "createdAt" | "updatedAt" | "deletedAt" | "orders"
-  > {}
+    "id" | "createdAt" | "updatedAt" | "deletedAt" | "orders" | "phone"
+  > {
+  phone: string | null;
+}
 
 export interface IPayloadUpdateUser
   extends Partial<Omit<IPayloadCreateUser, "role">> {}

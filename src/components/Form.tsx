@@ -35,6 +35,13 @@ const Form: React.FC<FormProps> = ({
 
     const noChanges = formFields.every((field, index) => {
       const isOptional = field.isOptional;
+      if (field.label === "Address") {
+        const currentAddress = addressToString(field.value);
+        return (
+          currentAddress === addressToString(fields[index].value) &&
+          (currentAddress !== "" || isOptional)
+        );
+      }
       return (
         field.value === fields[index].value &&
         (field.value !== "" || isOptional)

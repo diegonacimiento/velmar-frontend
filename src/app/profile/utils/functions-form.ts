@@ -3,6 +3,8 @@ import { IPayloadUpdateUser, IUser } from "@/types/user";
 export const preparePayload = (user: IUser, data: IPayloadUpdateUser) => {
   let payload: IPayloadUpdateUser = {};
 
+  const dataPhone = data.phone === "" ? null : data.phone;
+
   if (user.username !== data.username) {
     payload.username = data.username;
   }
@@ -15,13 +17,36 @@ export const preparePayload = (user: IUser, data: IPayloadUpdateUser) => {
     payload.email = data.email;
   }
 
-  if (user.phone !== data.phone && data.phone) {
-    payload.phone = data.phone;
+  if (user.phone !== dataPhone) {
+    payload.phone = dataPhone;
   }
 
-  if (user.address !== data.address && data.address) {
-    payload.address = data.address;
+  if (isAddressDifferent(user.address, data.address)) {
+    console.log("entra pepe");
+    const dataAddressArray = Object.values(data.address || {});
+    if (dataAddressArray.length > 0) {
+      payload.address = data.address;
+    } else {
+      payload.address = null;
+    }
   }
 
   return payload;
+};
+
+const isAddressDifferent = (
+  user: IUser["address"],
+  data: IPayloadUpdateUser["address"]
+) => {
+  if (!user && !data) {
+    return false;
+  }
+
+  const userArray = Object.values(user || {});
+  const dataArray = Object.values(data || {});
+  if (userArray.length !== dataArray.length) {
+    return true;
+  }
+  const isEqual = userArray.every((item, index) => item === dataArray[index]);
+  return !isEqual;
 };

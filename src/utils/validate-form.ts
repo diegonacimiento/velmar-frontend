@@ -12,7 +12,7 @@ const validateForm = ({
   const updatedFields = formFields.map((field) => {
     const isOptional = field.isOptional;
 
-    if (field.value.trim() === "" && !isOptional) {
+    if (!isOptional && field.value.trim() === "") {
       return {
         ...field,
         hasError: "Please complete this field",
