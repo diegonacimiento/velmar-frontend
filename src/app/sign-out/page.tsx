@@ -17,7 +17,7 @@ const SignOutPage = () => {
       await signOut();
       setIsAuth(false);
       setRoleUser(null);
-      router.back();
+      router.push("/");
     } catch (error) {
       console.error(error);
       setError("There's been a problem. Please try again later");

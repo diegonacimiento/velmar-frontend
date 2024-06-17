@@ -1,12 +1,19 @@
 "use client";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import Form from "@/components/Form";
 import useVelmarContext from "@/hooks/useVelmarContext";
 
 const SignUp = () => {
-  const { addressValue } = useVelmarContext();
+  const { addressValue, isAuth } = useVelmarContext();
+
+  useLayoutEffect(() => {
+    if (isAuth) {
+      redirect("/");
+    }
+  }, [isAuth]);
 
   return (
     <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 mx-4 sm:mx-24 my-12 shadow-md rounded-lg w-500p bg-primary text-secondary">

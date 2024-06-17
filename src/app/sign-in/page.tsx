@@ -25,6 +25,7 @@ const SignIn = () => {
       setIsAuth(true);
       setRoleUser(response.role);
       router.back();
+      router.refresh();
     } catch (err: any) {
       setLoading(false);
       console.error(err);
