@@ -6,6 +6,7 @@ import { IField, FormProps } from "@/types/form";
 import Loading from "./Loading";
 import { addressToString, copyData } from "@/utils/functions-share";
 import SetAddress from "./SetAddress";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -17,6 +18,23 @@ const Form: React.FC<FormProps> = ({
 }) => {
   const [formFields, setFormFields] = useState<IField[]>(copyData(fields));
   const [openSetAddress, setOpenSetAddress] = useState<boolean>(false);
+
+  let showPasswordList: { [keyof: string]: boolean } = {};
+
+  for (const field of fields) {
+    if (field.type === "password") {
+      showPasswordList[`${field.label}`] = false;
+    }
+  }
+
+  const [showPassword, setShowPassword] = useState(showPasswordList);
+
+  const toggleShowPassword = (type: string) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
 
   const toogleSetAddress = () => {
     setOpenSetAddress((prev) => !prev);
@@ -101,18 +119,48 @@ const Form: React.FC<FormProps> = ({
               }`}
             />
           ) : (
-            <input
-              name={field.label.toLowerCase()}
-              type={field.type}
-              value={
-                field.label === "Username" ? field.value.trim() : field.value
-              }
-              onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
-              className={`border rounded-lg border-secondary p-1.5 my-1 focus:outline-offset-1 focus:outline-1 focus:outline-body ${
-                field.hasError ? "input-error" : ""
-              }`}
-              autoComplete={"on"}
-            />
+            <div className="relative flex items-center">
+              <input
+                name={field.label.toLowerCase()}
+                type={
+                  field.type === "password"
+                    ? showPassword[field.label]
+                      ? "text"
+                      : field.type
+                    : field.type
+                }
+                value={
+                  field.label === "Username" ? field.value.trim() : field.value
+                }
+                onChange={(e) =>
+                  handleFieldChange(index, e.currentTarget.value)
+                }
+                className={`border rounded-lg border-secondary p-1.5 my-1 w-full focus:outline-offset-1 focus:outline-1 focus:outline-body ${
+                  field.hasError ? "input-error" : ""
+                }`}
+                autoComplete={"on"}
+              />
+              {field.type === "password" &&
+                (showPassword[field.label] ? (
+                  <button
+                    type="button"
+                    title="Hide password"
+                    onClick={() => toggleShowPassword(field.label)}
+                    className="absolute right-4"
+                  >
+                    <FaRegEye />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    title="Show password"
+                    onClick={() => toggleShowPassword(field.label)}
+                    className="absolute right-4"
+                  >
+                    <FaRegEyeSlash />
+                  </button>
+                ))}
+            </div>
           )}
 
           <p className="px-1 min-h-4 text-justify text-xs text-red-600">
