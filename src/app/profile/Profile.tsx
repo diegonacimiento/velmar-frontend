@@ -18,12 +18,7 @@ const Profile = () => {
         setUser(response);
         setLoading(false);
       } catch (error) {
-        setUser({
-          username: "",
-          email: "",
-          fullname: "",
-          role: "",
-        });
+        throw error;
       }
     };
     get();
@@ -32,7 +27,7 @@ const Profile = () => {
   if (loading || !user) return <LoadingProfile />;
 
   return (
-    <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 mx-4 sm:mx-24 my-12 shadow-md rounded-lg w-500p bg-primary text-secondary">
+    <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 mx-4 sm:mx-24 my-12 shadow-md rounded-lg max-w-520 w-full bg-primary text-secondary">
       <Data user={user} />
       <div className="flex items-center gap-2 flex-wrap">
         <p className="text-gray-400 text-sm font-medium">

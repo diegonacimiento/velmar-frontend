@@ -33,6 +33,11 @@ export interface IPayloadCreateUser
 export interface IPayloadUpdateUser
   extends Partial<Omit<IPayloadCreateUser, "role">> {}
 
+export interface IPayloadUpdatePassword {
+  password: string;
+  newPassword: string;
+}
+
 export enum ROLE {
   CUSTOMER = "customer",
   SALESPERSON = "salesperson",

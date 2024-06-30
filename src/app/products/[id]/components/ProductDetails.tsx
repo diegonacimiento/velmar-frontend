@@ -67,6 +67,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
       <div className="flex">
         <button
           type="button"
+          title="Back"
           onClick={handleBack}
           className="flex justify-center items-center gap-1 py-3 sm:mx-4 w-max rounded-md text-secondary hover:scale-105 duration-150"
         >
@@ -77,6 +78,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
         <Link href="/products">
           <button
             type="button"
+            title="All products"
             className="flex justify-center items-center gap-1 py-3 mx-4 w-max rounded-md text-secondary hover:scale-105 duration-150"
           >
             All products
