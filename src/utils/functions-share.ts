@@ -12,7 +12,7 @@ export const addressToString = (address: IAddress) => {
   const addressArray = Object.values(address);
   const addressString = addressArray.join(", ");
   return addressString;
-}
+};
 
 export function genId() {
   const suffix = Math.random().toString(36).substring(2);
@@ -65,4 +65,21 @@ export const parseParamsToURL = (params: any) => {
   const finalUrl = url.substring(0, url.length - 1);
 
   return finalUrl;
+};
+
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    throw new TypeError("El argumento proporcionado no es una fecha válida");
+  }
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
