@@ -6,13 +6,13 @@ export interface IOrder {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  products: {
+  products: [{
     productId: number;
     name: string;
     price: string;
     quantity: number;
     brand: IBrand;
-  } | null;
+  }] | null;
   status: ORDER_STATUS;
   user: Pick<
     IUser,
