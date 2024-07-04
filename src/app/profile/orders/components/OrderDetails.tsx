@@ -16,24 +16,46 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ id }) => {
     const get = async () => {
       const response = await getOrder(id);
       setOrder(response);
-      console.log(response);
     };
     get();
   }, [id]);
 
   return (
-    <div>
-      <h2>Date: {order ? formatDate(order?.createdAt) : ""}</h2>
-      <h3>Status: {order?.status}</h3>
-      {order?.products?.map((product) => (
-        <div key={product.productId}>
-          <h3>{product.name}</h3>
-          <h4>$ {product.price}</h4>
-          <h4>{product.quantity}</h4>
-          <h4>{product.brand.name}</h4>
+    <div className="p-4 text-secondary">
+      {order ? (
+        <div className="flex flex-col gap-4 border border-secondary p-4 rounded-md min-w-52">
+          <h2 className="font-semibold">
+            {order ? formatDate(order?.createdAt) : ""}
+          </h2>
+          <div className="flex gap-2">
+            <h3 className="font-semibold">Status:</h3> <p>{order?.status}</p>
+          </div>
+          <div>
+            <h3>Products:</h3>
+            {order?.products?.map((product) => (
+              <div
+                key={product.productId}
+                className="p-2 border-b border-secondary border-opacity-50"
+              >
+                <h3>- {product.name}</h3>
+                <h4 className="ml-4">{product.brand.name}</h4>
+                <h4 className="ml-4">$ {product.price}</h4>
+                <h4 className="ml-4">x {product.quantity}</h4>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <h3 className="font-semibold">Total:</h3> <p>$ {order?.total}</p>
+          </div>
         </div>
-      ))}
-      <h3>Total: $ {order?.total}</h3>
+      ) : (
+        <div className="flex flex-col gap-4 justify-evenly border border-secondary p-4 rounded-md min-w-52 min-h-96">
+          <div className="rounded-md w-full h-4 bg-secondary bg-opacity-30 animate-pulse"></div>
+          <div className="rounded-md w-full h-4 bg-secondary bg-opacity-30 animate-pulse"></div>
+          <div className="rounded-md w-full h-56 bg-secondary bg-opacity-30 animate-pulse"></div>
+          <div className="rounded-md w-full h-4 bg-secondary bg-opacity-30 animate-pulse"></div>
+        </div>
+      )}
     </div>
   );
 };
