@@ -31,6 +31,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
     currentImage: product.images[0],
   });
   const [selectedSize, setSelectedSize] = useState<Size>();
+  const [errorSize, setErrorSize] = useState<string>("");
 
   // Functions
   const handleSelectColor = (color: string) => {
@@ -41,6 +42,11 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
         currentImage: image,
       }));
     }
+  };
+
+  const handleSelectSize = (size: Size) => {
+    setSelectedSize(size);
+    setErrorSize("");
   };
 
   const handleAddToCart = () => {
@@ -55,6 +61,8 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
       setTimeout(() => {
         setBtIsChecked(false);
       }, 5000);
+    } else {
+      setErrorSize("You must choose a size");
     }
   };
 
@@ -117,11 +125,16 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           </div>
 
           {/* Sizes */}
-          <div className="flex gap-4 p-4 w-full rounded-lg bg-primary">
+          <div
+            className={
+              "flex gap-4 p-4 w-full rounded-lg bg-primary " +
+              (errorSize && "border border-red-600")
+            }
+          >
             {images.currentImage.sizes.map((size) => (
               <div
                 key={size}
-                onClick={() => setSelectedSize(size)}
+                onClick={() => handleSelectSize(size)}
                 className={
                   "relative flex justify-center items-center rounded-full h-10 w-10 cursor-pointer text-sm border-2 border-body hover:bg-body duration-150 " +
                   (selectedSize === size && "bg-body")
@@ -131,6 +144,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
               </div>
             ))}
           </div>
+          <p className="px-2 text-sm text-red-600">{errorSize}</p>
 
           <div className="flex items-center justify-between gap-4">
             <Amount amount={amount} setAmount={setAmount} />
