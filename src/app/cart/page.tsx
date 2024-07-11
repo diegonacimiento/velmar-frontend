@@ -1,17 +1,35 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TfiShoppingCart } from "react-icons/tfi";
 
-import Link from "next/link";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { totalPrice } from "@/utils/functions-share";
 import CartItem from "./CartItem";
-import { useRouter } from "next/navigation";
+import { getCart } from "@/services/carts.service";
+import { ICart } from "@/types/cart.types";
 
 const CartPage = () => {
   const router = useRouter();
 
   const { cart, roleUser } = useVelmarContext();
+
+  useEffect(() => {
+    const get = async () => {
+      const response = await getCart();
+
+      // setMyCart(response);
+
+      if (!window.localStorage.getItem("cart-velmar")) {
+        window.localStorage.setItem("cart-velmar", JSON.stringify(response));
+      }
+    };
+    get();
+    return () => {
+      console.log("El componente se esta por desmontar");
+    };
+  }, [cart]);
 
   const handleGoShop = () => {
     router.push("/products");
@@ -20,11 +38,16 @@ const CartPage = () => {
   return (
     <div className="p-4 m-4 sm:m-8 text-secondary">
       <h2 className="text-2xl font-bold">Cart</h2>
-      {cart.length > 0 ? (
+      {cart.items ? (
         <div className="md:flex">
           <section className="md:w-4/5">
-            {cart.map(({ product, amount, size }) => (
-              <CartItem product={product} amount={amount} size={size} key={product.id + size} />
+            {cart.items?.map(({ product, quantity, size }) => (
+              <CartItem
+                product={product}
+                amount={quantity}
+                size={size}
+                key={product.id + size}
+              />
             ))}
           </section>
 

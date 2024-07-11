@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
+
 import { IProduct, Size } from "./products";
+import { ICart } from "./cart.types";
 
 export interface IContext {
   isAuth: boolean;
@@ -8,18 +10,12 @@ export interface IContext {
   setRoleUser: Dispatch<SetStateAction<TRole>>;
   addressValue: string;
   updateAddressValue: (value: string) => void;
-  cart: ICart[];
+  cart: ICart;
   updateCart: (product: IProduct, amount: number, size: Size) => void;
   products: IProduct[];
   updateProducts: (products: IProduct[]) => void;
   deleteItemCart: (product: IProduct, size: Size) => void;
   deleteAllCart: () => void;
-}
-
-export interface ICart {
-  product: IProduct;
-  amount: number;
-  size: Size;
 }
 
 export type TRole = "customer" | "salesperson" | null;

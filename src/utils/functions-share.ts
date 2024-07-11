@@ -1,11 +1,11 @@
-import { ICart } from "@/types/context";
+import { ICart, ICartItem } from "@/types/cart.types";
 import { IAddress } from "@/types/user";
 
-export const totalPrice = (cart: ICart[]): number => {
-  const reducer = (accumulator: number, currentValue: ICart) =>
-    accumulator + Number(currentValue.product.price) * currentValue.amount;
-  const total = cart.reduce(reducer, 0);
-  return Number(total.toFixed(2));
+export const totalPrice = (cart: ICart): number => {
+  const reducer = (accumulator: number, currentValue: ICartItem) =>
+    accumulator + Number(currentValue.product.price) * currentValue.quantity;
+  const total = cart.items?.reduce(reducer, 0);
+  return Number(total?.toFixed(2));
 };
 
 export const addressToString = (address: IAddress) => {

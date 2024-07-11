@@ -1,7 +1,8 @@
 "use client";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
-import { ICart, IContext, TRole } from "@/types/context";
+import { IContext, TRole } from "@/types/context";
+import { ICart } from "@/types/cart.types";
 import { IProduct, Size } from "@/types/products";
 
 export const VelmarContext = createContext<IContext>({} as IContext);
@@ -17,43 +18,47 @@ export const VelmarContextProvider = ({
 }) => {
   const [isAuth, setIsAuth] = useState<boolean>(auth);
   const [addressValue, setAddressValue] = useState<string>("");
-  const [cart, setCart] = useState<ICart[]>([]);
+  const [cart, setCart] = useState<ICart>({} as ICart);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [roleUser, setRoleUser] = useState<TRole>(role);
+
+  useEffect(() => {
+    setCart(JSON.parse(window.localStorage.getItem("cart-velmar") || "{}"));
+  }, []);
 
   const updateAddressValue = (value: string) => {
     setAddressValue(value);
   };
 
-  const updateCart = (product: IProduct, amount: number, size: Size) => {
-    const indexItem = cart.findIndex(
+  const updateCart = (product: IProduct, quantity: number, size: Size) => {
+    const indexItem = cart.items.findIndex(
       (item) => item.product.id === product.id && item.size === size
     );
 
-    if (cart[indexItem]?.size === size) {
-      const temporalCart = [...cart];
-      temporalCart[indexItem].amount += amount;
-      setCart([...temporalCart]);
+    if (cart.items[indexItem]?.size === size) {
+      const temporalCartItems = [...cart.items];
+      temporalCartItems[indexItem].quantity += quantity;
+      setCart((prev) => ({ ...prev, items: [...temporalCartItems] }));
       return;
     }
-    const newCart = [...cart, { product, amount, size }];
-    setCart([...newCart]);
+    const newCart: ICart = { ...cart, items: [{ product, quantity, size }] };
+    setCart({ ...newCart });
   };
 
   const deleteItemCart = (product: IProduct, size: Size) => {
-    const indexItem = cart.findIndex(
+    const indexItem = cart.items.findIndex(
       (item) => item.product.id === product.id && item.size === size
     );
 
     if (indexItem !== -1) {
-      const temporalCart = [...cart];
-      temporalCart.splice(indexItem, 1);
-      setCart([...temporalCart]);
+      const temporalCartItems = [...cart.items];
+      temporalCartItems.splice(indexItem, 1);
+      setCart((prev) => ({ ...prev, items: [...temporalCartItems] }));
     }
   };
 
   const deleteAllCart = () => {
-    setCart([]);
+    setCart({} as ICart);
   };
 
   const updateProducts = (newProducts: IProduct[]) => {
