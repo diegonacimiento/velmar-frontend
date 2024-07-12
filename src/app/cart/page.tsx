@@ -4,26 +4,31 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { TfiShoppingCart } from "react-icons/tfi";
 
-import useVelmarContext from "@/hooks/useVelmarContext";
 import { totalPrice } from "@/utils/functions-share";
-import CartItem from "./CartItem";
+import CartItem from "./components/CartItem";
 import { getCart } from "@/services/carts.service";
 import { ICart } from "@/types/cart.types";
+import useVelmarContext from "@/hooks/useVelmarContext";
+import CartLoading from "./components/CartLoading";
 
 const CartPage = () => {
   const router = useRouter();
 
-  const { cart, roleUser } = useVelmarContext();
+  const { roleUser } = useVelmarContext();
+
+  const [cart, setCart] = useState<ICart>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const get = async () => {
       const response = await getCart();
 
-      // setMyCart(response);
+      setCart(response);
 
-      if (!window.localStorage.getItem("cart-velmar")) {
-        window.localStorage.setItem("cart-velmar", JSON.stringify(response));
-      }
+      setLoading(false);
+      // if (!window.localStorage.getItem("cart-velmar")) {
+      //   window.localStorage.setItem("cart-velmar", JSON.stringify(response));
+      // }
     };
     get();
     return () => {
@@ -35,13 +40,17 @@ const CartPage = () => {
     router.push("/products");
   };
 
+  if (loading) {
+    return <CartLoading />;
+  }
+
   return (
-    <div className="p-4 m-4 sm:m-8 text-secondary">
+    <div className="p-2 m-2 sm:p-4 sm:m-8 w-full text-secondary">
       <h2 className="text-2xl font-bold">Cart</h2>
-      {cart.items ? (
+      {cart?.items ? (
         <div className="md:flex">
           <section className="md:w-4/5">
-            {cart.items?.map(({ product, quantity, size }) => (
+            {cart?.items?.map(({ product, quantity, size }) => (
               <CartItem
                 product={product}
                 amount={quantity}

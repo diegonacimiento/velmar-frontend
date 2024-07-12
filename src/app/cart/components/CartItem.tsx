@@ -33,9 +33,9 @@ const CartItem: React.FC<CartItemProps> = ({ product, amount, size }) => {
   return (
       <div
         key={product.id}
-        className="relative grid grid-cols-[1fr_2fr] gap-3 sm:gap-6 border-b border-primary p-2 py-8 sm:p-6"
+        className="relative grid grid-cols-[1fr_1.5fr] gap-3 xsm:gap-6 border-b border-primary p-2 py-8 sm:p-6"
       >
-        <figure className="h-32 w-20 sm:h-52 sm:w-52">
+        <figure className="min-h-32 min-w-20 w-full sm:h-52">
           <Image
             src={product.images[0].urls[0]}
             alt={product.name}
@@ -45,11 +45,11 @@ const CartItem: React.FC<CartItemProps> = ({ product, amount, size }) => {
           />
         </figure>
         <div className="flex flex-col gap-y-4 justify-around w-fit">
-          <span className="text-sm sm:text-base font-bold text-justify w-fit line-clamp-1">
+          <span className="text-sm xsm:text-base font-bold text-justify w-fit line-clamp-1">
             {product.name}
           </span>
 
-          <span className="text-xs sm:text-sm font-medium text-justify w-fit line-clamp-1">
+          <span className="text-xs xsm:text-sm font-medium text-justify w-fit line-clamp-1">
             Size: {size}
           </span>
 

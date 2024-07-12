@@ -49,6 +49,7 @@ const config: Config = {
         "screen-20": "calc(100vw - 70px)"
       },
       screens: {
+        "xsm": "425px",
         "rd": "922px",
         "-rd": {"max": "921px"},
         "-sm": {"max": "640px"},
