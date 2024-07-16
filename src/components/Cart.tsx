@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -8,13 +8,13 @@ import useVelmarContext from "@/hooks/useVelmarContext";
 import { ICartItem } from "@/types/cart.types";
 
 const Cart = () => {
-  const { cart, isAuth } = useVelmarContext();
+  const { isAuth, cart } = useVelmarContext();
   const [cartLength, setCartLength] = useState<number>(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reducer = (accumulator: number, currentValue: ICartItem) =>
       accumulator + currentValue.quantity;
-    const total = cart.items?.reduce(reducer, 0);
+    const total = cart?.reduce(reducer, 0) || 0;
     setCartLength(total);
   }, [cart]);
 
@@ -34,7 +34,7 @@ const Cart = () => {
       >
         <MdOutlineShoppingCart />
       </button>
-      {cart.items?.length > 0 && (
+      {cart && cart.length > 0 && (
         <div
           className={
             "absolute top-1 left-0.5 flex items-center justify-center rounded-full h-4 w-4 text-xxs text-primary group-hover:bg-secondary duration-150 " +

@@ -2,8 +2,9 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { IContext, TRole } from "@/types/context";
-import { ICart } from "@/types/cart.types";
 import { IProduct, Size } from "@/types/products";
+import { ICartItem } from "@/types/cart.types";
+import { CART_STORAGE_NAME } from "@/utils/constants";
 
 export const VelmarContext = createContext<IContext>({} as IContext);
 
@@ -18,47 +19,41 @@ export const VelmarContextProvider = ({
 }) => {
   const [isAuth, setIsAuth] = useState<boolean>(auth);
   const [addressValue, setAddressValue] = useState<string>("");
-  const [cart, setCart] = useState<ICart>({} as ICart);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [roleUser, setRoleUser] = useState<TRole>(role);
+  const [cart, setCart] = useState<ICartItem[]>();
 
   useEffect(() => {
-    setCart(JSON.parse(window.localStorage.getItem("cart-velmar") || "{}"));
+    setCart(JSON.parse(window.localStorage.getItem(CART_STORAGE_NAME) || "[]"));
   }, []);
+
+  const addProductToCart = (
+    product: IProduct,
+    quantity: number,
+    size: Size
+  ) => {
+    const cartStorage: ICartItem[] = JSON.parse(
+      window.localStorage.getItem(CART_STORAGE_NAME) || "[]"
+    );
+
+    const index = cartStorage.findIndex(
+      (e) => e.id === product.id && e.size === size
+    );
+
+    if (index !== -1) {
+      cartStorage[index].quantity += quantity;
+    } else {
+      const { id, name, price, images, brand } = product;
+
+      cartStorage.push({ id, name, price, images, brand, quantity, size });
+    }
+
+    window.localStorage.setItem(CART_STORAGE_NAME, JSON.stringify(cartStorage));
+    setCart(cartStorage);
+  };
 
   const updateAddressValue = (value: string) => {
     setAddressValue(value);
-  };
-
-  const updateCart = (product: IProduct, quantity: number, size: Size) => {
-    const indexItem = cart.items.findIndex(
-      (item) => item.product.id === product.id && item.size === size
-    );
-
-    if (cart.items[indexItem]?.size === size) {
-      const temporalCartItems = [...cart.items];
-      temporalCartItems[indexItem].quantity += quantity;
-      setCart((prev) => ({ ...prev, items: [...temporalCartItems] }));
-      return;
-    }
-    const newCart: ICart = { ...cart, items: [{ product, quantity, size }] };
-    setCart({ ...newCart });
-  };
-
-  const deleteItemCart = (product: IProduct, size: Size) => {
-    const indexItem = cart.items.findIndex(
-      (item) => item.product.id === product.id && item.size === size
-    );
-
-    if (indexItem !== -1) {
-      const temporalCartItems = [...cart.items];
-      temporalCartItems.splice(indexItem, 1);
-      setCart((prev) => ({ ...prev, items: [...temporalCartItems] }));
-    }
-  };
-
-  const deleteAllCart = () => {
-    setCart({} as ICart);
   };
 
   const updateProducts = (newProducts: IProduct[]) => {
@@ -72,14 +67,13 @@ export const VelmarContextProvider = ({
         setIsAuth,
         addressValue,
         updateAddressValue,
-        cart,
-        updateCart,
         products,
         updateProducts,
-        deleteItemCart,
-        deleteAllCart,
         roleUser,
         setRoleUser,
+        cart,
+        setCart,
+        addProductToCart,
       }}
     >
       {children}

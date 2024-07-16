@@ -1,10 +1,10 @@
-import { ICart, ICartItem } from "@/types/cart.types";
+import { ICartItem } from "@/types/cart.types";
 import { IAddress } from "@/types/user";
 
-export const totalPrice = (cart: ICart): number => {
+export const totalPrice = (cart: ICartItem[]): number => {
   const reducer = (accumulator: number, currentValue: ICartItem) =>
-    accumulator + Number(currentValue.product.price) * currentValue.quantity;
-  const total = cart.items?.reduce(reducer, 0);
+    accumulator + Number(currentValue.price) * currentValue.quantity;
+  const total = cart.reduce(reducer, 0);
   return Number(total?.toFixed(2));
 };
 
@@ -75,11 +75,11 @@ export const formatDate = (dateString: string): string => {
   }
 
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses van de 0 a 11
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
 
   return `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
 };

@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 import Amount from "@/components/Amount";
 import Slides from "@/components/Slides";
 import { IProduct, Size } from "@/types/products";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import OptionsButtons from "./OptionsButtons";
-import { useRouter } from "next/navigation";
 
 interface IProductDetails {
   product: IProduct;
@@ -16,12 +16,12 @@ interface IProductDetails {
 
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   // Hooks
-  const { roleUser } = useVelmarContext();
+  const { roleUser, addProductToCart } = useVelmarContext();
   const router = useRouter();
-  const { updateCart, isAuth } = useVelmarContext();
+  const { isAuth } = useVelmarContext();
 
   // States
-  const [amount, setAmount] = useState<number>(1);
+  const [quantity, setAmount] = useState<number>(1);
   const [btIsChecked, setBtIsChecked] = useState<boolean>(false);
   const [colors, setColors] = useState<string[]>(
     product.images.map((image) => image.color)
@@ -56,7 +56,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
     }
     if (selectedSize) {
       setBtIsChecked(true);
-      updateCart(product, amount, selectedSize);
+      addProductToCart(product, quantity, selectedSize);
       setAmount(1);
       setTimeout(() => {
         setBtIsChecked(false);
@@ -147,7 +147,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <p className="px-2 text-sm text-red-600">{errorSize}</p>
 
           <div className="flex items-center justify-between gap-4">
-            <Amount amount={amount} setAmount={setAmount} />
+            <Amount quantity={quantity} setAmount={setAmount} />
 
             {btIsChecked ? (
               <span className="flex justify-center items-center h-12 w-40">

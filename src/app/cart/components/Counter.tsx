@@ -2,13 +2,13 @@ import React from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
 
 interface CounterProps {
-  amount: number;
+  quantity: number;
   handleRemove: () => void;
   handleAdd: () => void;
 }
 
 const Counter: React.FC<CounterProps> = ({
-  amount,
+  quantity,
   handleRemove,
   handleAdd,
 }) => {
@@ -22,7 +22,7 @@ const Counter: React.FC<CounterProps> = ({
       >
         <MdRemove />
       </button>
-      <span>{amount}</span>
+      <span>{quantity}</span>
       <button
         type="button"
         title="Add a product"

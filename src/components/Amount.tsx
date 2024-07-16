@@ -1,14 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
 
 interface AmountProps {
-  amount: number;
+  quantity: number;
   setAmount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Amount: React.FC<AmountProps> = ({ amount, setAmount }) => {
-  
+const Amount: React.FC<AmountProps> = ({ quantity, setAmount }) => {
   const handleAdd = () => {
     setAmount((prev) => prev + 1);
   };
@@ -32,7 +31,7 @@ const Amount: React.FC<AmountProps> = ({ amount, setAmount }) => {
       >
         <MdRemove />
       </button>
-      <span className="text-xl">{amount}</span>
+      <span className="text-xl">{quantity}</span>
       <button
         type="button"
         className="bg-secondary text-body rounded-md text-2xl  active:bg-primary active:scale-125 duration-150 bt-amount"

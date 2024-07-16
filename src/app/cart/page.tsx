@@ -1,61 +1,39 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { TfiShoppingCart } from "react-icons/tfi";
 
 import { totalPrice } from "@/utils/functions-share";
 import CartItem from "./components/CartItem";
-import { getCart } from "@/services/carts.service";
-import { ICart } from "@/types/cart.types";
 import useVelmarContext from "@/hooks/useVelmarContext";
 import CartLoading from "./components/CartLoading";
 
 const CartPage = () => {
   const router = useRouter();
 
-  const { roleUser } = useVelmarContext();
-
-  const [cart, setCart] = useState<ICart>();
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const get = async () => {
-      const response = await getCart();
-
-      setCart(response);
-
-      setLoading(false);
-      // if (!window.localStorage.getItem("cart-velmar")) {
-      //   window.localStorage.setItem("cart-velmar", JSON.stringify(response));
-      // }
-    };
-    get();
-    return () => {
-      console.log("El componente se esta por desmontar");
-    };
-  }, [cart]);
+  const { cart, setCart, roleUser } = useVelmarContext();
 
   const handleGoShop = () => {
     router.push("/products");
   };
 
-  if (loading) {
+  if (!cart) {
     return <CartLoading />;
   }
 
   return (
     <div className="p-2 m-2 sm:p-4 sm:m-8 w-full text-secondary">
       <h2 className="text-2xl font-bold">Cart</h2>
-      {cart?.items ? (
+      {cart.length > 0 ? (
         <div className="md:flex">
           <section className="md:w-4/5">
-            {cart?.items?.map(({ product, quantity, size }) => (
+            {cart.map((item) => (
               <CartItem
-                product={product}
-                amount={quantity}
-                size={size}
-                key={product.id + size}
+                item={item}
+                cart={cart}
+                setCart={setCart}
+                key={item.id + item.size}
               />
             ))}
           </section>
