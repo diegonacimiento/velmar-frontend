@@ -17,7 +17,7 @@ export interface IUser {
 
   role: ROLE;
 
-  phone?: number | null;
+  phone?: string | number | null;
 
   address?: IAddress | null;
 }

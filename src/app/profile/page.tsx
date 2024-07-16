@@ -1,8 +1,8 @@
 import React from "react";
-
-import Profile from "./Profile";
 import { MdArrowForwardIos } from "react-icons/md";
 import Link from "next/link";
+
+import Profile from "./Profile";
 
 const page = () => {
   return (

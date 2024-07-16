@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { LuArrowRight } from "react-icons/lu";
 
 import useGeolocation from "@/hooks/useGeolocation";
 import useVelmarContext from "@/hooks/useVelmarContext";
@@ -11,11 +13,25 @@ const Map = dynamic(() => import("@/components/Map"), {
 
 const SuccessPage = () => {
   const { addressValue } = useVelmarContext();
-  const location = useGeolocation(addressValue);
+  const address = Object.values(addressValue).join(", ");
+  const location = useGeolocation(address);
   return (
-    <div className="w-full p-4">
-      <h2 className="text-xl font-semibold my-4">Thanks for your purchase!</h2>
-      <p>Your order will arrive in 3 days at the address of:</p>
+    <div className="w-full p-4 text-secondary">
+      <h2 className="my-2 text-xl font-semibold">Thanks for your purchase!</h2>
+      <button
+        title="Keep buying"
+        type="button"
+        className="flex gap-1 items-center p-2 bg-secondary rounded-md text-body hover:scale-105 hover:opacity-70 duration-150"
+      >
+        Keep buying
+        <div className="flex">
+          <LuArrowRight className="text-xl" />
+          <MdOutlineShoppingCart className="text-xl" />
+        </div>
+      </button>
+      <p className="my-2">
+        Your order will arrive in 3 days at the address of:
+      </p>
       <Map location={location} />
     </div>
   );

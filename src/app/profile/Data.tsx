@@ -1,24 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { MdOutlineError } from "react-icons/md";
-import { useRouter } from "next/navigation";
 
 import Form from "@/components/Form";
 import { IPayloadUpdateUser, IUser } from "@/types/user";
 import { preparePayload } from "./utils/functions-form";
 import { updateUser } from "@/services/users.service";
+import { FaCheck } from "react-icons/fa";
 
-const Data = ({ user }: { user: IUser }) => {
-  const router = useRouter();
+interface IData {
+  user: IUser;
+  setUser: Dispatch<SetStateAction<IUser>>;
+}
 
+const Data: React.FC<IData> = ({ user, setUser }) => {
   const [error, setError] = useState<string>("");
+  const [msgSuccess, setMsgSuccess] = useState<string>("");
 
   const handleSubmit = async (formData: IPayloadUpdateUser) => {
     const payload = preparePayload(user, formData);
-    console.log(payload);
+    setMsgSuccess("");
+    setError("");
+
     try {
       await updateUser(payload);
-      router.refresh();
+      setUser((prev) => ({ ...prev, ...payload }));
+      setMsgSuccess("Updated profile");
     } catch (error) {
       setError("An error occurred, please try again");
     }
@@ -64,11 +71,23 @@ const Data = ({ user }: { user: IUser }) => {
         onSubmit={(formData) => handleSubmit(formData)}
       />
 
-      <p className="flex justify-center items-center gap-1 px-1 min-h-4 text-center text-red-600">
+      <p
+        className={
+          "flex justify-center items-center gap-1 px-1 min-h-4 text-center " +
+          (error && "text-red-600 ") +
+          (msgSuccess && " text-green-800")
+        }
+      >
         {error && (
           <>
             <MdOutlineError />
             {error}
+          </>
+        )}
+        {msgSuccess && (
+          <>
+            <FaCheck />
+            {msgSuccess}
           </>
         )}
       </p>

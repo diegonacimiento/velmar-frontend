@@ -18,7 +18,7 @@ export const VelmarContextProvider = ({
   role: TRole;
 }) => {
   const [isAuth, setIsAuth] = useState<boolean>(auth);
-  const [addressValue, setAddressValue] = useState<string>("");
+  const [addressValue, setAddressValue] = useState<any>("");
   const [products, setProducts] = useState<IProduct[]>([]);
   const [roleUser, setRoleUser] = useState<TRole>(role);
   const [cart, setCart] = useState<ICartItem[]>();
@@ -52,7 +52,12 @@ export const VelmarContextProvider = ({
     setCart(cartStorage);
   };
 
-  const updateAddressValue = (value: string) => {
+  const deleteAllCart = () => {
+    window.localStorage.setItem(CART_STORAGE_NAME, JSON.stringify([]));
+    setCart([]);
+  };
+
+  const updateAddressValue = (value: any) => {
     setAddressValue(value);
   };
 
@@ -74,6 +79,7 @@ export const VelmarContextProvider = ({
         cart,
         setCart,
         addProductToCart,
+        deleteAllCart,
       }}
     >
       {children}

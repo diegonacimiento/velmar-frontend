@@ -23,7 +23,7 @@ const Map: React.FC<MapProps> = ({ location }) => {
   }
 
   return (
-    <div className="w-full h-[75vh] overflow-hidden my-4 mx-auto">
+    <div className="relative -z-0 w-full h-[75vh] overflow-hidden my-4 mx-auto">
       <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"

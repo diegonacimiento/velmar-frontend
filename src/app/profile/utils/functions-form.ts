@@ -22,7 +22,6 @@ export const preparePayload = (user: IUser, data: IPayloadUpdateUser) => {
   }
 
   if (isAddressDifferent(user.address, data.address)) {
-    console.log("entra pepe");
     const dataAddressArray = Object.values(data.address || {});
     if (dataAddressArray.length > 0) {
       payload.address = data.address;

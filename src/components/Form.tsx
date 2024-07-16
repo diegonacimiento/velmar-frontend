@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 import validateForm from "@/utils/validate-form";
 import { IField, FormProps } from "@/types/form";
 import Loading from "./Loading";
 import { addressToString, copyData } from "@/utils/functions-share";
 import SetAddress from "./SetAddress";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Form: React.FC<FormProps> = ({
   onSubmit,
@@ -99,6 +99,7 @@ const Form: React.FC<FormProps> = ({
       {formFields.map((field, index) => (
         <div key={field.label} className="flex flex-col">
           <label
+            htmlFor={`input-${field.label.toLowerCase()}`}
             className={`px-1 text-sm font-light ${
               field.hasError ? "input-error" : ""
             }`}
@@ -108,12 +109,14 @@ const Form: React.FC<FormProps> = ({
 
           {field.label === "Address" ? (
             <input
+              id={`input-${field.label.toLowerCase()}`}
               readOnly={true}
               name={field.label.toLowerCase()}
               type={field.type}
               value={addressToString(field.value)}
               onChange={(e) => handleFieldChange(index, e.currentTarget.value)}
               onClick={toogleSetAddress}
+              autoComplete="on"
               className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${
                 field.hasError ? "input-error" : ""
               }`}
@@ -121,6 +124,7 @@ const Form: React.FC<FormProps> = ({
           ) : (
             <div className="relative flex items-center">
               <input
+                id={`input-${field.label.toLowerCase()}`}
                 name={field.label.toLowerCase()}
                 type={
                   field.type === "password"

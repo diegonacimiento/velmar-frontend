@@ -8,9 +8,10 @@ import { IUser } from "@/types/user";
 import LoadingProfile from "./LoadingProfile";
 
 const Profile = () => {
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser>({} as IUser);
   const [loading, setLoading] = useState<boolean>(true);
 
+  
   useEffect(() => {
     const get = async () => {
       try {
@@ -28,7 +29,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col justify-center gap-4 px-6 py-12 sm:px-12 my-4 shadow-md rounded-lg max-w-520 w-full bg-primary text-secondary">
-      <Data user={user} />
+      <Data user={user} setUser={setUser} />
       <div className="flex items-center gap-2 flex-wrap">
         <p className="text-gray-400 text-sm font-medium">
           Do you want to change your password?
