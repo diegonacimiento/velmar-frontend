@@ -4,11 +4,16 @@ import { useRouter } from "next/navigation";
 
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { totalPrice } from "@/utils/functions-share";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const PaymentPage = () => {
   const router = useRouter();
 
   const { cart, deleteAllCart } = useVelmarContext();
+
+  const handleBack = () => {
+    router.back();
+  };
 
   const handlePay = () => {
     router.push("/success");
@@ -17,13 +22,19 @@ const PaymentPage = () => {
 
   return (
     <div className="w-full max-w-650 p-4">
-      <div className="bg-primary p-4 text-secondary rounded-lg">
+      <button
+        type="button"
+        title="Back"
+        onClick={handleBack}
+        className="flex justify-center items-center gap-1 mt-12 mb-6 w-max rounded-md text-secondary hover:scale-105 duration-150"
+      >
+        <IoMdArrowRoundBack />
+        Back
+      </button>
+      <div className="bg-primary px-6 sm:px-12 py-12 text-secondary rounded-lg mb-12">
         <h3 className="text-xl font-semibold">Order summary:</h3>
         {cart?.map(({ id, name, price, quantity, size }) => (
-          <div
-            className="border-b border-secondary m-4"
-            key={id + size}
-          >
+          <div className="border-b border-secondary m-4" key={id + size}>
             <div className="flex flex-col">
               <h4 className="font-semibold text-lg my-4">{name}</h4>
               <span className="mb-4">Size: {size}</span>
