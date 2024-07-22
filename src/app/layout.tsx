@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { decode } from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { VelmarContextProvider } from "@/context/VelmarContext";
-import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 

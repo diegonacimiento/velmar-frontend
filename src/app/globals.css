@@ -30,6 +30,24 @@ body::-webkit-scrollbar-track {
   border-radius: 6px;
 }
 
+#drawer-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+#drawer-nav::-webkit-scrollbar-thumb {
+  @apply bg-secondary;
+  border-radius: 6px;
+}
+
+#drawer-nav::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
+
+#drawer-nav::-webkit-scrollbar-track {
+  @apply bg-body;
+  border-radius: 6px;
+}
+
 #carousel::-webkit-scrollbar, #slide-img::-webkit-scrollbar {
   height: 8px;
 }

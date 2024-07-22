@@ -15,7 +15,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
     : "text-gray-600 hover:text-secondary duration-150 ";
 
   const ulStyles = handleDrawer
-    ? "flex flex-col h-100 pb-6"
+    ? "flex flex-col pb-20"
     : "flex justify-around items-center m-auto h-full max-w-520";
 
   const navStyles = handleDrawer
@@ -23,7 +23,7 @@ const Nav = ({ handleDrawer }: { handleDrawer?: () => void }) => {
     : "w-full h-full overflow-auto -rd:hidden";
 
   return (
-    <nav className={navStyles}>
+    <nav id="drawer-nav" className={navStyles}>
       <ul className={ulStyles}>
         <li>
           <Link
