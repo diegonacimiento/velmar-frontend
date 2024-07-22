@@ -21,9 +21,10 @@ const OrderList = () => {
   return (
     <div className="p-4 flex flex-col flex-wrap gap-6 items-center min-h-[30rem]">
       <h2 className="text-secondary text-2xl font-semibold">Your orders</h2>
-      <div className="flex flex-wrap gap-6 justify-center py-24 border border-primary rounded-md bg-gradient-radial from-primary to-body max-w-650">
-        {orders
-          ? orders.map((order) => (
+      <div className="flex flex-wrap gap-6 justify-center px-4 py-24 border border-primary rounded-md bg-gradient-radial from-primary to-body max-w-650">
+        {orders ? (
+          orders.length > 0 ? (
+            orders.map((order) => (
               <Link
                 href={`/profile/orders/${order.id}`}
                 key={order.id}
@@ -33,12 +34,17 @@ const OrderList = () => {
                 <h3>{formatDate(order.createdAt)}</h3>
               </Link>
             ))
-          : [1, 2, 3, 4, 5, 6].map((e) => (
-              <div
-                key={e}
-                className="rounded-md min-w-[11.4475rem] h-32 bg-secondary bg-opacity-30 animate-pulse"
-              ></div>
-            ))}
+          ) : (
+            <h3 className="text-secondary">You have no orders</h3>
+          )
+        ) : (
+          [1, 2, 3, 4, 5, 6].map((e) => (
+            <div
+              key={e}
+              className="rounded-md min-w-[11.4475rem] h-32 bg-secondary bg-opacity-30 animate-pulse"
+            ></div>
+          ))
+        )}
       </div>
     </div>
   );

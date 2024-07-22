@@ -1,4 +1,5 @@
 import { IBrand } from "./brands";
+import { Size } from "./products";
 import { IUser } from "./user";
 
 export interface IOrder {
@@ -6,13 +7,18 @@ export interface IOrder {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  products: [{
-    productId: number;
-    name: string;
-    price: string;
-    quantity: number;
-    brand: IBrand;
-  }] | null;
+  products:
+    | [
+        {
+          id: number;
+          name: string;
+          price: string;
+          quantity: number;
+          size: Size;
+          brand: IBrand;
+        }
+      ]
+    | null;
   status: ORDER_STATUS;
   user: Pick<
     IUser,
@@ -20,6 +26,8 @@ export interface IOrder {
   >;
   total: number;
 }
+
+export interface ICreateOrder {}
 
 export enum ORDER_STATUS {
   IN_PROGRESS = "in-progress",

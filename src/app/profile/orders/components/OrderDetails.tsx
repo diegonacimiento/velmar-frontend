@@ -21,7 +21,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ id }) => {
   }, [id]);
 
   return (
-    <div className="p-4 text-secondary">
+    <div className="px-4 py-24 text-secondary">
       {order ? (
         <div className="flex flex-col gap-4 border border-secondary p-4 rounded-md min-w-52">
           <h2 className="font-semibold">
@@ -34,7 +34,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ id }) => {
             <h3>Products:</h3>
             {order?.products?.map((product) => (
               <div
-                key={product.productId}
+                key={product.id + product.size}
                 className="p-2 border-b border-secondary border-opacity-50"
               >
                 <h3>- {product.name}</h3>

@@ -1,6 +1,7 @@
 export interface IBrand {
   id: number;
   name: string;
+  isProtected: boolean;
 }
 
 export interface IPayloadCreateBrand {
