@@ -40,6 +40,7 @@ export const signOut = async () => {
 };
 
 export const newPassord = async (payload: INewPassword) => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/auth/change-password`,

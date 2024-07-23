@@ -187,7 +187,13 @@ const Form: React.FC<FormProps> = ({
       <button
         type={loading ? "button" : "submit"}
         title={buttonText}
-        className="p-3 mt-4 text-primary bg-secondary hover:bg-body hover:text-secondary hover:scale-105 duration-150"
+        disabled={loading}
+        className={
+          "p-3 mt-4 text-primary bg-secondary " +
+          (loading
+            ? "cursor-not-allowed opacity-70"
+            : "hover:bg-body hover:text-secondary hover:scale-105 duration-150")
+        }
       >
         {loading ? <Loading /> : buttonText}
       </button>

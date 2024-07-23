@@ -21,14 +21,16 @@ const NewPasswordPage = () => {
   const [isExpired, setIsExpired] = useState<boolean>(
     decoded.exp < currentTime
   );
-
   const [isAlreadyUsed, setIsAlreadyUsed] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (formData: {
     "new password": string;
     "confirm password": string;
   }) => {
     try {
+      setLoading(true);
+
       const payload: INewPassword = {
         newPassword: formData["new password"],
         token,
@@ -45,6 +47,8 @@ const NewPasswordPage = () => {
         console.error(error);
         throw error;
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,6 +80,7 @@ const NewPasswordPage = () => {
           },
         ]}
         onSubmit={(formData) => handleSubmit(formData)}
+        loading={loading}
       />
     </div>
   );
