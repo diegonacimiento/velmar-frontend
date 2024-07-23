@@ -57,3 +57,22 @@ export const newPassord = async (payload: INewPassword) => {
     throw error;
   }
 };
+
+export const forgotPassword = async (email: string) => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/auth/forgot-password`,
+      { email },
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
