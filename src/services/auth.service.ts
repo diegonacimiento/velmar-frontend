@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ISignInData } from "@/types/auth";
+import { INewPassword, ISignInData } from "@/types/auth";
 
 export const signIn = async (payload: ISignInData) => {
   try {
@@ -30,6 +30,24 @@ export const signOut = async () => {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
         withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const newPassord = async (payload: INewPassword) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/auth/change-password`,
+      payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
       }
     );
     return response.data;

@@ -11,3 +11,8 @@ export interface ISignInData {
   "your email": string;
   "your password": string;
 }
+
+export interface INewPassword {
+  newPassword: string;
+  token: string;
+}
