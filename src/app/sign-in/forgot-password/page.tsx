@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
   const router = useRouter();
-  
+
   const handleBack = () => {
-    router.back();
+    router.push("/sign-in");
   };
 
   return (
