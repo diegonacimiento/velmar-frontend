@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import Form from "@/components/Form";
 import { getUser } from "@/services/users.service";
 import { IAddress, IUser } from "@/types/user";
 import Loading from "./components/Loading";
 import useVelmarContext from "@/hooks/useVelmarContext";
-import { IoMdArrowRoundBack } from "react-icons/io";
 
 const InformationPage = () => {
   const [address, setaddress] = useState<IAddress>();
@@ -62,13 +62,13 @@ const InformationPage = () => {
             {
               label: "Address",
               type: "text",
-              value: address,
+              value: address || "",
               isOptional: true,
             },
             {
               label: "Phone",
               type: "number",
-              value: phone,
+              value: phone || "",
               isOptional: true,
             },
           ]}

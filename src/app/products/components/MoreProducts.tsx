@@ -26,7 +26,7 @@ const MoreProducts: React.FC<IMoreProductsProps> = ({
   const handleMoreProducts = async () => {
     try {
       setLoading(true);
-      const newProducts = await getProducts(allProducts.length);
+      const newProducts = await getProducts(undefined, allProducts.length);
       if (newProducts.length < LIMIT) {
         setNoProducts(true);
       }
