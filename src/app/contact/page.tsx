@@ -2,7 +2,7 @@ import React from "react";
 import { FaBriefcase, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaSheetPlastic } from "react-icons/fa6";
 
-import { cv, linkedin, portfolio, twitter } from "./utils/contacts";
+import { cv, linkedin, portfolio, twitter } from "../../utils/contacts";
 
 const Contact = () => {
   const divStyles = "h-60 w-full bg-primary";

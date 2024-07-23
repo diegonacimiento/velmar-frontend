@@ -1,3 +1,4 @@
+import { cv, linkedin, portfolio, twitter } from "@/utils/contacts";
 import React from "react";
 import { FaBriefcase, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FaSheetPlastic } from "react-icons/fa6";
@@ -14,16 +15,16 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex justify-center sm:gap-3 p-10">
-          <a className={aStyles} href="/">
+          <a className={aStyles} href={linkedin}>
             <FaLinkedin />
           </a>
-          <a className={aStyles} href="/">
+          <a className={aStyles} href={twitter}>
             <FaTwitter />
           </a>
-          <a className={aStyles} href="/">
+          <a className={aStyles} href={portfolio}>
             <FaBriefcase />
           </a>
-          <a className={aStyles} href="/">
+          <a className={aStyles} href={cv}>
             <FaSheetPlastic />
           </a>
         </div>
