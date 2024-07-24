@@ -25,9 +25,9 @@ export interface IUser {
 export interface IPayloadCreateUser
   extends Omit<
     IUser,
-    "id" | "createdAt" | "updatedAt" | "deletedAt" | "orders" | "phone"
+    "id" | "createdAt" | "updatedAt" | "deletedAt" | "orders"
   > {
-  phone: string | null;
+  password: string;
 }
 
 export interface IPayloadUpdateUser

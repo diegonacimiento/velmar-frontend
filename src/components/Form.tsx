@@ -18,6 +18,9 @@ const Form: React.FC<FormProps> = ({
 }) => {
   const [formFields, setFormFields] = useState<IField[]>(copyData(fields));
   const [openSetAddress, setOpenSetAddress] = useState<boolean>(false);
+  const [dropdownValue, setDropdownValue] = useState<string | undefined>(
+    dropdown?.options[0]
+  );
 
   let showPasswordList: { [keyof: string]: boolean } = {};
 
@@ -80,6 +83,10 @@ const Form: React.FC<FormProps> = ({
       formFields.forEach((field) => {
         formData[field.label.toLowerCase()] = field.value;
       });
+
+      if (dropdown) {
+        formData[dropdown.label.toLowerCase()] = dropdownValue;
+      }
 
       onSubmit(formData);
     }
@@ -175,10 +182,13 @@ const Form: React.FC<FormProps> = ({
       {dropdown && (
         <div className="flex flex-col">
           <label className="text-sm font-light">{dropdown.label}</label>
-          <select className="px-1.5 py-2 my-1 border border-secondary rounded-lg focus:outline-0">
+          <select
+            onChange={(e) => setDropdownValue(e.target.value)}
+            className="px-1.5 py-2 my-1 border border-secondary rounded-lg focus:outline-0"
+          >
             {dropdown.options.map((option) => (
               <option key={option} value={option}>
-                {option}
+                {option.charAt(0).toUpperCase() + option.substring(1)}
               </option>
             ))}
           </select>

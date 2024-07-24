@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { IPayloadUpdatePassword, IPayloadUpdateUser, IUser } from "@/types/user";
+import {
+  IPayloadCreateUser,
+  IPayloadUpdatePassword,
+  IPayloadUpdateUser,
+  IUser,
+} from "@/types/user";
 
 export const getUser = async (): Promise<IUser> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
@@ -12,6 +17,27 @@ export const getUser = async (): Promise<IUser> => {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
         withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const createUser = async (
+  payload: IPayloadCreateUser
+): Promise<IUser> => {
+  // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/users`,
+      payload,
+      {
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
       }
     );
     return response.data;
