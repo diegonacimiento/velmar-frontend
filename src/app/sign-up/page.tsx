@@ -48,14 +48,16 @@ const SignUp = () => {
       ) {
         setError("Username not available. Please try another one.");
       }
-      if (
+      else if (
         error?.response?.data?.message.includes(
           `Key (email)=(${formData.email}) already exists.`
         )
       ) {
         setError("Email not available. Please try another one.");
+      } else {
+        setError("A problem occurred, please try again or contact support")
       }
-      throw error;
+      
     } finally {
       setLoading(false);
     }

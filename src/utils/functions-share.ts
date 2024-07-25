@@ -71,7 +71,7 @@ export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
 
   if (isNaN(date.getTime())) {
-    throw new TypeError("El argumento proporcionado no es una fecha válida");
+    throw new TypeError("The argument provided is not a valid date");
   }
 
   const year = date.getFullYear();

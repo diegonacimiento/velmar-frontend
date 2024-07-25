@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { MdErrorOutline } from "react-icons/md";
 
 import Data from "./Data";
 import { getUser } from "@/services/users.service";
@@ -10,8 +11,8 @@ import LoadingProfile from "./LoadingProfile";
 const Profile = () => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
-  
   useEffect(() => {
     const get = async () => {
       try {
@@ -19,11 +20,21 @@ const Profile = () => {
         setUser(response);
         setLoading(false);
       } catch (error) {
-        throw error;
+        console.error(error);
+        setError("A problem occurred, please try again or contact support");
       }
     };
     get();
   }, []);
+
+  if (error)
+    return (
+      <div className="flex flex-col justify-center items-center gap-4 px-6 py-12 sm:px-12 my-4 shadow-md rounded-lg min-h-80 max-w-520 w-full bg-primary text-secondary text-center text-xl">
+        <MdErrorOutline className="text-5xl" />
+
+        {error}
+      </div>
+    );
 
   if (loading || !user) return <LoadingProfile />;
 

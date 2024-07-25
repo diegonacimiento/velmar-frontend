@@ -8,6 +8,7 @@ import { newPassord } from "@/services/auth.service";
 import { INewPassword } from "@/types/auth";
 import TokenExpired from "./components/TokenExpired";
 import TokenAlreadyUsed from "./components/TokenAlreadyUsed";
+import ErrorMessage from "./components/ErrorMessage";
 
 const NewPasswordPage = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const NewPasswordPage = () => {
   );
   const [isAlreadyUsed, setIsAlreadyUsed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const handleSubmit = async (formData: {
     "new password": string;
@@ -45,7 +47,7 @@ const NewPasswordPage = () => {
         setIsAlreadyUsed(true);
       } else {
         console.error(error);
-        throw error;
+        setError(true);
       }
     } finally {
       setLoading(false);
@@ -58,6 +60,10 @@ const NewPasswordPage = () => {
 
   if (isAlreadyUsed) {
     return <TokenAlreadyUsed />;
+  }
+
+  if (error) {
+    return <ErrorMessage />;
   }
 
   return (

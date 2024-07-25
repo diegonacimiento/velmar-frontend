@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { MdErrorOutline } from "react-icons/md";
 
 import useVelmarContext from "@/hooks/useVelmarContext";
 import { totalPrice } from "@/utils/functions-share";
@@ -15,6 +16,7 @@ const PaymentPage = () => {
   const { cart, deleteAllCart } = useVelmarContext();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleBack = () => {
     router.back();
@@ -41,7 +43,7 @@ const PaymentPage = () => {
       }
     } catch (error) {
       console.error(error);
-      throw error;
+      setError("A problem occurred, please try again or contact support");
     }
   };
 
@@ -92,6 +94,13 @@ const PaymentPage = () => {
                 </button>
               </>
             )}
+            <p className="flex items-center gap-1 my-4 min-h-5 text-sm sm:text-base text-red-600">
+              {error && (
+                <>
+                  <MdErrorOutline /> {error}
+                </>
+              )}
+            </p>
           </>
         )}
       </div>
