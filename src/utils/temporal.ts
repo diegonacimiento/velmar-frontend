@@ -29,6 +29,16 @@ export const allSizes: Size[] = [
   Size.XL,
   Size["2XL"],
   Size["3XL"],
+  Size["T-35"],
+  Size["T-36"],
+  Size["T-37"],
+  Size["T-38"],
+  Size["T-39"],
+  Size["T-40"],
+  Size["T-41"],
+  Size["T-42"],
+  Size["T-43"],
+  Size["T-44"],
 ];
 
 export const orderSizes = (sizes: Size[]) => {

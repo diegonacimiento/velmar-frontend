@@ -127,7 +127,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           {/* Sizes */}
           <div
             className={
-              "flex gap-4 p-4 w-full rounded-lg bg-primary " +
+              "flex flex-wrap gap-4 p-4 w-full rounded-lg bg-primary " +
               (errorSize && "border border-red-600")
             }
           >

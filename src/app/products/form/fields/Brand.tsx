@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { IProductFields } from "@/types/products";
 import { IBrand } from "@/types/brands";
@@ -13,6 +13,8 @@ interface IBrandProps {
 }
 
 const Brand: React.FC<IBrandProps> = ({ brand, setFields, allBrands }) => {
+  const [noBrands, setNoBrands] = useState<boolean>(false);
+
   const handleSelectBrand = (id: string) => {
     const brand = allBrands.find((brand) => brand.id === Number(id));
 
@@ -22,7 +24,11 @@ const Brand: React.FC<IBrandProps> = ({ brand, setFields, allBrands }) => {
   };
 
   const handleAddBrand = () => {
-    setField("brand", allBrands[0], setFields);
+    if (allBrands.length > 0) {
+      setField("brand", allBrands[0], setFields);
+    } else {
+      setNoBrands(true);
+    }
   };
 
   const handleDeleteBrand = () => {
@@ -70,7 +76,7 @@ const Brand: React.FC<IBrandProps> = ({ brand, setFields, allBrands }) => {
         </button>
       )}
 
-      <p className={formStyles.error}></p>
+      {noBrands && <p className="text-center text-xs text-red-600">No brands available</p>}
     </div>
   );
 };

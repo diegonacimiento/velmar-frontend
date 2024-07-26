@@ -10,7 +10,7 @@ const Products = async ({ params }: { params: any }) => {
   try {
     const response = await getProducts(params);
     products = { value: [...response], error: "" };
-    if (response.length === 0) {
+    if (response.length === 0 && Object.values(params).length > 0) {
       products.error = "There are no products for your search";
     }
   } catch (error) {

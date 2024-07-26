@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
 import { IProductFields } from "@/types/products";
@@ -12,23 +12,37 @@ interface ICategoriesProps {
   allCategories: ICategory[];
 }
 
-const Categories: React.FC<ICategoriesProps> = ({ categories, setFields, allCategories, }) => {
-  const idCategoriesInProduct = categories.value.map((category) => category.id);
+const Categories: React.FC<ICategoriesProps> = ({
+  categories,
+  setFields,
+  allCategories,
+}) => {
+  const [noCategories, setNoCategories] = useState<boolean>(false);
+
+  const idCategoriesInProduct = categories?.value?.map(
+    (category) => category?.id
+  );
 
   const availableCategories = allCategories.filter(
     (category) => !idCategoriesInProduct.includes(category.id)
   );
 
   const handleAddCategories = () => {
-    setField(
-      "categories",
-      [...categories.value, availableCategories[0]],
-      setFields
-    );
+    if (allCategories.length > 0) {
+      setField(
+        "categories",
+        [...categories.value, availableCategories[0]],
+        setFields
+      );
+    } else {
+      setNoCategories(true);
+    }
   };
 
   const handleSelectCategory = (id: string, index: number) => {
-    const category = availableCategories.find((category) => category.id === Number(id));
+    const category = availableCategories.find(
+      (category) => category.id === Number(id)
+    );
     if (category) {
       const copyCategoriesValue = [...categories.value];
       copyCategoriesValue[index] = category;
@@ -45,12 +59,12 @@ const Categories: React.FC<ICategoriesProps> = ({ categories, setFields, allCate
   return (
     <div className={formStyles.container}>
       <label className={formStyles.label}>Categories</label>
-      {categories.value.map((categoryPayload, index) => (
-        <div key={categoryPayload.id}>
+      {categories?.value?.map((categoryPayload, index) => (
+        <div key={categoryPayload?.id}>
           <div className={formStyles.containerSelect}>
             <select
               name="categories"
-              defaultValue={categoryPayload.id}
+              defaultValue={categoryPayload?.id}
               onChange={(event) =>
                 handleSelectCategory(event.target.value, index)
               }
@@ -80,14 +94,21 @@ const Categories: React.FC<ICategoriesProps> = ({ categories, setFields, allCate
       ))}
 
       {categories.value.length < 3 && (
-        <button
-          type="button"
-          title="Add categories"
-          onClick={handleAddCategories}
-          className={formStyles.buttonPrimary}
-        >
-          Add categories
-        </button>
+        <>
+          <button
+            type="button"
+            title="Add categories"
+            onClick={handleAddCategories}
+            className={formStyles.buttonPrimary}
+          >
+            Add categories
+          </button>
+          {noCategories && (
+            <p className="text-center text-xs text-red-600">
+              No categories available
+            </p>
+          )}
+        </>
       )}
     </div>
   );
