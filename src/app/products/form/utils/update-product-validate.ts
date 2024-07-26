@@ -1,4 +1,4 @@
-import { IPayloadCreateProduct, IProduct } from "@/types/products";
+import { IPayloadCreateProduct, IProduct, Size } from "@/types/products";
 
 export const prepareUpdatePayload = (
   payload: IPayloadCreateProduct,
@@ -41,7 +41,10 @@ export const prepareUpdatePayload = (
 
 // Other functions
 
-function compareImagesArrays(payload: IPayloadCreateProduct, product: IProduct) {
+function compareImagesArrays(
+  payload: IPayloadCreateProduct,
+  product: IProduct
+) {
   if (product.images.length !== payload.images.length) {
     return false;
   }
@@ -102,9 +105,12 @@ function compareImagesArrays(payload: IPayloadCreateProduct, product: IProduct) 
   return true;
 }
 
-function arraysEqual(arrayPayload: string[], arrayProduct: string[]) {
-  let largeArray: string[] = [];
-  let smallArray: string[] = [];
+function arraysEqual(
+  arrayPayload: string[] | Size[],
+  arrayProduct: string[] | Size[]
+) {
+  let largeArray: string[] | Size[] = [];
+  let smallArray: string[] | Size[] = [];
 
   if (arrayPayload?.length > arrayProduct?.length) {
     largeArray = arrayPayload;

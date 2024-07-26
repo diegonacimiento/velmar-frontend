@@ -58,10 +58,14 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
       if (!validForm) {
         setDisabledButton(false);
         return;
-      };
+      }
       const finalPayload = preparePayload(fields);
       if (product) {
         const updatePayload = prepareUpdatePayload(finalPayload, product);
+        if (Object.values(updatePayload).length === 0) {
+          setDisabledButton(false);
+          return;
+        }
         await updateProduct(product.id, updatePayload);
         router.push(`/products/${product.id}`);
         router.refresh();
