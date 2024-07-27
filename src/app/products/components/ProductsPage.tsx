@@ -11,9 +11,10 @@ import Filters from "./Filters";
 
 interface IProductsPage {
   products: { value: IProduct[]; error: string };
+  params?: any;
 }
 
-const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
+const ProductsPage: React.FC<IProductsPage> = ({ products, params }) => {
   const { roleUser } = useVelmarContext();
 
   const router = useRouter();
@@ -70,7 +71,11 @@ const ProductsPage: React.FC<IProductsPage> = ({ products }) => {
       </p>
 
       {/* Button more products */}
-      <MoreProducts allProducts={allProducts} setAllProducts={setAllProducts} />
+      <MoreProducts
+        allProducts={allProducts}
+        setAllProducts={setAllProducts}
+        params={params}
+      />
     </div>
   );
 };

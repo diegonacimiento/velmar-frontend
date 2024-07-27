@@ -19,6 +19,8 @@ export const mainColors = [
   "violet", // Violeta
   "white", // Blanco
   "yellow", // Amarillo
+  "#af9f8c", // Cremita
+  "#9a5b3a" // Marrón claro
 ];
 
 export const allSizes: Size[] = [

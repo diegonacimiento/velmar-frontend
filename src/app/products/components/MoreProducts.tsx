@@ -11,11 +11,13 @@ import { getProducts } from "@/services/products.service";
 interface IMoreProductsProps {
   allProducts: IProduct[];
   setAllProducts: Dispatch<SetStateAction<IProduct[]>>;
+  params?: any;
 }
 
 const MoreProducts: React.FC<IMoreProductsProps> = ({
   allProducts,
   setAllProducts,
+  params,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -26,7 +28,7 @@ const MoreProducts: React.FC<IMoreProductsProps> = ({
   const handleMoreProducts = async () => {
     try {
       setLoading(true);
-      const newProducts = await getProducts(undefined, allProducts.length);
+      const newProducts = await getProducts(params, allProducts.length);
       if (newProducts.length < LIMIT) {
         setNoProducts(true);
       }

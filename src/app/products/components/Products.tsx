@@ -17,7 +17,7 @@ const Products = async ({ params }: { params: any }) => {
     products = { value: [], error: "There was an error, try again" };
   }
 
-  return <ProductsPage products={products} />;
+  return <ProductsPage products={products} params={params} />;
 };
 
 export default Products;
