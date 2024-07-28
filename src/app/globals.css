@@ -90,7 +90,7 @@ body::-webkit-scrollbar-track {
   }
 
   .carousel-bts:hover {
-    @apply bg-secondary;
+    @apply bg-secondary text-body;
   }
 }
 

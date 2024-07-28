@@ -2,6 +2,7 @@ export interface ICategory {
   id: number;
   name: string;
   image: string;
+  isProtected: boolean;
 }
 
 export interface IPaylaodCreateCategory {

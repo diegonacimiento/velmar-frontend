@@ -20,7 +20,7 @@ const Collection: React.FC<ICollection> = ({
   category,
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row">
+    <div className="flex flex-col sm:flex-row text-secondary">
       <figure className="max-w-520 min-w-screen sm:min-w-80 min-h-600p w-full p-6 sm:p-12">
         <Image
           className="w-full h-full object-cover"

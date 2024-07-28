@@ -55,7 +55,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center text-secondary">
       <div ref={containerImage} id="carousel" className="flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full max-w-88">
         {slides.map((slide, index) => (
           <div key={slide + index} className="relative flex flex-col justify-center p-2 sm:p-4 min-w-full snap-center">
@@ -80,9 +80,9 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
                   onLoad={handleLoading}
                 />
               </figure>
-              <h3 className="px-2 text-lg line-clamp-1 font-bold">
+              <p className="px-2 text-lg text-ellipsis overflow-hidden font-bold">
                 {products[index].name}
-              </h3>
+              </p>
               <h5 className="px-2 text-sm font-semibold">
                 $ {products[index].price}
               </h5>
@@ -95,6 +95,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
       <div className="flex">
         <button
           type="button"
+          title="Previous product"
           onClick={() => scrollSelector(true)}
           className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
         >
@@ -102,6 +103,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
         </button>
         <button
           type="button"
+          title="Next product"
           onClick={() => scrollSelector()}
           className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
         >

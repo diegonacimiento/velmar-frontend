@@ -16,11 +16,13 @@ export interface IProduct {
 
   categories: ICategory[];
 
-  createdAt: string;
+  isProtected: boolean;
 
-  updatedAt: string;
+  createdAt?: string;
 
-  deletedAt: string;
+  updatedAt?: string;
+
+  deletedAt?: string;
 }
 
 export interface IProductImage {
