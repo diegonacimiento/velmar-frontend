@@ -20,8 +20,8 @@ const Collection: React.FC<ICollection> = ({
   category,
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row text-secondary">
-      <figure className="max-w-520 min-w-screen sm:min-w-80 min-h-600p w-full p-6 sm:p-12">
+    <div className="flex flex-col items-center px-2 rd:flex-row text-secondary">
+      <figure className="max-w-520 min-w-screen rd:min-w-80 min-h-600p h-full w-full py-6 sm:p-9 rd:p-12">
         <Image
           className="w-full h-full object-cover"
           width={600}
@@ -30,7 +30,7 @@ const Collection: React.FC<ICollection> = ({
           alt={imageTitle}
         />
       </figure>
-      <div className="m-auto p-6 sm:p-12">
+      <div className="m-auto py-6 sm:p-9 rd:p-12">
         <h5 className="text-xs text-gray-500">{smallTitle}</h5>
         <h3 className="text-4xl font-semibold">{bigTitle}</h3>
         <p className="my-2 font-light">{description}</p>

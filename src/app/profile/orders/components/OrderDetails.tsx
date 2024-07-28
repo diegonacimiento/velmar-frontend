@@ -34,7 +34,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ id }) => {
             <h3>Products:</h3>
             {order?.products?.map((product) => (
               <div
-                key={product.id + product.size}
+                key={`${product.id} ${product.size}`}
                 className="p-2 border-b border-secondary border-opacity-50"
               >
                 <h3>- {product.name}</h3>

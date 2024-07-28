@@ -14,7 +14,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       scrollSelector();
-    }, 12000);
+    }, 6000);
     return () => clearInterval(interval);
   });
 
@@ -58,7 +58,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
     <div className="flex flex-col items-center text-secondary">
       <div ref={containerImage} id="carousel" className="flex overflow-x-scroll whitespace-nowrap overscroll-x-contain snap-mandatory snap-x scroll-smooth w-full max-w-88">
         {slides.map((slide, index) => (
-          <div key={slide + index} className="relative flex flex-col justify-center p-2 sm:p-4 min-w-full snap-center">
+          <div key={slide + index} className="relative flex flex-col items-center justify-center p-2 sm:p-4 min-w-full snap-center">
             <Link
               href={`/products/${products[index].id}`}
               className="flex flex-col gap-2 pb-4 rounded-xl shadow-md w-full max-w-80 overflow-hidden"
@@ -97,7 +97,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
           type="button"
           title="Previous product"
           onClick={() => scrollSelector(true)}
-          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
+          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105 active:text-body"
         >
           <FaAngleLeft />
         </button>
@@ -105,7 +105,7 @@ const Carousel = ({ products }: { products: IProduct[] }) => {
           type="button"
           title="Next product"
           onClick={() => scrollSelector()}
-          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105"
+          className="carousel-bts flex justify-center items-center p-4 m-4 h-14 w-14 bg-primary rounded-full duration-150 active:bg-secondary active:scale-105 active:text-body"
         >
           <FaAngleRight />
         </button>

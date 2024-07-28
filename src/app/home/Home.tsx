@@ -46,7 +46,7 @@ const Home = async () => {
         <h2 className="text-3xl font-semibold pt-24 px-12 text-center text-secondary md:px-24">
           Exclusive collections
         </h2>
-        <div className="flex flex-col md:flex-row max-w-2k m-auto">
+        <div className="flex flex-col rd:flex-row max-w-2k m-auto">
           <div className="w-full">
             <div className="max-w-1k m-auto md:ml-auto px-1 sm:px-6 pb-12 pt-24 md:py-24">
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium text-secondary">
@@ -67,12 +67,12 @@ const Home = async () => {
         </div>
       </section>
 
-      <section className="flex flex-col items-center px-6 py-24">
+      <section className="flex flex-col items-center py-24">
         <h2 className="text-3xl font-semibold text-center text-secondary">
           New Arrivals
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-7 px-4 py-24 max-w-2k">
+        <div className="flex flex-wrap justify-center gap-7 sm:px-4 py-24 max-w-2k">
           <ProductsList products={newArrivals} />
         </div>
 
