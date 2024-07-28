@@ -102,7 +102,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
 
         {/* Data */}
         <div className="flex flex-col gap-4 md:w-1/2 text-secondary">
-          {roleUser === "salesperson" && <OptionsButtons id={product.id} />}
+          {roleUser === "salesperson" || roleUser === "superadmin" && <OptionsButtons id={product.id} />}
 
           <h1 className="text-2xl font-bold line-clamp-2">{product.name}</h1>
           <p className="w-30 text-lg font-semibold">$ {product.price}</p>

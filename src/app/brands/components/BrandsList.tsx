@@ -24,7 +24,7 @@ const BrandsList: React.FC<IBrandsList> = ({ brands }) => {
         All brands
       </h2>
 
-      {roleUser === "salesperson" && (
+      {roleUser === "salesperson" || roleUser === "superadmin" && (
         <button
           type="button"
           title="Create brand"

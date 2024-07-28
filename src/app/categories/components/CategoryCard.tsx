@@ -84,7 +84,7 @@ const CategoryCard: React.FC<ICategoryCard> = ({ category }) => {
           <h2 className="p-2 text-lg font-bold">{category.name}</h2>
         </div>
       </Link>
-      {roleUser === "salesperson" && (
+      {roleUser === "salesperson" || roleUser === "superadmin" && (
         <>
           <div className="flex gap-2 p-2">
             <button

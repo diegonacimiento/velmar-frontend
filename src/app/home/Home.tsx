@@ -15,9 +15,12 @@ import {
   collectionImage2,
   collectionImage3,
 } from "./utils/links";
+import Link from "next/link";
 
 const Home = async () => {
   const products = await getProducts();
+  const menProducts = await getProducts({ categories: [4] });
+  const womenProducts = await getProducts({ categories: [5] });
 
   return (
     <div className="flex flex-col w-full leading-8">
@@ -30,6 +33,7 @@ const Home = async () => {
           smallTitle="Women"
           bigTitle="Romanoff collection"
           description={romanoffDescription}
+          category={6}
         />
 
         <Collection
@@ -38,6 +42,7 @@ const Home = async () => {
           smallTitle="Men"
           bigTitle="Rogers collection"
           description={rogersDescription}
+          category={7}
         />
       </section>
 
@@ -51,7 +56,7 @@ const Home = async () => {
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
                 Men collection
               </h3>
-              <Carousel products={products} />
+              <Carousel products={menProducts} />
             </div>
           </div>
 
@@ -60,7 +65,7 @@ const Home = async () => {
               <h3 className="text-2xl text-center sm:text-3xl mb-6 font-medium">
                 Women collection
               </h3>
-              <Carousel products={products} />
+              <Carousel products={womenProducts} />
             </div>
           </div>
         </div>
@@ -73,13 +78,15 @@ const Home = async () => {
           <ProductsList products={products} />
         </div>
 
-        <button
-          type="button"
-          title="See all products"
-          className="p-4 h-16 w-max bg-primary text-secondary hover:bg-secondary hover:text-primary hover:scale-105 duration-150"
-        >
-          See all products
-        </button>
+        <Link href="/products">
+          <button
+            type="button"
+            title="See all products"
+            className="p-4 h-16 w-max bg-primary text-secondary hover:bg-secondary hover:text-primary hover:scale-105 duration-150"
+          >
+            See all products
+          </button>
+        </Link>
       </section>
 
       <section className="flex w-full max-w-2k px-4 py-24 mb-24 m-auto bg-primary bg-opacity-35">
@@ -89,6 +96,7 @@ const Home = async () => {
           bigTitle="Materials designed for comfort and sustainability"
           description={shoesDescription}
           imageTitle="Shoes"
+          category={3}
         />
       </section>
     </div>

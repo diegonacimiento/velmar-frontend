@@ -18,4 +18,4 @@ export interface IContext {
   deleteAllCart: () => void;
 }
 
-export type TRole = "customer" | "salesperson" | null;
+export type TRole = "customer" | "salesperson" | "superadmin" | null;

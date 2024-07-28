@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ICollection {
   imageUrl: string;
@@ -7,6 +8,7 @@ interface ICollection {
   smallTitle: string;
   bigTitle: string;
   description: string;
+  category?: number;
 }
 
 const Collection: React.FC<ICollection> = ({
@@ -15,6 +17,7 @@ const Collection: React.FC<ICollection> = ({
   smallTitle,
   bigTitle,
   description,
+  category,
 }) => {
   return (
     <div className="flex flex-col sm:flex-row">
@@ -31,13 +34,15 @@ const Collection: React.FC<ICollection> = ({
         <h5 className="text-xs text-gray-500">{smallTitle}</h5>
         <h3 className="text-4xl font-semibold">{bigTitle}</h3>
         <p className="my-2 font-light">{description}</p>
-        <button
-          type="button"
-          title="See Romanoff collection"
-          className="p-4 my-4 h-16 w-max  font-medium text-primary bg-secondary rounded-sm hover:scale-110 hover:bg-primary hover:text-secondary duration-150"
-        >
-          See collection
-        </button>
+        <Link href={`/products?categories=${category}`}>
+          <button
+            type="button"
+            title="See Romanoff collection"
+            className="p-4 my-4 h-16 w-max  font-medium text-primary bg-secondary rounded-sm hover:scale-110 hover:bg-primary hover:text-secondary duration-150"
+          >
+            See collection
+          </button>
+        </Link>
       </div>
     </div>
   );

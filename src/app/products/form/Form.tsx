@@ -67,7 +67,7 @@ const Form: React.FC<IFormProps> = ({ product, brands, categories }) => {
           return;
         }
         await updateProduct(product.id, updatePayload);
-        router.push(`/products/${product.id}`);
+        router.replace(`/products/${product.id}`);
         router.refresh();
       } else {
         await createProduct(finalPayload);

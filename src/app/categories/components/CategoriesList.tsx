@@ -24,7 +24,7 @@ const CategoriesList: React.FC<ICategoriesList> = ({ categories }) => {
         All categories
       </h2>
 
-      {roleUser === "salesperson" && (
+      {roleUser === "salesperson" || roleUser === "superadmin" && (
         <button
           type="button"
           title="Create category"

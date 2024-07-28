@@ -55,7 +55,7 @@ const CartPage = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center gap-8 my-4">
-          {roleUser === "salesperson" && (
+          {roleUser === "salesperson" || roleUser === "superadmin" && (
             <h2 className="p-4 rounded-md text-2xl my-4">
               To simulate a purchase, add products to the cart
             </h2>

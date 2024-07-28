@@ -79,7 +79,7 @@ const BrandCard: React.FC<IBrandCard> = ({ brand }) => {
           </div>
         </div>
       </Link>
-      {roleUser === "salesperson" && (
+      {roleUser === "salesperson" || roleUser === "superadmin" && (
         <>
           <div className="flex gap-2 p-2">
             <button
