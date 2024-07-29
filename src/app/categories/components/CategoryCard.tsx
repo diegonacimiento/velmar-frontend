@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaPencilAlt } from "react-icons/fa";
-import { MdDelete, MdErrorOutline } from "react-icons/md";
+import { MdDelete, MdErrorOutline, MdOutlineSecurity } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 import { ICategory } from "@/types/categories";
@@ -20,6 +20,9 @@ const CategoryCard: React.FC<ICategoryCard> = ({ category }) => {
 
   const [msgDelete, setMsgDelete] = useState<string>("");
   const [msgError, setMsgError] = useState<string>("");
+  const [disabledBt, setDisabledBt] = useState<boolean>(
+    category.isProtected && roleUser !== "superadmin"
+  );
 
   const goToUpdateCategory = (id: number) => {
     router.push(`/categories/update/${id}`);
@@ -81,17 +84,23 @@ const CategoryCard: React.FC<ICategoryCard> = ({ category }) => {
             height={960}
             width={1170}
           />
-          <h2 className="p-2 text-lg font-bold">{category.name}</h2>
+          <h2 className="p-4 text-lg font-bold">{category.name}</h2>
         </div>
       </Link>
       {(roleUser === "salesperson" || roleUser === "superadmin") && (
         <>
-          <div className="flex gap-2 p-2">
+          <div className="flex gap-2 p-4">
             <button
               type="button"
               title="Update category"
               onClick={() => goToUpdateCategory(category.id)}
-              className="text-lg hover:scale-110 duration-150"
+              disabled={disabledBt}
+              className={
+                "text-lg " +
+                (disabledBt
+                  ? "cursor-not-allowed opacity-30 "
+                  : "hover:scale-110 duration-150")
+              }
             >
               <FaPencilAlt />
             </button>
@@ -99,10 +108,23 @@ const CategoryCard: React.FC<ICategoryCard> = ({ category }) => {
               type="button"
               title="Delete category"
               onClick={handleDeleteCategory}
-              className="text-2xl text-red-600 hover:scale-110 duration-150"
+              disabled={disabledBt}
+              className={
+                "text-2xl text-red-600 " +
+                (disabledBt
+                  ? "cursor-not-allowed opacity-30 "
+                  : "hover:scale-110 duration-150")
+              }
             >
               <MdDelete />
             </button>
+            {(category.isProtected) && (
+              <div className="ml-auto flex gap-1 items-center justify-center w-max text-xs">
+                <MdOutlineSecurity />
+
+                <p>Protected by administrator</p>
+              </div>
+            )}
           </div>
           <p className="flex justify-center items-center gap-1 p-2 text-red-600">
             {msgError && (

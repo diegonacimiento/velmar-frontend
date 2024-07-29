@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
-import { MdDelete, MdErrorOutline } from "react-icons/md";
+import { MdDelete, MdErrorOutline, MdOutlineSecurity } from "react-icons/md";
 
 import { IBrand } from "@/types/brands";
 import { deleteBrand } from "@/services/brands.service";
@@ -19,6 +19,9 @@ const BrandCard: React.FC<IBrandCard> = ({ brand }) => {
 
   const [msgDelete, setMsgDelete] = useState<string>("");
   const [msgError, setMsgError] = useState<string>("");
+  const [disabledBt, setDisabledBt] = useState<boolean>(
+    brand.isProtected && roleUser !== "superadmin"
+  );
 
   const goToUpdateBrand = (id: number) => {
     router.push(`/brands/update/${id}`);
@@ -86,7 +89,12 @@ const BrandCard: React.FC<IBrandCard> = ({ brand }) => {
               type="button"
               title="Update brand"
               onClick={() => goToUpdateBrand(brand.id)}
-              className="text-lg hover:scale-110 duration-150"
+              className={
+                "text-lg " +
+                (disabledBt
+                  ? "cursor-not-allowed opacity-30 "
+                  : "hover:scale-110 duration-150")
+              }
             >
               <FaPencilAlt />
             </button>
@@ -94,10 +102,22 @@ const BrandCard: React.FC<IBrandCard> = ({ brand }) => {
               type="button"
               title="Delete brand"
               onClick={handleDeleteBrand}
-              className="text-2xl text-red-600 hover:scale-110 duration-150"
+              className={
+                "text-2xl text-red-600 " +
+                (disabledBt
+                  ? "cursor-not-allowed opacity-30 "
+                  : "hover:scale-110 duration-150")
+              }
             >
               <MdDelete />
             </button>
+            {brand.isProtected && (
+              <div className="ml-auto flex gap-1 items-center justify-center w-max text-xs">
+                <MdOutlineSecurity />
+
+                <p>Protected by administrator</p>
+              </div>
+            )}
           </div>
           <p className="flex justify-center items-center gap-1 p-2 text-red-600">
             {msgError && (

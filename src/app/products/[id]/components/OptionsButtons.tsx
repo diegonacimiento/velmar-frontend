@@ -72,7 +72,7 @@ const OptionsButtons: React.FC<IOptionsButtons> = ({
             disabled={disabledBt}
             className={
               "border-2 border-primary p-3 w-20 bg-primary rounded-lg text-lg font-semibold text-secondary hover:scale-105 hover:bg-secondary hover:text-primary duration-150 " +
-              (disabledBt && "cursor-not-allowed opacity-40")
+              (disabledBt && "cursor-not-allowed opacity-30")
             }
           >
             Yes
@@ -92,7 +92,7 @@ const OptionsButtons: React.FC<IOptionsButtons> = ({
           className={
             "border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body " +
             (disabledBt
-              ? "cursor-not-allowed opacity-40 "
+              ? "cursor-not-allowed opacity-30 "
               : " hover:scale-105 hover:bg-primary hover:text-secondary duration-150")
           }
           onClick={goUpdateProduct}
@@ -106,7 +106,7 @@ const OptionsButtons: React.FC<IOptionsButtons> = ({
           className={
             "border-2 border-red-700 p-3 bg-red-700 rounded-lg text-lg font-semibold text-body " +
             (disabledBt
-              ? "cursor-not-allowed opacity-40 "
+              ? "cursor-not-allowed opacity-30 "
               : " hover:scale-105 hover:bg-red-300 hover:text-secondary duration-150")
           }
           onClick={handleButtonDelete}
