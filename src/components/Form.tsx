@@ -108,7 +108,7 @@ const Form: React.FC<FormProps> = ({
           <label
             htmlFor={`input-${field.label.toLowerCase()}`}
             className={`px-1 text-sm font-light ${
-              field.hasError ? "input-error" : ""
+              field.hasError || fields[index].hasError ? "input-error" : ""
             }`}
           >
             {field.label + (field.isOptional ? " (optional)" : "")}
@@ -125,7 +125,7 @@ const Form: React.FC<FormProps> = ({
               onClick={toogleSetAddress}
               autoComplete="on"
               className={`border rounded-lg border-secondary p-1.5 my-1 w-full cursor-pointer focus:outline-offset-1 focus:outline-1 focus:outline-body ${
-                field.hasError ? "input-error" : ""
+                field.hasError || fields[index].hasError ? "input-error" : ""
               }`}
             />
           ) : (
@@ -147,7 +147,7 @@ const Form: React.FC<FormProps> = ({
                   handleFieldChange(index, e.currentTarget.value)
                 }
                 className={`border rounded-lg border-secondary p-1.5 my-1 w-full focus:outline-offset-1 focus:outline-1 focus:outline-body ${
-                  field.hasError ? "input-error" : ""
+                  field.hasError || fields[index].hasError ? "input-error" : ""
                 }`}
                 autoComplete={"on"}
               />
@@ -175,7 +175,7 @@ const Form: React.FC<FormProps> = ({
           )}
 
           <p className="px-1 min-h-4 text-justify text-xs text-red-600">
-            {field.hasError}
+            {field.hasError || fields[index].hasError}
           </p>
         </div>
       ))}

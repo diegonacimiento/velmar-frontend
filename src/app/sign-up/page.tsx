@@ -24,10 +24,14 @@ const SignUp = () => {
 
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [usernameError, setUsernameError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
 
   const handleSubmit = async (formData: IFormDataCreateUser) => {
     try {
       setError("");
+      setUsernameError("");
+      setEmailError("");
       setLoading(true);
       const payload = preparedPayload(formData);
       await createUser(payload);
@@ -47,17 +51,17 @@ const SignUp = () => {
         )
       ) {
         setError("Username not available. Please try another one.");
-      }
-      else if (
+        setUsernameError("Username not available. Please try another one.");
+      } else if (
         error?.response?.data?.message.includes(
           `Key (email)=(${formData.email}) already exists.`
         )
       ) {
         setError("Email not available. Please try another one.");
+        setEmailError("Email not available. Please try another one.");
       } else {
-        setError("A problem occurred, please try again or contact support")
+        setError("A problem occurred, please try again or contact support");
       }
-      
     } finally {
       setLoading(false);
     }
@@ -73,6 +77,7 @@ const SignUp = () => {
             label: "Username",
             type: "text",
             value: "",
+            hasError: usernameError,
           },
           {
             label: "Fullname",
@@ -83,6 +88,7 @@ const SignUp = () => {
             label: "Email",
             type: "email",
             value: "",
+            hasError: emailError,
           },
           {
             label: "Password",
