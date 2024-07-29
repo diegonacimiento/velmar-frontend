@@ -49,7 +49,7 @@ const ProductsPage: React.FC<IProductsPage> = ({ products, params }) => {
     <div className="flex flex-col p-4">
       <Filters handleSelectedSort={handleSelectedSort} />
 
-      {roleUser === "salesperson" || roleUser === "superadmin" && (
+      {(roleUser === "salesperson" || roleUser === "superadmin") && (
         <button
           type="button"
           title="Create product"
