@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { jwtVerify } from "jose";
-import { decode } from "jsonwebtoken";
+import { jwtVerify, decodeJwt } from "jose";
 
 const matcherAuth = ["/sign-in", "/sign-up"];
 
@@ -36,7 +35,7 @@ export const middleware = async (request: NextRequest) => {
       new TextEncoder().encode(process.env.JWT_SECRET)
     );
 
-    const { role }: any = decode(token.value);
+    const { role }: any = decodeJwt(token.value);
 
     // Protección de rutas por roles
     if (
