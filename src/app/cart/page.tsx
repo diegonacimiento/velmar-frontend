@@ -33,7 +33,7 @@ const CartPage = () => {
                 item={item}
                 cart={cart}
                 setCart={setCart}
-                key={item.id + item.size}
+                key={`${item.id} ${item.size}`}
               />
             ))}
           </section>
