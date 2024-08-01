@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { MdErrorOutline } from "react-icons/md";
+import { MdDelete, MdErrorOutline } from "react-icons/md";
 
 import Data from "./Data";
 import { getUser } from "@/services/users.service";
@@ -50,6 +50,20 @@ const Profile = () => {
           className="font-medium text-sm hover:underline"
         >
           Change password
+        </Link>
+      </div>
+
+      <div className="flex items-center gap-2 flex-wrap">
+        <p className="text-gray-400 text-sm font-medium">
+          Do you want to delete your account?
+        </p>
+
+        <Link
+          href="/profile/delete-account"
+          className="flex items-center gap-1 font-medium text-sm text-red-600 hover:underline"
+        >
+          <MdDelete />
+          Delete my account
         </Link>
       </div>
     </div>

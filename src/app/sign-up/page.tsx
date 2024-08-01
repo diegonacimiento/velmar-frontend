@@ -26,6 +26,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
+  const [fullnameError, setFullnameError] = useState<string>("");
 
   const handleSubmit = async (formData: IFormDataCreateUser) => {
     try {
@@ -59,6 +60,13 @@ const SignUp = () => {
       ) {
         setError("Email not available. Please try another one.");
         setEmailError("Email not available. Please try another one.");
+      } else if (
+        error?.response?.data?.message.includes(
+          "fullname must be longer than or equal to 4 characters"
+        )
+      ) {
+        setError("Fullname must contain at least 4 characters");
+        setFullnameError("Fullname must contain at least 4 characters");
       } else {
         setError("A problem occurred, please try again or contact support");
       }
@@ -83,6 +91,7 @@ const SignUp = () => {
             label: "Fullname",
             type: "text",
             value: "",
+            hasError: fullnameError,
           },
           {
             label: "Email",

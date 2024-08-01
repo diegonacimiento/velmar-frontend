@@ -1,8 +1,6 @@
 import axios from "axios";
 
-import { ICart } from "@/types/cart.types";
-
-export const getCart = async (): Promise<ICart> => {
+export const getCart = async () => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.get(
