@@ -77,7 +77,13 @@ export interface IProductFields {
 export interface IPayloadCreateProduct
   extends Omit<
     IProduct,
-    "id" | "createdAt" | "updatedAt" | "deletedAt" | "brand" | "categories"
+    | "id"
+    | "createdAt"
+    | "updatedAt"
+    | "deletedAt"
+    | "brand"
+    | "categories"
+    | "isProtected"
   > {
   brandId: number | null;
   categoriesIds: number[];
