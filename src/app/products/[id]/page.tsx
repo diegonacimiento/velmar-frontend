@@ -8,7 +8,14 @@ import ProductDetails from "./components/ProductDetails";
 const page = async ({ params: { id } }: { params: { id: number } }) => {
   const product = await getProduct(id);
 
-  const products = (await getProducts(undefined, 0, 4)).filter(
+  const categoriesIds = product.categories.map((category) => category.id);
+
+  const filters =
+    categoriesIds.length > 0
+      ? { categories: [categoriesIds[categoriesIds.length - 1]] }
+      : undefined;
+
+  const products = (await getProducts(filters, 0, 4)).filter(
     (item) => item.id !== product.id
   );
 

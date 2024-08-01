@@ -140,6 +140,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
             {images.currentImage.sizes.map((size) => (
               <div
                 key={size}
+                translate="no"
                 onClick={() => handleSelectSize(size)}
                 className={
                   "relative flex justify-center items-center rounded-full h-10 w-10 cursor-pointer text-sm border-2 border-body hover:bg-body duration-150 " +
