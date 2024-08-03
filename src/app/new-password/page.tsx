@@ -8,7 +8,7 @@ import { newPassord } from "@/services/auth.service";
 import { INewPassword } from "@/types/auth";
 import TokenExpired from "./components/TokenExpired";
 import TokenAlreadyUsed from "./components/TokenAlreadyUsed";
-import ErrorMessage from "./components/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const NewPasswordPage = () => {
   const router = useRouter();
