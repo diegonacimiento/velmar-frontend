@@ -4,10 +4,14 @@ import { useRouter } from "next/navigation";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 
-const Search: React.FC = () => {
+interface ISearch {
+  name?: string;
+}
+
+const Search: React.FC<ISearch> = ({ name }) => {
   const router = useRouter();
 
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(name || "");
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);

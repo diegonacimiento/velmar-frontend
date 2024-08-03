@@ -1,7 +1,5 @@
 import React, { Suspense } from "react";
 
-import Search from "./components/Search";
-import LoadingProducts from "./components/LoadingProducts";
 import Products from "./components/Products";
 import LoadingPage from "./components/LoadingPage";
 
@@ -10,7 +8,14 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <div className="flex flex-col py-4 w-full">
-      <Suspense key={searchKey} fallback={<LoadingPage />}>
+      <Suspense
+        key={searchKey}
+        fallback={
+          <div className="flex justify-center w-full">
+            <LoadingPage />
+          </div>
+        }
+      >
         <Products params={searchParams} />
       </Suspense>
     </div>

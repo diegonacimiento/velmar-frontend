@@ -43,7 +43,7 @@ const Products = ({ params }: { params: any }) => {
 
   return (
     <>
-      <Search />
+      <Search name={params.name} />
       <ProductsPage products={products} params={params} />;
     </>
   );
