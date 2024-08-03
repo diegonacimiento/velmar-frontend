@@ -7,7 +7,10 @@ const LoadingPage = () => {
     <div className="flex flex-col items-center py-6 w-full max-w-2k">
       <div className="m-3 w-11/12 max-w-650">
         <div className="h-[2.625rem] w-full rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
-        <div className="sm:hidden my-2 h-[2.5625rem] w-30 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
+        <div className="flex justify-center gap-2 sm:gap-8 mt-4">
+          <div className="my-2 h-[2.5625rem] w-30 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
+          <div className="my-2 h-[2.5625rem] w-30 rounded-xl bg-secondary bg-opacity-35 animate-pulse"></div>
+        </div>
       </div>
 
       <div className="p-4 w-full">
