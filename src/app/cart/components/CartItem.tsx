@@ -15,12 +15,14 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item, cart, setCart }) => {
-  const { id, name, price, quantity, size, images, brand } = item;
+  const { id, name, price, quantity, size, images, brand, color } = item;
+
+  const indexImageColor = images.findIndex((image) => image.color === color);
 
   const handleRemove = () => {
     if (quantity > 1) {
       const index = cart.findIndex(
-        (item) => item.id === id && item.size === size
+        (item) => item.id === id && item.size === size && item.color === color
       );
       const copyItems: ICartItem[] = copyData(cart);
       copyItems[index].quantity--;
@@ -31,7 +33,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, cart, setCart }) => {
 
   const handleAdd = () => {
     const index = cart.findIndex(
-      (item) => item.id === id && item.size === size
+      (item) => item.id === id && item.size === size && item.color === color
     );
     const copyItems: ICartItem[] = copyData(cart);
     copyItems[index].quantity++;
@@ -41,7 +43,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, cart, setCart }) => {
 
   const handleDeleteProduct = () => {
     const index = cart.findIndex(
-      (item) => item.id === id && item.size === size
+      (item) => item.id === id && item.size === size && item.color === color
     );
     const copyItems: ICartItem[] = copyData(cart);
     copyItems.splice(index, 1);
@@ -56,7 +58,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, cart, setCart }) => {
     >
       <figure className="min-h-32 min-w-20 w-full sm:h-52">
         <Image
-          src={images[0].urls[0]}
+          src={images[indexImageColor].urls[0]}
           alt={name}
           height={80}
           width={80}

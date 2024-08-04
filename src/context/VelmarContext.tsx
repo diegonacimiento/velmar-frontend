@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { IContext, TRole } from "@/types/context";
-import { IProduct, Size } from "@/types/products";
+import { IProduct, IProductImage, Size } from "@/types/products";
 import { ICartItem } from "@/types/cart.types";
 import { CART_STORAGE_NAME } from "@/utils/constants";
 
@@ -30,14 +30,15 @@ export const VelmarContextProvider = ({
   const addProductToCart = (
     product: IProduct,
     quantity: number,
-    size: Size
+    size: Size,
+    color: IProductImage["color"]
   ) => {
     const cartStorage: ICartItem[] = JSON.parse(
       window.localStorage.getItem(CART_STORAGE_NAME) || "[]"
     );
 
     const index = cartStorage.findIndex(
-      (e) => e.id === product.id && e.size === size
+      (e) => e.id === product.id && e.size === size && e.color === color
     );
 
     if (index !== -1) {
@@ -45,7 +46,16 @@ export const VelmarContextProvider = ({
     } else {
       const { id, name, price, images, brand } = product;
 
-      cartStorage.push({ id, name, price, images, brand, quantity, size });
+      cartStorage.push({
+        id,
+        name,
+        price,
+        images,
+        brand,
+        quantity,
+        size,
+        color,
+      });
     }
 
     window.localStorage.setItem(CART_STORAGE_NAME, JSON.stringify(cartStorage));

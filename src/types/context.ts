@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { IProduct, Size } from "./products";
+import { IProduct, IProductImage, Size } from "./products";
 import { ICartItem } from "./cart.types";
 
 export interface IContext {
@@ -14,7 +14,12 @@ export interface IContext {
   updateProducts: (products: IProduct[]) => void;
   cart: ICartItem[] | undefined;
   setCart: Dispatch<SetStateAction<ICartItem[] | undefined>>;
-  addProductToCart: (product: IProduct, quantity: number, size: Size) => void;
+  addProductToCart: (
+    product: IProduct,
+    quantity: number,
+    size: Size,
+    color: IProductImage["color"]
+  ) => void;
   deleteAllCart: () => void;
 }
 

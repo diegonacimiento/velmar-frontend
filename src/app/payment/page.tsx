@@ -66,14 +66,18 @@ const PaymentPage = () => {
         ) : (
           <>
             <h3 className="text-xl font-semibold">Order summary:</h3>
-            {cart?.map(({ id, name, price, quantity, size }) => (
+            {cart?.map(({ id, name, price, quantity, size, color }) => (
               <div
                 className="border-b border-secondary m-4"
-                key={`${id} ${size}`}
+                key={`${id} ${size} ${color}`}
               >
                 <div className="flex flex-col">
                   <h4 className="font-semibold text-lg my-4">{name}</h4>
                   <span className="mb-4">Size: {size}</span>
+                  <span
+                    style={{ backgroundColor: color }}
+                    className="mb-4 h-3 w-3 rounded-full"
+                  ></span>
                   <span className="mb-4">x {quantity}</span>
                   <span className="font-semibold">${price}</span>
                 </div>

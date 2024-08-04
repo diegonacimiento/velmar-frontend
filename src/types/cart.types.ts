@@ -1,5 +1,5 @@
 import { IBrand } from "./brands";
-import { IProduct, Size } from "./products";
+import { IProduct, IProductImage, Size } from "./products";
 
 export interface ICartItem {
   id: number;
@@ -9,4 +9,5 @@ export interface ICartItem {
   price: string;
   images: IProduct["images"];
   brand: IBrand | null;
+  color: IProductImage["color"];
 }

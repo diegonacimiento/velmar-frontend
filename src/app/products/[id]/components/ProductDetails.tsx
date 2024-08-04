@@ -56,7 +56,12 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
     }
     if (selectedSize) {
       setBtIsChecked(true);
-      addProductToCart(product, quantity, selectedSize);
+      addProductToCart(
+        product,
+        quantity,
+        selectedSize,
+        images.currentImage.color
+      );
       setAmount(1);
       setTimeout(() => {
         setBtIsChecked(false);

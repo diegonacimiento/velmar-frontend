@@ -1,5 +1,5 @@
 import { IBrand } from "./brands";
-import { Size } from "./products";
+import { IProductImage, Size } from "./products";
 import { IUser } from "./user";
 
 export interface IOrder {
@@ -15,6 +15,7 @@ export interface IOrder {
           price: string;
           quantity: number;
           size: Size;
+          color: IProductImage["color"];
           brand: IBrand;
         }
       ]
