@@ -1,4 +1,4 @@
-# Velmar-backend
+# Velmar-frontend
 Welcome to my fictional ecommerce site, designed to showcase my web development skills using modern technologies such as Next.js, TypeScript, and Tailwind CSS. The app allows users to browse and filter a wide variety of products, simulate purchases, register and manage their profiles, and view their order history. Additionally, users can register as sellers to create, edit, and delete products, categories, and brands. This project demonstrates my ability to develop intuitive and functional user interfaces and manage business logic in an ecommerce environment.
 
 [Documentación en español](README-es.md)
