@@ -13,7 +13,7 @@ const LoadingProducts = ({ length }: { length?: number }) => {
           >
             <figure
               className={
-                "relative w-full duration-150 h-80 bg-secondary bg-opacity-35 animate-pulse "
+                "relative w-full duration-150 h-96 bg-secondary bg-opacity-35 animate-pulse "
               }
             ></figure>
             <div className="flex flex-col gap-6 w-full">

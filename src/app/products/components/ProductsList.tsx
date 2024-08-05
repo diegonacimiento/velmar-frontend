@@ -27,7 +27,7 @@ const ProductsList: React.FC<IProductsListProps> = ({ products }) => {
               height={960}
               width={1170}
             />
-            <h2 className="p-2 text-lg font-bold text-ellipsis overflow-hidden">
+            <h2 className="p-2 text-lg font-bold line-clamp-1 text-ellipsis overflow-hidden">
               {product.name}
             </h2>
             <h2 className="p-2 text-sm font-semibold">$ {product.price}</h2>
