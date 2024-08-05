@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Velmar-backend
+Welcome to my fictional ecommerce site, designed to showcase my web development skills using modern technologies such as Next.js, TypeScript, and Tailwind CSS. The app allows users to browse and filter a wide variety of products, simulate purchases, register and manage their profiles, and view their order history. Additionally, users can register as sellers to create, edit, and delete products, categories, and brands. This project demonstrates my ability to develop intuitive and functional user interfaces and manage business logic in an ecommerce environment.
 
-## Getting Started
+[Documentación en español](README-es.md)
 
-First, run the development server:
+## Table of contents
+- [Clone the project](#clone-the-project)
+- [Dependency installation](#dependency-installation)
+- [Environment variables](#environment-variables)
+- [Starting the project](#Starting-the-project)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+***
+
+## Clone the project
+To get started, you'll need to clone the project repository into your desired directory. Use the following command:
+
+```git clone https://github.com/diegonacimiento/velmar-frontend.git```
+
+
+***
+
+## Dependency installation
+To install the necessary dependencies for Velmar, run the following command:
+
+``` npm install ```
+
+***
+
+## Environment variables
+Velmar relies on some environment variables. You should create a ".env" file in the project's root directory and define these variables. Here's an example of a ".env" file with explanations:
+```
+COOKIE_NAME=""
+API_KEY=""
+JWT_SECRET=""
+NEXT_PUBLIC_API_KEY=""
+NEXT_PUBLIC_URL=""
+NEXT_PUBLIC_PROPERTY_HEADER=""
+NEXT_PUBLIC_COOKIE_NAME=""
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- You must configure your own chosen API_KEY.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- JWT_SECRET should have unique keys. You can generate them [here](https://keygen.io/#fakeLink/).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+***
 
-## Learn More
+# Starting the project
+To start the project, use the following command:
 
-To learn more about Next.js, take a look at the following resources:
+```npm run dev```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This command will launch the app, and you can begin using it as intended.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+***
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This documentation should provide you with the necessary information to set up and use velmar-frontend. If you have more questions or encounter issues, feel free to request assistance.
