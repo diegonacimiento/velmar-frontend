@@ -31,6 +31,8 @@ const SignIn = () => {
       console.error(err);
       if (err.response?.status === 401) {
         setError("Email or password incorrect");
+      } else {
+        setError("An error occurred, please try again later");
       }
     }
   };
