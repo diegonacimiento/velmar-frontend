@@ -20,7 +20,7 @@ export const mainColors = [
   "white", // Blanco
   "yellow", // Amarillo
   "#af9f8c", // Cremita
-  "#9a5b3a" // Marrón claro
+  "#9a5b3a", // Marrón claro
 ];
 
 export const allSizes: Size[] = [
@@ -54,14 +54,3 @@ export const orderSizes = (sizes: Size[]) => {
     return positionSize[a] - positionSize[b];
   });
 };
-
-export const categoriesList = ["Unknown", "T-Shirt", "Shoes", "Men", "Women"];
-
-export const brandsList = [
-  "Unknown",
-  "Nike",
-  "Adidas",
-  "Puma",
-  "OCN",
-  "Calvin Klein",
-];

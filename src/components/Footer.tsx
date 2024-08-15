@@ -15,16 +15,16 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex justify-center sm:gap-3 p-10">
-          <a className={aStyles} href={linkedin}>
+          <a target="_blank" className={aStyles} href={linkedin}>
             <FaLinkedin />
           </a>
-          <a className={aStyles} href={twitter}>
+          <a target="_blank" className={aStyles} href={twitter}>
             <FaTwitter />
           </a>
-          <a className={aStyles} href={portfolio}>
+          <a target="_blank" className={aStyles} href={portfolio}>
             <FaBriefcase />
           </a>
-          <a className={aStyles} href={cv}>
+          <a target="_blank" className={aStyles} href={cv}>
             <FaSheetPlastic />
           </a>
         </div>
