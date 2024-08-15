@@ -29,11 +29,16 @@ To install the necessary dependencies for Velmar, run the following command:
 ## Environment variables
 Velmar relies on some environment variables. You should create a ".env" file in the project's root directory and define these variables. Here's an example of a ".env" file with explanations:
 ```
+BACKEND_URL=""
+FRONTEND_URL=""
 COOKIE_NAME=""
+PROPERTY_HEADER=""
 API_KEY=""
 JWT_SECRET=""
+NODE_ENV=""
 NEXT_PUBLIC_API_KEY=""
-NEXT_PUBLIC_URL=""
+NEXT_PUBLIC_BACKEND_URL=""
+NEXT_PUBLIC_FRONTEND_URL=""
 NEXT_PUBLIC_PROPERTY_HEADER=""
 NEXT_PUBLIC_COOKIE_NAME=""
 ```

@@ -29,11 +29,16 @@ Para instalar las dependencias necesarias para Velmar, ejecute el siguiente coma
 ## Variables de entorno
 Velmar depende de algunas variables de entorno. Debe crear un archivo ".env" en el directorio raíz del proyecto y definir estas variables. Aquí hay un ejemplo de un archivo ".env" con explicaciones:
 ```
+BACKEND_URL=""
+FRONTEND_URL=""
 COOKIE_NAME=""
+PROPERTY_HEADER=""
 API_KEY=""
 JWT_SECRET=""
+NODE_ENV=""
 NEXT_PUBLIC_API_KEY=""
-NEXT_PUBLIC_URL=""
+NEXT_PUBLIC_BACKEND_URL=""
+NEXT_PUBLIC_FRONTEND_URL=""
 NEXT_PUBLIC_PROPERTY_HEADER=""
 NEXT_PUBLIC_COOKIE_NAME=""
 ```
