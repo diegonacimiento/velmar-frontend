@@ -99,6 +99,9 @@ export const deleteUser = async () => {
         withCredentials: true,
       }
     );
+
+    await axios.get(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/sign-out`);
+
     return response.data;
   } catch (error) {
     console.error(error);
