@@ -10,7 +10,7 @@ export const getOrders = async (
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/orders?offset=${offset}&limit=${limit}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders?offset=${offset}&limit=${limit}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -28,7 +28,7 @@ export const getOrders = async (
 export const getOrder = async (id: number): Promise<IOrder> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/orders/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -48,7 +48,7 @@ export const createOrder = async (payload: any): Promise<IOrder> => {
 
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/orders`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders`,
       payload,
       {
         headers: {

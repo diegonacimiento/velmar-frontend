@@ -11,7 +11,7 @@ export const getUser = async (): Promise<IUser> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/users/profile`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/profile`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -32,7 +32,7 @@ export const createUser = async (
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/users`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
       payload,
       {
         headers: {
@@ -51,7 +51,7 @@ export const updateUser = async (payload: IPayloadUpdateUser) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/users`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
       payload,
       {
         headers: {
@@ -71,7 +71,7 @@ export const updatePassword = async (payload: IPayloadUpdatePassword) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/users/update-my-password`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/update-my-password`,
       payload,
       {
         headers: {
@@ -91,7 +91,7 @@ export const deleteUser = async () => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_URL}/users`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,

@@ -9,7 +9,7 @@ import {
 export const getCategories = async (): Promise<ICategory[]> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/categories`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -26,7 +26,7 @@ export const getCategories = async (): Promise<ICategory[]> => {
 export const getCategory = async (id: string): Promise<ICategory> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/categories/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -43,7 +43,7 @@ export const getCategory = async (id: string): Promise<ICategory> => {
 export const createCategory = async (payload: IPaylaodCreateCategory) => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/categories`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories`,
       payload,
       {
         headers: {
@@ -65,7 +65,7 @@ export const updateCategory = async (
 ): Promise<ICategory> => {
   try {
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/categories/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories/${id}`,
       payload,
       {
         headers: {
@@ -85,7 +85,7 @@ export const deleteCategory = async (id: number) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_URL}/categories/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,

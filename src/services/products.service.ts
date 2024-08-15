@@ -34,7 +34,7 @@ export const getProducts = async (
       : `?offset=${offset || 0}&limit=${limit || LIMIT}`;
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products${queryParams}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products${queryParams}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -52,7 +52,7 @@ export const getProduct = async (id: number): Promise<IProduct> => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -70,7 +70,7 @@ export const createProduct = async (payload: IPayloadCreateProduct) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/products`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products`,
       payload,
       {
         headers: {
@@ -92,7 +92,7 @@ export const updateProduct = async (
 ) => {
   try {
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${id}`,
       payload,
       {
         headers: {
@@ -112,7 +112,7 @@ export const deleteProduct = async (id: number) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_URL}/products/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,

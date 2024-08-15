@@ -8,7 +8,7 @@ import {
 
 export const getBrands = async (): Promise<IBrand[]> => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/brands`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/brands`, {
       headers: {
         "api-key": process.env.NEXT_PUBLIC_API_KEY,
       },
@@ -23,7 +23,7 @@ export const getBrands = async (): Promise<IBrand[]> => {
 export const getBrand = async (id: string): Promise<IBrand> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/brands/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/brands/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
@@ -40,7 +40,7 @@ export const getBrand = async (id: string): Promise<IBrand> => {
 export const createBrand = async (payload: IPayloadCreateBrand) => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/brands`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/brands`,
       payload,
       {
         headers: {
@@ -62,7 +62,7 @@ export const updateBrand = async (
 ): Promise<IBrand> => {
   try {
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/brands/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/brands/${id}`,
       payload,
       {
         headers: {
@@ -82,7 +82,7 @@ export const deleteBrand = async (id: number) => {
   // await new Promise<void>((resolve) => setTimeout(resolve, 5000))
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_URL}/brands/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/brands/${id}`,
       {
         headers: {
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
