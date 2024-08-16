@@ -37,7 +37,7 @@ const Collection: React.FC<ICollection> = ({
         <Link href={`/products?categories=${category}`}>
           <button
             type="button"
-            title="See Romanoff collection"
+            title="See collection"
             className="p-4 my-4 h-16 w-max  font-medium text-primary bg-secondary rounded-sm hover:scale-110 hover:bg-primary hover:text-secondary duration-150"
           >
             See collection

@@ -90,7 +90,7 @@ const Home = async () => {
       <section className="flex w-full max-w-2k px-4 py-24 mb-24 m-auto bg-primary bg-opacity-35">
         <Collection
           imageUrl={collectionImage3}
-          smallTitle="About us"
+          smallTitle="Shoes"
           bigTitle="Materials designed for comfort and sustainability"
           description={shoesDescription}
           imageTitle="Shoes"
