@@ -161,21 +161,16 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <div className="flex items-center justify-between gap-4">
             <Amount quantity={quantity} setAmount={setAmount} />
 
-            {btIsChecked ? (
-              <span className="flex justify-center items-center h-12 w-40">
-                Product added {"\u2714"}
-              </span>
-            ) : (
-              <button
-                className="border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-primary hover:text-secondary duration-150"
-                type="button"
-                title="Add to cart"
-                onClick={handleAddToCart}
-                id="bt-addToCart"
-              >
-                Add to cart
-              </button>
-            )}
+            <button
+              className={`border-2 border-secondary p-3 bg-secondary rounded-lg text-lg font-semibold text-body hover:scale-105 hover:bg-primary hover:text-secondary duration-150 ${btIsChecked && "opacity-30 cursor-progress"}`}
+              type="button"
+              title="Add to cart"
+              disabled={btIsChecked}
+              onClick={handleAddToCart}
+              id="bt-addToCart"
+            >
+              Add to cart
+            </button>
           </div>
 
           <hr />

@@ -24,8 +24,8 @@ const Collection: React.FC<ICollection> = ({
       <figure className="max-w-520 min-w-screen rd:min-w-80 min-h-600p h-full w-full py-6 sm:p-9 rd:p-12">
         <Image
           className="w-full h-full object-cover"
-          width={600}
-          height={470}
+          width={1000}
+          height={1500}
           src={imageUrl}
           alt={imageTitle}
         />
